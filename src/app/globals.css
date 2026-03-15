@@ -1,0 +1,264 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Horroroid';
+  src: url('/assets/fonts/insomnia_2/Horroroid.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui;
+  --font-serif: var(--font-cinzel), serif;
+  --font-display: var(--font-cinzel), serif;
+  --font-playfair: var(--font-playfair), serif;
+  --font-horror: 'Horroroid', sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: #ff0000;
+  --color-accent-glow: rgba(255, 0, 0, 0.5);
+  --color-gold: #c5a059;
+}
+
+:root {
+  --background: #020202;
+  --foreground: #ffffff;
+  --accent: #ff0000;
+  --accent-glow: rgba(255, 0, 0, 0.5);
+  --gold: #c5a059;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-cinzel), serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+@layer utilities {
+  .font-cinzel {
+    font-family: var(--font-cinzel), serif;
+  }
+
+  .font-playfair {
+    font-family: var(--font-playfair), serif;
+  }
+  
+  .font-horror {
+    font-family: 'Horroroid', sans-serif;
+  }
+
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+
+  .glass-morphism {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+  }
+  
+  .glass-morphism-heavy {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 60px -15px rgba(0, 0, 0, 1);
+  }
+
+  .hover-glow {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .hover-glow:hover {
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+    filter: brightness(1.2);
+    border-color: rgba(255, 0, 0, 0.3);
+  }
+
+  .neon-glow {
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.4), 
+                0 0 30px rgba(255, 0, 0, 0.2), 
+                inset 0 0 15px rgba(255, 0, 0, 0.1);
+  }
+
+  .pulsing-red {
+    animation: pulse-red 2s infinite;
+  }
+
+  .horror-reveal {
+    animation: horror-reveal 3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    background: linear-gradient(90deg, #fff, #ff0000, #fff);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .animate-glitch {
+    animation: glitch 1s infinite linear alternate-reverse;
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  /* Moving Fog Effect */
+  .moving-fog {
+    background-image: url('https://www.transparenttextures.com/patterns/fog.png');
+    background-repeat: repeat-x;
+    animation: fog-move 60s linear infinite;
+  }
+
+  .animate-flicker {
+    animation: flicker 2s infinite;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Custom Skull Hand Cursor */
+  .wiki-cursor, .wiki-archive-container {
+    cursor: url('/assets/icons/skull-hand.png') 16 16, auto !important;
+  }
+
+  .wiki-card-item, .wiki-card-item * {
+    cursor: url('/assets/icons/skull-hand.png') 16 16, pointer !important;
+    pointer-events: auto;
+  }
+
+  .ghost-glow {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.4),
+                 0 0 40px rgba(255, 0, 0, 0.6),
+                 0 0 60px rgba(255, 0, 0, 0.2);
+  }
+  
+  /* Staggered Reveal Animation */
+  .reveal-stagger {
+    animation: reveal-stagger 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .animated-fog {
+    animation: fogMove 15s ease-in-out infinite alternate;
+    filter: blur(40px);
+    background: radial-gradient(circle, rgba(0,0,0,0.8) 0%, transparent 70%);
+  }
+
+  .mist-layer {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png'); /* Tekstur butiran debu */
+    mask-image: radial-gradient(circle, transparent 30%, black 100%);
+    pointer-events: none;
+  }
+}
+
+@keyframes flicker {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 10px rgba(255,0,0,1));
+  }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+    opacity: 0.4;
+    filter: none;
+  }
+}
+
+@keyframes fog-move {
+  0% { background-position: 0 0; }
+  100% { background-position: 2000px 0; }
+}
+
+@keyframes fog-move-slow {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes pulse-red {
+  0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4); }
+  70% { box-shadow: 0 0 0 20px rgba(255, 0, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+}
+
+@keyframes horror-reveal {
+  0% { opacity: 0; filter: blur(10px); background-position: 0% center; }
+  50% { opacity: 0.5; filter: blur(5px); }
+  100% { opacity: 1; filter: blur(0); background-position: 200% center; }
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); text-shadow: -2px 0 red, 2px 0 blue; }
+  25% { transform: translate(-2px, 2px); }
+  50% { transform: translate(2px, -2px); text-shadow: 2px 0 red, -2px 0 blue; }
+  75% { transform: translate(-2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes reveal-stagger {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fogMove {
+  0% { transform: translateX(-10%); opacity: 0.2; }
+  50% { opacity: 0.5; }
+  100% { transform: translateX(10%); opacity: 0.2; }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1a1a1a;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff0000;
+}
+
+/* Film Grain */
+.film-grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("https://www.transparenttextures.com/patterns/film-grain.png");
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Vignette */
+.vignette {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.8) 100%);
+  pointer-events: none;
+  z-index: 9998;
+}
+
+button, a, [role="button"] {
+  cursor: pointer;
+}
