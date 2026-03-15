@@ -9,12 +9,12 @@ import Link from "next/link";
 
 // Mock data as fallback
 const MOCK_GHOSTS = [
-  { id: "1", name: "The Weeping Willow", rarity: "Common", image_url: "" },
-  { id: "2", name: "Shadow Stalker", rarity: "Uncommon", image_url: "" },
-  { id: "3", name: "The Grinning Man", rarity: "Rare", image_url: "" },
-  { id: "4", name: "Bloody Mary", rarity: "Epic", image_url: "" },
-  { id: "5", name: "The Pale Lady", rarity: "Legendary", image_url: "" },
-  { id: "6", name: "Looming Mirror", rarity: "Common", image_url: "" },
+  { id: "1", name: "The Weeping Willow", rarity: "Common", image_url: "", danger_lvl: 3, role: "Watcher", price: { dc: 100, obsidian: 0 }, tags: [] },
+  { id: "2", name: "Shadow Stalker", rarity: "Uncommon", image_url: "", danger_lvl: 5, role: "Aggressor", price: { dc: 250, obsidian: 0 }, tags: [] },
+  { id: "3", name: "The Grinning Man", rarity: "Rare", image_url: "", danger_lvl: 7, role: "Manipulator", price: { dc: 500, obsidian: 1 }, tags: [] },
+  { id: "4", name: "Bloody Mary", rarity: "Epic", image_url: "", danger_lvl: 8, role: "Aggressor", price: { dc: 1000, obsidian: 2 }, tags: [] },
+  { id: "5", name: "The Pale Lady", rarity: "Legendary", image_url: "", danger_lvl: 10, role: "Manipulator", price: { dc: 2500, obsidian: 5 }, tags: [] },
+  { id: "6", name: "Looming Mirror", rarity: "Common", image_url: "", danger_lvl: 2, role: "Passive", price: { dc: 100, obsidian: 0 }, tags: [] },
 ];
 
 export default function GhostCardsPage() {
@@ -85,11 +85,15 @@ export default function GhostCardsPage() {
         >
           {ghosts.map((ghost) => (
             <Link key={ghost.id} href={`/ghost-cards/${ghost.id}`}>
-              <GhostCard 
+              <GhostCard
                 id={ghost.id}
                 name={ghost.name}
                 rarity={ghost.rarity}
                 image_url={ghost.image_url}
+                danger_lvl={ghost.danger_lvl ?? 1}
+                role={ghost.role ?? "Passive"}
+                price={ghost.price ?? { dc: 0, obsidian: 0 }}
+                tags={ghost.tags ?? []}
               />
             </Link>
           ))}
