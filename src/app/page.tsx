@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Bell, 
@@ -43,6 +43,8 @@ import { ClockWidget } from "@/components/ClockWidget";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/lib/supabase";
+import { useRouter } from "next/navigation";
 
 const HERO_SLIDES = [
   {
@@ -86,12 +88,18 @@ const FEATURE_CARDS = [
 ];
 
 export default function DashboardPage() {
+  const router = useRouter();
   const [currentHero, setCurrentHero] = useState(0);
   const [mounted, setMounted] = useState(false);
   const [activeFilter, setActiveFilter] = useState("Trending");
   const [searchFocused, setSearchFocused] = useState(false);
   const [showDossier, setShowDossier] = useState(false);
   const [showTutorial, setShowTutorial] = useState(false);
+
+  const handleSignOut = useCallback(async () => {
+    await supabase.auth.signOut();
+    router.replace("/auth");
+  }, [router]);
 
   useEffect(() => {
     const seen = localStorage.getItem("void_tutorial_seen");
@@ -286,7 +294,10 @@ export default function DashboardPage() {
                            <span className="text-[10px] font-bold text-gold uppercase tracking-[0.3em]">Top-up Obsidian</span>
                         </Link>
 
-                        <button className="w-full flex items-center gap-4 p-4 rounded-xl hover:bg-red-950/30 transition-all group/item mt-4">
+                        <button
+                           onClick={handleSignOut}
+                           className="w-full flex items-center gap-4 p-4 rounded-xl hover:bg-red-950/30 transition-all group/item mt-4"
+                        >
                            <LogOut size={16} className="text-zinc-600 group-hover/item:text-accent transition-colors" />
                            <span className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.2em] group-hover/item:text-accent transition-colors">Leave Dimension</span>
                         </button>

@@ -28,10 +28,11 @@ export default function ClientWrapper({
       const isAuthPage = pathname?.startsWith("/auth");
 
       if (!session && !isAuthPage && !isLocalhost) {
-        router.push("/auth");
-      } else {
-        setLoading(false);
+        router.replace("/auth");
+        // don't setLoading(false) here — keep spinner until redirect lands
+        return;
       }
+      setLoading(false);
     };
 
     checkAuth();
