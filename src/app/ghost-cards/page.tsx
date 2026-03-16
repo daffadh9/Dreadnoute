@@ -93,7 +93,7 @@ export default function GhostCardsPage() {
                 danger_lvl={ghost.danger_lvl ?? 1}
                 role={ghost.role ?? "Passive"}
                 price={ghost.price ?? { dc: 0, obsidian: 0 }}
-                tags={ghost.tags ?? []}
+                tag={ghost.tag}
               />
             </Link>
           ))}
