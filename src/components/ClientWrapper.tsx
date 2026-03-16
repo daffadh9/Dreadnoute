@@ -2,9 +2,10 @@
 
 import { Sidebar } from "@/components/Sidebar";
 import { PodcastPlayer } from "@/components/PodcastPlayer";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useStore } from "@/lib/store";
+import { supabase } from "@/lib/supabase";
 
 export default function ClientWrapper({
   children,
@@ -12,14 +13,44 @@ export default function ClientWrapper({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [mounted, setMounted] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setMounted(true);
-  }, []);
 
-  if (!mounted) {
-    return <div className="min-h-screen bg-background">{children}</div>;
+    const checkAuth = async () => {
+      const host = window.location.hostname;
+      const isLocalhost = host === "localhost" || host === "127.0.0.1" || host === "::1";
+      const { data: { session } } = await supabase.auth.getSession();
+
+      const isAuthPage = pathname?.startsWith("/auth");
+
+      if (!session && !isAuthPage && !isLocalhost) {
+        router.push("/auth");
+      } else {
+        setLoading(false);
+      }
+    };
+
+    checkAuth();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_OUT") {
+        router.push("/auth");
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [pathname, router]);
+
+  if (!mounted || (loading && !pathname?.startsWith("/auth"))) {
+    return (
+      <div className="min-h-screen bg-[#020202] flex items-center justify-center">
+        <div className="w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
   }
 
   const isAuthPage = pathname?.startsWith("/auth");

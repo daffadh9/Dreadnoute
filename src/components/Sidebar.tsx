@@ -16,10 +16,11 @@ import {
   Users2
 } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { supabase } from "@/lib/supabase";
 
 const MENU_ITEMS = [
   { icon: LayoutDashboard, label: "DASHBOARD",     href: "/" },
@@ -34,6 +35,12 @@ const MENU_ITEMS = [
 export const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const pathname = usePathname();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.push("/auth");
+  };
 
   return (
     <motion.aside
@@ -152,10 +159,13 @@ export const Sidebar = () => {
           </div>
         </Link>
 
-        <div className={cn(
-          "flex items-center h-12 rounded-2xl group cursor-pointer hover:bg-red-950/20 border border-transparent hover:border-red-900/30 transition-all",
-          isCollapsed ? "justify-center" : "px-4"
-        )}>
+        <div 
+          onClick={handleLogout}
+          className={cn(
+            "flex items-center h-12 rounded-2xl group cursor-pointer hover:bg-red-950/20 border border-transparent hover:border-red-900/30 transition-all",
+            isCollapsed ? "justify-center" : "px-4"
+          )}
+        >
            <LogOut size={20} className="text-zinc-600 group-hover:text-accent transition-all min-w-[36px]" />
            {!isCollapsed && (
              <span className="text-[10px] font-bold tracking-[0.4em] text-zinc-500 group-hover:text-accent ml-3 uppercase">Abandon Archive</span>
