@@ -14,6 +14,8 @@ const cinzel = Cinzel({
 });
 
 import { Playfair_Display } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
@@ -42,6 +44,7 @@ export default function RootLayout({
         <main className="relative z-10 transition-colors duration-1000">
           <ClientWrapper>{children}</ClientWrapper>
         </main>
+        <SpeedInsights />
       </body>
     </html>
   );
