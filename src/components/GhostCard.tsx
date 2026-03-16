@@ -6,8 +6,8 @@ import { ShieldAlert, Eye, Zap, Flame, Activity, Wind } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-export type Rarity = "Common" | "Rare" | "Mythic" | "Legendary" | "Cursed";
-export type GhostTag = "Aggressor" | "Lurker" | "Ancient";
+export type Rarity = "Common" | "Uncommon" | "Rare" | "Epic" | "Mythic" | "Legendary" | "Cursed";
+export type GhostTag = "Aggressor" | "Lurker" | "Ancient" | "Vengeful" | "Poltergeist";
 export type GhostRole = "Aggressor" | "Watcher" | "Manipulator" | "Passive";
 
 interface GhostCardProps {
@@ -15,7 +15,7 @@ interface GhostCardProps {
   name: string;
   rarity: Rarity;
   role?: GhostRole;
-  tag?: GhostTag;
+  tags?: string[];
   price?: { dc?: number; obsidian?: number };
   image_url: string;
   danger_lvl?: number;
@@ -38,6 +38,16 @@ const rarityConfig: Record<Rarity, {
     nameShadow: "drop-shadow-[0_2px_8px_rgba(113,113,122,0.7)]",
     glowLine: "from-zinc-500/60",
   },
+  Uncommon: {
+    color: "border-blue-500/50",
+    glow: "shadow-[0_0_25px_rgba(59,130,246,0.2)]",
+    text: "text-blue-400",
+    bg: "bg-blue-500/10",
+    label: "UNCOMMON",
+    defaultDC: 1000, defaultOBS: 0,
+    nameShadow: "drop-shadow-[0_2px_10px_rgba(59,130,246,0.7)]",
+    glowLine: "from-blue-500/60",
+  },
   Rare: {
     color: "border-green-600/50",
     glow: "shadow-[0_0_30px_rgba(22,101,52,0.25)]",
@@ -47,6 +57,16 @@ const rarityConfig: Record<Rarity, {
     defaultDC: 1500, defaultOBS: 5,
     nameShadow: "drop-shadow-[0_2px_12px_rgba(34,197,94,0.8)]",
     glowLine: "from-green-600/60",
+  },
+  Epic: {
+    color: "border-purple-600/60",
+    glow: "shadow-[0_0_40px_rgba(147,51,234,0.3)]",
+    text: "text-purple-400",
+    bg: "bg-purple-900/10",
+    label: "EPIC",
+    defaultDC: 3000, defaultOBS: 20,
+    nameShadow: "drop-shadow-[0_2px_15px_rgba(168,85,247,0.8)]",
+    glowLine: "from-purple-600/60",
   },
   Mythic: {
     color: "border-red-500/60",
@@ -102,7 +122,7 @@ export const GhostCard = ({
   role = "Aggressor",
   price,
   image_url,
-  danger_lvl,
+  danger_lvl = 1,
   className,
   index = 0,
 }: GhostCardProps) => {
