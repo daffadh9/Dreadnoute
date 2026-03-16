@@ -22,6 +22,7 @@ interface GhostCardProps {
   spectral_aura?: number;
   className?: string;
   index?: number;
+  cardNumber?: number;
 }
 
 const rarityConfig: Record<Rarity, {
@@ -125,6 +126,7 @@ export const GhostCard = ({
   danger_lvl = 1,
   className,
   index = 0,
+  cardNumber,
 }: GhostCardProps) => {
   const config = rarityConfig[rarity] || rarityConfig.Common;
   const roleInfo = roleConfig[role] || roleConfig.Aggressor;
@@ -195,8 +197,18 @@ export const GhostCard = ({
           <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-black/50" />
         </div>
 
+        {/* ── CARD NUMBER BADGE ── */}
+        {cardNumber !== undefined && (
+          <div className={cn(
+            "absolute top-3 left-1/2 -translate-x-1/2 z-[25] px-2.5 py-0.5 rounded-full bg-black/70 border backdrop-blur-sm text-[9px] font-black tabular-nums tracking-widest",
+            config.text, "border-current/30",
+          )}>
+            #{String(cardNumber).padStart(3, "0")}
+          </div>
+        )}
+
         {/* ── TOP BADGES: Rarity + Role ── */}
-        <div className="absolute top-5 left-5 right-5 flex justify-between items-start z-[20]">
+        <div className={cn("absolute left-5 right-5 flex justify-between items-start z-[20]", cardNumber !== undefined ? "top-9" : "top-5")}>
           {/* Rarity */}
           <div className={cn(
             "px-4 py-1.5 rounded-full border backdrop-blur-xl bg-black/60 text-[8px] font-black uppercase tracking-[0.5em]",
@@ -242,7 +254,7 @@ export const GhostCard = ({
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-2.5 bg-white/5 border border-white/10 rounded-xl px-3 py-2">
               <div className="relative w-5 h-5 overflow-hidden flex-shrink-0 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.3)]">
-                <Image src="/assets/icon/DREADCOINS.jpg" alt="DC" fill className="object-cover" />
+                <Image src="/assets/icons/DREADCOINS.jpg" alt="DC" fill className="object-cover" />
               </div>
               <span className="text-[13px] font-black text-white tracking-wider">
                 {displayPrice.dc.toLocaleString()}
@@ -251,7 +263,7 @@ export const GhostCard = ({
             {displayPrice.obsidian > 0 && (
               <div className="flex items-center gap-2 px-3 py-2 bg-yellow-600/15 border border-yellow-500/40 rounded-xl shadow-[0_0_12px_rgba(202,138,4,0.25)]">
                 <div className="relative w-5 h-5 overflow-hidden flex-shrink-0">
-                  <Image src="/assets/icon/OBSIDIAN.png" alt="OBS" fill className="object-contain" />
+                  <Image src="/assets/icons/OBSIDIAN.png" alt="OBS" fill className="object-contain" />
                 </div>
                 <span className="text-[13px] font-black text-yellow-400 tracking-wider">{displayPrice.obsidian} <span className="text-[10px]">OBS</span></span>
               </div>
