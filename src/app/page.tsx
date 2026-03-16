@@ -143,7 +143,7 @@ export default function DashboardPage() {
                <div className="flex items-center gap-12 px-6 py-2 border-r border-white/10">
                   <div className="flex items-center gap-4">
                      <div className="w-10 h-10 rounded-full border-2 border-white/10 shadow-[0_0_20px_rgba(255,0,0,0.2)] overflow-hidden relative">
-                        <Image src="/assets/icon/DREADCOINS.jpg" alt="DC" fill className="object-cover" />
+                        <Image src="/assets/icons/DREADCOINS.jpg" alt="DC" fill className="object-cover" />
                      </div>
                      <div className="flex flex-col">
                        <span className="text-[13px] text-white font-black uppercase leading-none">540</span>
@@ -153,7 +153,7 @@ export default function DashboardPage() {
                   
                   <div className="flex items-center gap-4">
                      <div className="w-10 h-10 rounded-full border-2 border-white/10 shadow-[0_0_20px_rgba(197,160,89,0.2)] overflow-hidden relative">
-                        <Image src="/assets/icon/OBSIDIAN.png" alt="OB" fill className="object-cover" />
+                        <Image src="/assets/icons/OBSIDIAN.png" alt="OB" fill className="object-cover" />
                      </div>
                      <div className="flex flex-col">
                        <span className="text-[13px] text-gold font-black uppercase leading-none">120</span>

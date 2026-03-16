@@ -28,7 +28,7 @@ export const GHOST_ENTITIES: GhostEntity[] = [
     role: "Aggressor",
     price: { dc: 500, obsidian: 3 },
     location: "Jawa Tengah",
-    image: "/assets/image/jerangkong.jpg",
+    image: "/assets/images/jerangkong.jpg",
     danger: 4,
     lore: "Jerangkong adalah hantu yang berwujud tulang belulang manusia yang gemar mencuri telur ayam. Konon, ia lahir dari roh pencuri yang dihukum untuk selamanya merasa lapar.",
     analysis: {
@@ -50,7 +50,7 @@ export const GHOST_ENTITIES: GhostEntity[] = [
     role: "Watcher",
     price: { dc: 1500, obsidian: 10 },
     location: "Jakarta",
-    image: "/assets/image/nenek-gayung.jpg",
+    image: "/assets/images/nenek-gayung.jpg",
     danger: 7,
     lore: "Seorang wanita tua misterius yang muncul di pinggir jalan pada malam hari membawa gayung dan tikar. Siapapun yang berbicara dengannya konon akan meninggal beberapa hari kemudian sebagai tumbal.",
     analysis: {
@@ -72,7 +72,7 @@ export const GHOST_ENTITIES: GhostEntity[] = [
     role: "Manipulator",
     price: { dc: 5000, obsidian: 50 },
     location: "Urban",
-    image: "/assets/image/suster-ngesot.jpg",
+    image: "/assets/images/suster-ngesot.jpg",
     danger: 6,
     lore: "Roh seorang perawat yang tewas secara tragis di sebuah rumah sakit tua. Ia merangkak di lantai karena kakinya yang lumpuh, sering muncul di lorong-lorong gelap rumah sakit.",
     analysis: {
@@ -94,7 +94,7 @@ export const GHOST_ENTITIES: GhostEntity[] = [
     role: "Watcher",
     price: { dc: 15000, obsidian: 200 },
     location: "Pantai Selatan",
-    image: "/assets/image/nyi-roro-kidul.jpg",
+    image: "/assets/images/nyi-roro-kidul.jpg",
     danger: 10,
     lore: "Ratu Laut Selatan yang legendaris. Ia menguasai samudera dan memiliki kerangka pasukan gaib yang sangat besar. Mengenakan warna hijau di wilayahnya dianggap sebagai undangan untuk ditarik ke kerajaannya.",
     analysis: {
