@@ -18,7 +18,7 @@ interface GhostCardProps {
   tag?: GhostTag;
   price?: { dc?: number; obsidian?: number };
   image_url: string;
-  danger_lvl: number;
+  danger_lvl?: number;
   spectral_aura?: number;
   className?: string;
   index?: number;
