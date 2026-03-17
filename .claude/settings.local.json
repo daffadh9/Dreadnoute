@@ -6,7 +6,8 @@
       "Bash(Copy-Item \"E:\\\\DreadNode\\\\public\\\\assets\\\\Sound Effect\\\\*\" \"E:\\\\DreadNode\\\\public\\\\assets\\\\sounds\\\\wolf-howl.mp3\" -ErrorAction SilentlyContinue)",
       "Bash(mkdir -p /mnt/e/DreadNode/public/assets/sounds)",
       "Bash(cp \"/mnt/e/DreadNode/public/assets/Sound Effect/\"*.mp3 /mnt/e/DreadNode/public/assets/sounds/wolf-howl.mp3)",
-      "Read(//mnt/e/DreadNode/public/assets/**)"
+      "Read(//mnt/e/DreadNode/public/assets/**)",
+      "Bash(npx next:*)"
     ]
   }
 }
