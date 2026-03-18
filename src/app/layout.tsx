@@ -1,25 +1,14 @@
 import type { Metadata } from "next";
-import { Inter, Cinzel } from "next/font/google";
+import type { CSSProperties } from "react";
 import "./globals.css";
 import ClientWrapper from "@/components/ClientWrapper";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
-const cinzel = Cinzel({
-  variable: "--font-cinzel",
-  subsets: ["latin"],
-});
-
-import { Playfair_Display } from "next/font/google";
-import { SpeedInsights } from "@vercel/speed-insights/next"
-
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-});
+const fallbackFontVariables = {
+  "--font-inter": "Inter, Arial, sans-serif",
+  "--font-cinzel": "Cinzel, Georgia, serif",
+  "--font-playfair": "\"Playfair Display\", \"Times New Roman\", serif",
+} as CSSProperties;
 
 export const metadata: Metadata = {
   title: "DreadNoute | Horror Superapp",
@@ -36,9 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${inter.variable} ${cinzel.variable} ${playfair.variable} antialiased`}
-      >
+      <body style={fallbackFontVariables} className="antialiased">
         <div className="grain-overlay" />
         <div className="vignette" />
         <main className="relative z-10 transition-colors duration-1000">

@@ -4,40 +4,27 @@ import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Bell, 
-  Menu, 
-  Radio, 
   Gamepad2, 
   ShoppingCart, 
   Users2, 
   Clapperboard,
   Play,
   Search,
-  Book,
   Ghost,
   Trophy,
   Flame,
   Activity,
   Mic2,
-  Lock,
   ChevronLeft,
   ChevronRight,
   Eye,
-  Box,
-  Monitor,
-  Bird,
-  Compass,
   User,
-  History,
   Briefcase,
   Wallet,
   Skull,
   QrCode,
-  Plus,
-  Clock,
   Settings,
   LogOut,
-  PartyPopper,
-  AlertTriangle
 } from "lucide-react";
 import { ClockWidget } from "@/components/ClockWidget";
 import Image from "next/image";
@@ -49,10 +36,10 @@ import { useRouter } from "next/navigation";
 const HERO_SLIDES = [
   {
     image: "/assets/images/COLLECTOR BANNER.jpg",
-    title: "SAATNYA MENJADI SANG ARCHIVIST",
-    subtitle: "GHOST WIKI // COLLECTOR JOURNEY",
-    description: "TAKKLUKKAN DAN KOLEKSI 100+ ENTITAS TERLARANG DARI DIMENSI FANA.",
-    cta: "Mulai Koleksi",
+    title: "MASUK KE GHOST ARCHIVE",
+    subtitle: "GHOST ARCHIVE // ENSIKLOPEDIA RESMI",
+    description: "TELUSURI ENTITAS TERLARANG DARI BERBAGAI WILAYAH DENGAN ARSIP INVESTIGASI TERKURASI.",
+    cta: "Buka Archive",
   },
   {
     image: "/assets/images/EXCLUSIVE PODCAST KONTEN.jpg",
@@ -80,7 +67,7 @@ const SEARCH_FILTERS = [
 
 const FEATURE_CARDS = [
   { title: "Podcast",    icon: Mic2,        href: "/podcast",    meta: "EVP Signals",     image: "/assets/images/PODCAST BANNER DASHBOARD.jpg" },
-  { title: "Ghost Wiki", icon: Ghost,       href: "/wiki",       meta: "Encyclopedia",    image: "/assets/images/GHOST WIKI DASHBOARD.jpg" },
+  { title: "Ghost Archive", icon: Ghost,    href: "/ghost-archive", meta: "Encyclopedia", image: "/assets/images/GHOST WIKI DASHBOARD.jpg" },
   { title: "Games",      icon: Gamepad2,    href: "/games",      meta: "The Crypt",       image: "/assets/images/GAME BANNER DASHBOARD.jpg" },
   { title: "Market",     icon: ShoppingCart,href: "/marketplace",meta: "Ancient Goods",   image: "/assets/images/MARKET DASHBOARD.jpg" },
   { title: "Trailers",   icon: Clapperboard,href: "/trailers",   meta: "Forbidden Media", image: "/assets/images/TRAILER DASHBOARD.jpg" },
@@ -90,7 +77,6 @@ const FEATURE_CARDS = [
 export default function DashboardPage() {
   const router = useRouter();
   const [currentHero, setCurrentHero] = useState(0);
-  const [mounted, setMounted] = useState(false);
   const [activeFilter, setActiveFilter] = useState("Trending");
   const [searchFocused, setSearchFocused] = useState(false);
   const [showDossier, setShowDossier] = useState(false);
@@ -110,14 +96,11 @@ export default function DashboardPage() {
   }, []);
 
   useEffect(() => {
-    setMounted(true);
     const timer = setInterval(() => {
       setCurrentHero((prev) => (prev + 1) % HERO_SLIDES.length);
     }, 12000);
     return () => clearInterval(timer);
   }, []);
-
-  if (!mounted) return <div className="min-h-screen bg-[#020202]" />;
 
   const nextSlide = () => setCurrentHero((prev) => (prev + 1) % HERO_SLIDES.length);
   const prevSlide = () => setCurrentHero((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
@@ -200,6 +183,7 @@ export default function DashboardPage() {
 
                   <div className="relative">
                     <div className="w-14 h-14 rounded-full border-2 border-accent p-0.5 shadow-[0_0_25px_rgba(255,0,0,0.6)] overflow-hidden relative group-hover:scale-105 group-hover:shadow-[0_0_40px_rgba(255,0,0,0.9)] transition-all duration-300 bg-zinc-900">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src="/assets/images/profile.jpg"
                         alt="User Profile"
@@ -355,7 +339,7 @@ export default function DashboardPage() {
                           transition={{ delay: 0.2 }}
                           className="text-zinc-400 text-lg mb-14 font-cinzel italic leading-relaxed tracking-wide"
                        >
-                          "{HERO_SLIDES[currentHero].description}"
+                          &ldquo;{HERO_SLIDES[currentHero].description}&rdquo;
                        </motion.p>
                        
                        <button className="group relative px-14 py-6 bg-accent text-white font-bold uppercase tracking-[0.5em] text-[11px] rounded-2xl hover-glow flex items-center gap-6 transition-all active:scale-95 shadow-[0_20px_40px_rgba(255,0,0,0.3)] border border-white/10">

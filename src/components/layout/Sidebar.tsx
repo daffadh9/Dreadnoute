@@ -10,8 +10,6 @@ import {
   Settings, 
   LogOut,
   ChevronRight,
-  ChevronLeft,
-  Activity,
   Clapperboard,
   Users2
 } from "lucide-react";
@@ -24,7 +22,7 @@ import { supabase } from "@/lib/supabase";
 
 const MENU_ITEMS = [
   { icon: LayoutDashboard, label: "DASHBOARD",     href: "/" },
-  { icon: Ghost,           label: "GHOST ARCHIVE", href: "/wiki" },
+  { icon: Ghost,           label: "GHOST ARCHIVE", href: "/ghost-archive" },
   { icon: Mic2,            label: "PODCASTS",      href: "/podcast" },
   { icon: Gamepad2,        label: "GAMES",         href: "/games" },
   { icon: ShoppingCart,    label: "MARKETPLACE",   href: "/marketplace" },

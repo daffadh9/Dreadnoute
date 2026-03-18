@@ -1,11 +1,11 @@
-import type { GhostArchiveEntry } from "../types/archive";
+﻿import type { GhostArchiveEntry } from "../types/archive";
 
 export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
   {
     id: "GA-001",
     slug: "nyi-roro-kidul",
     name: "Nyi Roro Kidul",
-    category: "Penguasa Wilayah",
+    category: "Makhluk Mitologi",
     origin: "Pantai Selatan Jawa",
     dangerLevel: "Ekstrem",
     summary:
@@ -53,7 +53,7 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
     id: "GA-002",
     slug: "kuntilanak",
     name: "Kuntilanak",
-    category: "Roh Gentayangan",
+    category: "Hantu",
     origin: "Permukiman tua dan area rimbun",
     dangerLevel: "Tinggi",
     summary:
@@ -101,7 +101,7 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
     id: "GA-003",
     slug: "pocong",
     name: "Pocong",
-    category: "Roh Gentayangan",
+    category: "Tempat Angker",
     origin: "Area pemakaman dan lahan kosong",
     dangerLevel: "Sedang",
     summary:
@@ -149,7 +149,7 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
     id: "GA-004",
     slug: "wewe-gombel",
     name: "Wewe Gombel",
-    category: "Penculik Gaib",
+    category: "Urban Legend",
     origin: "Permukiman pinggir kota dan kebun kosong",
     dangerLevel: "Tinggi",
     summary:
@@ -197,7 +197,7 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
     id: "GA-005",
     slug: "genderuwo",
     name: "Genderuwo",
-    category: "Manifestasi Fisik",
+    category: "Fenomena Supranatural",
     origin: "Hutan pinggir desa dan bangunan terbengkalai",
     dangerLevel: "Tinggi",
     summary:
@@ -242,3 +242,5 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
     ]
   }
 ];
+
+

@@ -1,25 +1,40 @@
 ﻿type ArchiveHeaderProps = {
   total: number;
+  totalArchive: number;
 };
 
-export function ArchiveHeader({ total }: ArchiveHeaderProps) {
-  return (
-    <header className="flex flex-col justify-between gap-4 rounded-2xl border border-zinc-800 bg-gradient-to-b from-zinc-950 to-zinc-900/90 p-6 sm:flex-row sm:items-start">
-      <div>
-        <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">Arsip Paranormal</p>
-        <h1 className="mt-2 text-3xl font-semibold text-zinc-100 sm:text-4xl">
-          Ghost Archive
-        </h1>
-        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-zinc-300">
-          Katalog jejak entitas dari berbagai sudut Nusantara, disusun dari laporan saksi dan catatan investigasi malam.
-        </p>
-      </div>
+export function ArchiveHeader({ total, totalArchive }: ArchiveHeaderProps) {
+  const hasFilter = total !== totalArchive;
 
-      <div className="shrink-0 rounded-xl border border-zinc-700 bg-zinc-900/90 px-4 py-3 text-right">
-        <p className="text-xs uppercase tracking-[0.15em] text-zinc-500">Total Data</p>
-        <p className="mt-1 text-lg font-semibold text-zinc-100">
-          {total} entitas ditemukan
-        </p>
+  return (
+    <header className="relative overflow-hidden rounded-2xl border border-zinc-800 bg-[linear-gradient(165deg,rgba(24,24,27,0.96),rgba(9,9,11,0.98))] p-6 shadow-[0_16px_44px_-24px_rgba(0,0,0,0.9)]">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(100%_80%_at_82%_12%,rgba(139,92,246,0.18),transparent_62%)]" />
+
+      <div className="relative z-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-start">
+        <div className="space-y-3">
+          <p className="text-[11px] uppercase tracking-[0.22em] text-zinc-500">
+            DreadNoute Curated Index
+          </p>
+          <h1 className="text-3xl font-semibold text-zinc-100 sm:text-4xl">
+            Ghost Archive
+          </h1>
+          <p className="max-w-2xl text-sm leading-relaxed text-zinc-300">
+            Arsip resmi entitas terlarang Nusantara yang dikurasi dari jejak saksi, laporan lapangan, dan observasi malam.
+          </p>
+          <p className="text-xs uppercase tracking-[0.16em] text-zinc-500">
+            Klasifikasi editorial • investigasi terverifikasi • pembaruan berkala
+          </p>
+        </div>
+
+        <div className="shrink-0 rounded-xl border border-zinc-700 bg-zinc-900/90 px-4 py-3 text-right backdrop-blur-sm">
+          <p className="text-[10px] uppercase tracking-[0.16em] text-zinc-500">Status Hasil</p>
+          <p className="mt-1 text-lg font-semibold text-zinc-100">
+            {hasFilter ? `${total} dari ${totalArchive}` : totalArchive} entitas
+          </p>
+          <p className="mt-1 text-xs text-zinc-400">
+            {hasFilter ? "Filter aktif" : "Semua arsip ditampilkan"}
+          </p>
+        </div>
       </div>
     </header>
   );

@@ -1,20 +1,19 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Camera, Wand2, Upload, Lock, Unlock, Edit3, Save, X,
-  Users, Ghost, Trophy, Star, MapPin, Briefcase, Heart,
-  Eye, EyeOff, Clock, Shield, Zap, Flame, Wind, Crown,
-  ChevronRight, Image as ImageIcon, Plus, Check, AlertTriangle,
-  ArrowLeft, Share2, ThumbsUp, PlaySquare, Bookmark, Film,
-  LayoutGrid, Settings, Skull, Music, MoreHorizontal, Info,
+  Camera, Wand2, Upload, Edit3, X,
+  Users, Ghost, Trophy, Star, Heart,
+  Eye, Clock, Shield, Zap, Flame, Crown,
+  ChevronRight, Plus, AlertTriangle,
+  ArrowLeft, Share2, PlaySquare, Bookmark, Film,
+  LayoutGrid,
   ChevronDown, ChevronUp, User, HeartPulse
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { supabase } from "@/lib/supabase";
 import { GHOST_ENTITIES } from "@/lib/ghostData";
 
 const LEVEL_COLORS: Record<string, { border: string; glow: string; text: string; label: string }> = {
@@ -62,8 +61,8 @@ function getDaysUntilReset(usage: number[]): number {
 }
 
 function AIGenerateButton({
-  label, storageKey, onGenerate, variant = "default"
-}: { label: string; storageKey: string; onGenerate: (url: string) => void; variant?: "default" | "minimal" }) {
+  label, onGenerate, variant = "default"
+}: { label: string; onGenerate: (url: string) => void; variant?: "default" | "minimal" }) {
   const [showModal, setShowModal] = useState(false);
   const [prompt, setPrompt] = useState("");
   const [generating, setGenerating] = useState(false);
@@ -86,7 +85,7 @@ function AIGenerateButton({
       setLoadingMsgIdx(i => (i + 1) % LOADING_MESSAGES.length);
     }, 3000);
     return () => clearInterval(interval);
-  }, [generating]);
+  }, [generating, LOADING_MESSAGES.length]);
 
   useEffect(() => {
     setWeeklyUsage(getWeeklyUsage());
@@ -118,8 +117,8 @@ function AIGenerateButton({
       } else {
         throw new Error(data.error || "Failed to generate image");
       }
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Gagal membuat gambar.");
     } finally {
       setGenerating(false);
     }
@@ -357,31 +356,33 @@ export default function ProfilePage() {
   const [editMode, setEditMode] = useState(false);
   const [alias, setAlias] = useState("Daffa D.K");
   const [bio, setBio] = useState("Penyelidik anomali dari dimensi fana. Saya mengumpulkan jejak entitas yang telah terlupakan dan mendokumentasikan keberadaan mereka untuk generasi berikutnya.");
-  const [country, setCountry] = useState("INDONESIA");
-  const [occupation, setOccupation] = useState("Paranormal Researcher");
   const [age, setAge] = useState("24");
   const [status, setStatus] = useState("Single - Uncommitted");
   const [gender, setGender] = useState("Male");
   const [hobbies, setHobbies] = useState("Entity Collection, Urban Exploration");
-  const [interests, setInterests] = useState("Ancient Folklore, Spectral Physics");
+  const [interests] = useState("Ancient Folklore, Spectral Physics");
   
   const DEFAULT_COVER = "/assets/images/GAME DASHBOARD.jpg";
   const DEFAULT_AVATAR = "/assets/images/profile.jpg";
   const COVER_STORAGE_KEY = "void_profile_cover_url";
 
-  const [coverUrl, setCoverUrlState] = useState(DEFAULT_COVER);
+  const getInitialCoverUrl = (): string => {
+    if (typeof window === "undefined") {
+      return DEFAULT_COVER;
+    }
+
+    try {
+      return localStorage.getItem(COVER_STORAGE_KEY) || DEFAULT_COVER;
+    } catch {
+      return DEFAULT_COVER;
+    }
+  };
+
+  const [coverUrl, setCoverUrlState] = useState(getInitialCoverUrl);
   const [avatarUrl, setAvatarUrl] = useState(DEFAULT_AVATAR);
   const [activeTab, setActiveTab] = useState("postingan");
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
-
-  // Load persisted cover on mount
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem(COVER_STORAGE_KEY);
-      if (saved) setCoverUrlState(saved);
-    } catch {}
-  }, []);
 
   // Persist cover to localStorage whenever it changes
   const setCoverUrl = (url: string) => {
@@ -393,7 +394,7 @@ export default function ProfilePage() {
         localStorage.removeItem(COVER_STORAGE_KEY);
       }
     } catch (e) {
-      // localStorage quota exceeded (base64 too large) — ignore
+      // localStorage quota exceeded (base64 too large) â€” ignore
       console.warn("Could not persist cover to localStorage:", e);
     }
   };
@@ -412,7 +413,7 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen bg-[#020202] font-cinzel text-white selection:bg-accent pb-24 relative overflow-hidden">
       
-      {/* ── FOG ANIMATION OVERLAY ── */}
+      {/* â”€â”€ FOG ANIMATION OVERLAY â”€â”€ */}
       <div className="absolute inset-0 pointer-events-none z-[1]">
          <motion.div 
             animate={{ 
@@ -425,7 +426,7 @@ export default function ProfilePage() {
          />
       </div>
 
-      {/* ── TOP HEADER (NAV) ── */}
+      {/* â”€â”€ TOP HEADER (NAV) â”€â”€ */}
       <header className="fixed top-0 left-0 lg:left-[100px] right-0 h-20 flex items-center justify-between px-8 z-[100] border-b border-white/5 backdrop-blur-3xl bg-black/40">
          <div className="flex items-center gap-8">
             <Link href="/">
@@ -457,7 +458,7 @@ export default function ProfilePage() {
 
       <div className="max-w-[1280px] mx-auto pt-28 px-6 space-y-6 relative z-10">
         
-        {/* ════════ COVER AREA ════════ */}
+        {/* â•â•â•â•â•â•â•â• COVER AREA â•â•â•â•â•â•â•â• */}
         <section className="relative w-full h-[320px] rounded-[2rem] overflow-visible group/banner bg-[#080808]"
           style={{
             boxShadow: "0 0 0 1px rgba(255,255,255,0.07), 0 0 40px rgba(255,0,0,0.08), 0 0 80px rgba(0,0,0,0.8)",
@@ -510,7 +511,7 @@ export default function ProfilePage() {
               >
                  <Upload size={14} /> {coverUrl ? "Ganti Sampul" : "Upload Sampul"}
               </button>
-              <AIGenerateButton label="Sampul" storageKey="ai_cover" onGenerate={url => setCoverUrl(url)} />
+                      <AIGenerateButton label="Sampul" onGenerate={url => setCoverUrl(url)} />
            </div>
 
            {/* AVATAR OVERLAP (Half-in, Half-out) */}
@@ -538,7 +539,7 @@ export default function ProfilePage() {
            </div>
         </section>
 
-        {/* ════════ IDENTITY BLOC ════════ */}
+        {/* â•â•â•â•â•â•â•â• IDENTITY BLOC â•â•â•â•â•â•â•â• */}
         <div className="pl-4 pt-20 flex flex-col lg:flex-row gap-6 items-start relative max-w-full overflow-hidden">
            <div className="flex-1 space-y-4">
               <div className="flex items-center gap-4 flex-wrap">
@@ -553,7 +554,7 @@ export default function ProfilePage() {
                        <Crown size={10} /> LV.18
                     </span>
                     <span className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white/50 text-[9px] font-black uppercase tracking-wider flex items-center gap-2">
-                       INDONESIA 🇮🇩
+                       INDONESIA ðŸ‡®ðŸ‡©
                     </span>
                  </div>
               </div>
@@ -583,7 +584,7 @@ export default function ProfilePage() {
            </div>
         </div>
 
-        {/* ════════ STATS STRIP ════════ */}
+        {/* â•â•â•â•â•â•â•â• STATS STRIP â•â•â•â•â•â•â•â• */}
         <div className="grid grid-cols-5 gap-4 pt-6">
            {[
              { label: "LIKES", val: "1.2K", icon: Heart, color: "text-red-500", glow: "hover:border-red-500/40 hover:shadow-[0_0_20px_rgba(239,68,68,0.1)]" },
@@ -609,7 +610,7 @@ export default function ProfilePage() {
            ))}
         </div>
 
-        {/* ════════ HIGHLIGHTS ════════ */}
+        {/* â•â•â•â•â•â•â•â• HIGHLIGHTS â•â•â•â•â•â•â•â• */}
         <div className="flex gap-6 overflow-x-auto no-scrollbar py-4">
            <div className="flex flex-col items-center gap-3 shrink-0 group cursor-pointer">
               <div className="w-20 h-20 rounded-full border-2 border-dashed border-zinc-800 flex items-center justify-center text-zinc-700 group-hover:border-accent group-hover:text-accent transition-all">
@@ -635,7 +636,7 @@ export default function ProfilePage() {
            ))}
         </div>
 
-        {/* ════════ MAIN GRID ════════ */}
+        {/* â•â•â•â•â•â•â•â• MAIN GRID â•â•â•â•â•â•â•â• */}
         <div className="grid grid-cols-12 gap-8 mt-12 pb-12">
            
            {/* LEFT CONTENT (8/12) */}
@@ -647,7 +648,7 @@ export default function ProfilePage() {
                     <h3 className="text-sm font-black uppercase tracking-[0.4em] text-white flex items-center gap-3">
                        <Ghost size={18} className="text-accent" /> Ghost Favorit
                     </h3>
-                    <Link href="/wiki" className="text-[9px] font-bold text-zinc-600 uppercase tracking-widest hover:text-white transition-all flex items-center gap-1">
+                    <Link href="/ghost-archive" className="text-[9px] font-bold text-zinc-600 uppercase tracking-widest hover:text-white transition-all flex items-center gap-1">
                        LIHAT SEMUA <ChevronRight size={12} />
                     </Link>
                  </div>
@@ -731,7 +732,7 @@ export default function ProfilePage() {
               {/* VOID ID CARD PREMIUM */}
               <div className="relative mt-32">
 
-                {/* ── LOGO CROWN — melayang besar di kepala card ── */}
+                {/* â”€â”€ LOGO CROWN â€” melayang besar di kepala card â”€â”€ */}
                 <div className="absolute -top-28 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center pointer-events-none">
                   {/* Outer energy ring behind logo */}
                   <motion.div
@@ -781,10 +782,10 @@ export default function ProfilePage() {
                   ))}
                 </div>
 
-                {/* ── CARD WRAPPER ── */}
+                {/* â”€â”€ CARD WRAPPER â”€â”€ */}
                 <div className="relative rounded-[2.5rem] overflow-visible">
 
-                  {/* Border layer 1 — fast red conic spin */}
+                  {/* Border layer 1 â€” fast red conic spin */}
                   <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
@@ -794,7 +795,7 @@ export default function ProfilePage() {
                       filter: "blur(0.5px)",
                     }}
                   />
-                  {/* Border layer 2 — slow counter-spin with purple accent */}
+                  {/* Border layer 2 â€” slow counter-spin with purple accent */}
                   <motion.div
                     animate={{ rotate: -360 }}
                     transition={{ duration: 9, repeat: Infinity, ease: "linear" }}
@@ -814,7 +815,7 @@ export default function ProfilePage() {
                     }}
                   />
 
-                  {/* 8 energy nodes — corners + midpoints */}
+                  {/* 8 energy nodes â€” corners + midpoints */}
                   {[
                     { pos: "top-3 left-3" }, { pos: "top-3 right-3" },
                     { pos: "bottom-3 left-3" }, { pos: "bottom-3 right-3" },
@@ -956,7 +957,7 @@ export default function ProfilePage() {
         </div>
       </div>
       
-      {/* ── SHARE MODAL ── */}
+      {/* â”€â”€ SHARE MODAL â”€â”€ */}
       <AnimatePresence>
         {showShareModal && (
           <motion.div
@@ -981,11 +982,12 @@ export default function ProfilePage() {
               </div>
 
               {/* QR Code */}
-              <div className="flex flex-col items-center gap-4">
-                <div className="p-4 bg-white rounded-2xl shadow-[0_0_40px_rgba(255,255,255,0.1)]">
-                  <img
-                    src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(typeof window !== "undefined" ? window.location.href : "https://dreadnoute.com/profile")}&bgcolor=ffffff&color=000000&margin=2`}
-                    alt="QR Code"
+	              <div className="flex flex-col items-center gap-4">
+	                <div className="p-4 bg-white rounded-2xl shadow-[0_0_40px_rgba(255,255,255,0.1)]">
+	                  {/* eslint-disable-next-line @next/next/no-img-element */}
+	                  <img
+	                    src={`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(typeof window !== "undefined" ? window.location.href : "https://dreadnoute.com/profile")}&bgcolor=ffffff&color=000000&margin=2`}
+	                    alt="QR Code"
                     width={180}
                     height={180}
                     className="rounded-xl"
@@ -1012,11 +1014,11 @@ export default function ProfilePage() {
                 <p className="text-[9px] font-black uppercase tracking-[0.4em] text-zinc-700 text-center">Bagikan Via</p>
                 <div className="grid grid-cols-5 gap-3">
                   {[
-                    { name: "WhatsApp", color: "hover:bg-green-600/20 hover:border-green-500/40", icon: "💬", url: (u: string) => `https://wa.me/?text=${encodeURIComponent("Cek profil V.O.I.D. saya di DreadNoute! " + u)}` },
-                    { name: "Instagram", color: "hover:bg-pink-600/20 hover:border-pink-500/40", icon: "📸", url: (u: string) => `https://instagram.com` },
-                    { name: "Twitter", color: "hover:bg-sky-600/20 hover:border-sky-500/40", icon: "🐦", url: (u: string) => `https://twitter.com/intent/tweet?text=${encodeURIComponent("Cek profil V.O.I.D. saya!")}&url=${encodeURIComponent(u)}` },
-                    { name: "Facebook", color: "hover:bg-blue-600/20 hover:border-blue-500/40", icon: "📘", url: (u: string) => `https://facebook.com/sharer/sharer.php?u=${encodeURIComponent(u)}` },
-                    { name: "TikTok", color: "hover:bg-zinc-600/20 hover:border-zinc-400/40", icon: "🎵", url: (u: string) => `https://tiktok.com` },
+                    { name: "WhatsApp", color: "hover:bg-green-600/20 hover:border-green-500/40", icon: "ðŸ’¬", url: (u: string) => `https://wa.me/?text=${encodeURIComponent("Cek profil V.O.I.D. saya di DreadNoute! " + u)}` },
+                    { name: "Instagram", color: "hover:bg-pink-600/20 hover:border-pink-500/40", icon: "ðŸ“¸", url: () => `https://instagram.com` },
+                    { name: "Twitter", color: "hover:bg-sky-600/20 hover:border-sky-500/40", icon: "ðŸ¦", url: (u: string) => `https://twitter.com/intent/tweet?text=${encodeURIComponent("Cek profil V.O.I.D. saya!")}&url=${encodeURIComponent(u)}` },
+                    { name: "Facebook", color: "hover:bg-blue-600/20 hover:border-blue-500/40", icon: "ðŸ“˜", url: (u: string) => `https://facebook.com/sharer/sharer.php?u=${encodeURIComponent(u)}` },
+                    { name: "TikTok", color: "hover:bg-zinc-600/20 hover:border-zinc-400/40", icon: "ðŸŽµ", url: () => `https://tiktok.com` },
                   ].map((s, i) => (
                     <a
                       key={i}
@@ -1039,7 +1041,7 @@ export default function ProfilePage() {
         )}
       </AnimatePresence>
 
-      {/* ── EDIT MODAL ── */}
+      {/* â”€â”€ EDIT MODAL â”€â”€ */}
       <AnimatePresence>
          {editMode && (
             <motion.div 
@@ -1088,3 +1090,4 @@ export default function ProfilePage() {
     </div>
   );
 }
+

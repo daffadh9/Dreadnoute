@@ -1,13 +1,25 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useState } from "react";
 import { GhostCard } from "@/components/GhostCard";
+import type { GhostRole, Rarity } from "@/features/cards/components/GhostCard";
 import { supabase } from "@/lib/supabase";
 import { motion } from "framer-motion";
 import { Search, Filter, ChevronDown, Radio } from "lucide-react";
 import Link from "next/link";
 
-const MOCK_GHOSTS = [
+type GhostCardEntry = {
+  id: string;
+  name: string;
+  rarity: Rarity;
+  image_url: string;
+  danger_lvl?: number;
+  role?: GhostRole;
+  price?: { dc: number; obsidian: number };
+  tags?: string[];
+};
+
+const MOCK_GHOSTS: GhostCardEntry[] = [
   { id: "1", name: "Jerangkong", rarity: "Common" as const, image_url: "/assets/images/jerangkong.jpg", danger_lvl: 4, role: "Aggressor" as const, price: { dc: 500, obsidian: 3 }, tags: [] },
   { id: "2", name: "Nenek Gayung", rarity: "Rare" as const, image_url: "/assets/images/nenek-gayung.jpg", danger_lvl: 7, role: "Watcher" as const, price: { dc: 1500, obsidian: 10 }, tags: [] },
   { id: "3", name: "Suster Ngesot", rarity: "Mythic" as const, image_url: "/assets/images/suster-ngesot.jpg", danger_lvl: 9, role: "Manipulator" as const, price: { dc: 5000, obsidian: 50 }, tags: [] },
@@ -27,7 +39,8 @@ const ROLES = ["ALL ROLE", "AGGRESSOR", "WATCHER", "MANIPULATOR", "PASSIVE"];
 const WILAYAHS = ["GLOBAL", "JAWA BARAT", "JAWA TENGAH", "JAWA TIMUR", "JAKARTA", "BALI", "SUMATERA", "PANTAI SELATAN", "URBAN"];
 
 export default function GhostCardsPage() {
-  const [ghosts, setGhosts] = useState<any[]>([]);
+  // Legacy/future area: route ini dipertahankan untuk domain G-Collector, bukan ensiklopedia Ghost Archive.
+  const [ghosts, setGhosts] = useState<GhostCardEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState("SEMUA");
   const [activeRole, setActiveRole] = useState("ALL ROLE");
@@ -62,25 +75,25 @@ export default function GhostCardsPage() {
 
   return (
     <div className="p-6 max-w-7xl mx-auto pb-32">
-      {/* ─── HEADER ─── */}
+      {/* â”€â”€â”€ HEADER â”€â”€â”€ */}
       <header className="mb-8">
         <div className="flex items-center gap-2 mb-1">
           <Radio size={11} className="text-red-500 animate-pulse" />
-          <span className="text-[10px] font-black tracking-[0.4em] text-red-500 uppercase">Wiki Ghost</span>
+          <span className="text-[10px] font-black tracking-[0.4em] text-red-500 uppercase">Collector Legacy</span>
         </div>
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-5xl font-bold text-white mb-2 tracking-tighter"
         >
-          Ghost <span className="text-red-500 drop-shadow-[0_0_10px_rgba(255,0,0,0.5)]">Archive</span>
+          Ghost <span className="text-red-500 drop-shadow-[0_0_10px_rgba(255,0,0,0.5)]">Cards</span>
         </motion.h1>
         <p className="text-gray-500 font-serif text-sm max-w-lg">
-          Katalogisasi entitas anomali lintas dimensi yang telah terverifikasi oleh para Penjaga Arsip terdahulu.
+          Area legacy untuk koleksi entitas dan eksperimen G-Collector. Untuk ensiklopedia resmi, gunakan Ghost Archive.
         </p>
       </header>
 
-      {/* ─── SEARCH + STATS ─── */}
+      {/* â”€â”€â”€ SEARCH + STATS â”€â”€â”€ */}
       <div className="flex flex-col lg:flex-row gap-4 mb-6">
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" size={16} />
@@ -99,9 +112,9 @@ export default function GhostCardsPage() {
         </button>
       </div>
 
-      {/* ─── FILTER TABS: KATEGORI ─── */}
+      {/* â”€â”€â”€ FILTER TABS: KATEGORI â”€â”€â”€ */}
       <div className="mb-4">
-        <p className="text-[9px] font-black tracking-[0.3em] text-gray-600 uppercase mb-2">// KATEGORI</p>
+        <p className="text-[9px] font-black tracking-[0.3em] text-gray-600 uppercase mb-2">KATEGORI</p>
         <div className="flex flex-wrap gap-2">
           {CATEGORIES.map((cat) => (
             <button
@@ -120,9 +133,9 @@ export default function GhostCardsPage() {
         </div>
       </div>
 
-      {/* ─── FILTER TABS: ROLE ─── */}
+      {/* â”€â”€â”€ FILTER TABS: ROLE â”€â”€â”€ */}
       <div className="mb-4">
-        <p className="text-[9px] font-black tracking-[0.3em] text-gray-600 uppercase mb-2">// ROLE</p>
+        <p className="text-[9px] font-black tracking-[0.3em] text-gray-600 uppercase mb-2">ROLE</p>
         <div className="flex flex-wrap gap-2">
           {ROLES.map((role) => (
             <button
@@ -140,9 +153,9 @@ export default function GhostCardsPage() {
         </div>
       </div>
 
-      {/* ─── FILTER TABS: WILAYAH ─── */}
+      {/* â”€â”€â”€ FILTER TABS: WILAYAH â”€â”€â”€ */}
       <div className="mb-10">
-        <p className="text-[9px] font-black tracking-[0.3em] text-gray-600 uppercase mb-2">// WILAYAH</p>
+        <p className="text-[9px] font-black tracking-[0.3em] text-gray-600 uppercase mb-2">WILAYAH</p>
         <div className="flex flex-wrap gap-2">
           {WILAYAHS.map((w) => (
             <button
@@ -154,13 +167,13 @@ export default function GhostCardsPage() {
                   : "bg-white/5 border-white/10 text-gray-500 hover:text-gray-300"
               }`}
             >
-              {w} <span className="opacity-30">↓</span>
+              {w} <span className="opacity-30">â†“</span>
             </button>
           ))}
         </div>
       </div>
 
-      {/* ─── GHOST GRID ─── */}
+      {/* â”€â”€â”€ GHOST GRID â”€â”€â”€ */}
       {loading ? (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
           {[...Array(6)].map((_, i) => (
@@ -195,3 +208,4 @@ export default function GhostCardsPage() {
     </div>
   );
 }
+
