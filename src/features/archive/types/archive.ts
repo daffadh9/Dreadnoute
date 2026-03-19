@@ -25,6 +25,7 @@ export type GhostArchiveEntry = {
   abilities: string[];
   weaknesses: string[];
   dangerZones: string[];
+  survivalGuide?: string[];
   mainImage: string;
   gallery: string[];
   reports: GhostArchiveReport[];
