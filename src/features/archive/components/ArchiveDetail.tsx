@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { GhostArchiveEntry } from "../types/archive";
@@ -33,7 +33,9 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
   const aliases = getArchiveAlias(entry);
   const evidenceTags = getArchiveTags(entry);
   const galleryRef = useRef<HTMLDivElement | null>(null);
+  const galleryScrollRafRef = useRef(0);
   const [scrollY, setScrollY] = useState(0);
+  const [activeGalleryIndex, setActiveGalleryIndex] = useState(0);
   const [reportSortMode, setReportSortMode] = useState<ReportSortMode>("latest");
 
   useEffect(() => {
@@ -71,8 +73,46 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
     );
   }, [entry.reports, reportSortMode]);
 
-  const heroTranslateY = Math.min(scrollY * 0.05, 20);
-  const heroScale = 1.03 + Math.min(scrollY * 0.00008, 0.03);
+  const heroTranslateY = Math.min(scrollY * 0.065, 30);
+  const heroTranslateX = Math.min(scrollY * 0.02, 8);
+  const heroScale = 1.01 + Math.min(scrollY * 0.0001, 0.04);
+
+  const updateActiveGalleryItem = useCallback(() => {
+    const gallery = galleryRef.current;
+    if (!gallery) {
+      return;
+    }
+
+    const items = Array.from(
+      gallery.querySelectorAll<HTMLElement>("[data-gallery-item]")
+    );
+    if (items.length === 0) {
+      return;
+    }
+
+    const galleryCenter = gallery.scrollLeft + gallery.clientWidth / 2;
+    let closestIndex = 0;
+    let smallestDistance = Number.POSITIVE_INFINITY;
+
+    items.forEach((item, index) => {
+      const itemCenter = item.offsetLeft + item.offsetWidth / 2;
+      const distance = Math.abs(itemCenter - galleryCenter);
+
+      if (distance < smallestDistance) {
+        smallestDistance = distance;
+        closestIndex = index;
+      }
+    });
+
+    setActiveGalleryIndex((previous) =>
+      previous === closestIndex ? previous : closestIndex
+    );
+  }, []);
+
+  const handleGalleryScroll = useCallback(() => {
+    cancelAnimationFrame(galleryScrollRafRef.current);
+    galleryScrollRafRef.current = requestAnimationFrame(updateActiveGalleryItem);
+  }, [updateActiveGalleryItem]);
 
   const handleGalleryNav = (direction: "left" | "right") => {
     const gallery = galleryRef.current;
@@ -89,14 +129,22 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
     });
   };
 
+  useEffect(
+    () => () => {
+      cancelAnimationFrame(galleryScrollRafRef.current);
+    },
+    []
+  );
+
   return (
-    <main className="min-h-screen bg-[radial-gradient(95%_70%_at_90%_0%,rgba(127,29,29,0.2),transparent_56%),radial-gradient(80%_60%_at_0%_30%,rgba(91,33,182,0.14),transparent_58%),#000] px-6 py-8 text-zinc-100 md:px-10">
+    <main className="min-h-screen bg-[radial-gradient(95%_70%_at_90%_0%,rgba(127,29,29,0.26),transparent_54%),radial-gradient(80%_60%_at_0%_30%,rgba(91,33,182,0.16),transparent_56%),#000] px-6 py-8 text-zinc-100 md:px-10">
       <div className="mx-auto max-w-6xl space-y-8">
         <header className="relative space-y-5 overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950/80 p-6">
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-red-900/18 via-transparent to-black" />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-purple-900/16 via-transparent to-black" />
-          <div className="pointer-events-none absolute inset-0 opacity-[0.055] [background-image:repeating-linear-gradient(0deg,rgba(255,255,255,0.09)_0_1px,transparent_1px_3px)]" />
-          <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_120px_rgba(0,0,0,0.6)]" />
+          <div className="pointer-events-none absolute -right-24 top-[-6rem] h-80 w-80 rounded-full bg-red-500/28 blur-3xl animate-pulse" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-red-900/24 via-transparent to-black" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-purple-900/20 via-transparent to-black" />
+          <div className="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:repeating-linear-gradient(0deg,rgba(255,255,255,0.09)_0_1px,transparent_1px_3px)]" />
+          <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_144px_rgba(0,0,0,0.7)]" />
 
           <div className="relative z-10 space-y-5">
             <Link
@@ -108,25 +156,29 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
 
             <div className="space-y-5">
               <div className="relative h-[22rem] overflow-hidden rounded-2xl border border-zinc-800 sm:h-[30rem] lg:h-[34rem]">
-                <Image
-                  src={entry.mainImage}
-                  alt={entry.name}
-                  fill
-                  className="object-cover object-top will-change-transform"
-                  style={{
-                    transform: `translateY(${heroTranslateY}px) scale(${heroScale})`
-                  }}
-                  sizes="100vw"
-                />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/36 via-black/20 to-black/88" />
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/95 via-black/52 to-transparent" />
-                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_70%_at_85%_12%,rgba(220,38,38,0.3),transparent_63%)]" />
-                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(75%_70%_at_14%_100%,rgba(126,34,206,0.22),transparent_68%)]" />
-                <div className="pointer-events-none absolute inset-0 opacity-[0.05] [background-image:repeating-linear-gradient(0deg,rgba(255,255,255,0.1)_0_1px,transparent_1px_3px)]" />
-                <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_92px_rgba(0,0,0,0.66)]" />
+                <div className="absolute inset-0 [animation:archiveHeroDrift_18s_ease-in-out_infinite_alternate] will-change-transform">
+                  <Image
+                    src={entry.mainImage}
+                    alt={entry.name}
+                    fill
+                    className="object-cover object-top brightness-[0.74] contrast-[1.18] saturate-[1.03] will-change-transform"
+                    style={{
+                      transform: `translate3d(${heroTranslateX}px,${heroTranslateY}px,0) scale(${heroScale})`
+                    }}
+                    sizes="100vw"
+                  />
+                </div>
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/48 via-black/34 to-black/94" />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/95 via-black/64 to-transparent" />
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(72%_74%_at_84%_14%,rgba(220,38,38,0.42),transparent_58%)]" />
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(80%_72%_at_14%_100%,rgba(126,34,206,0.28),transparent_66%)]" />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-44 bg-[radial-gradient(80%_100%_at_50%_100%,rgba(255,255,255,0.12),transparent_70%)] opacity-35 blur-xl" />
+                <div className="pointer-events-none absolute inset-0 opacity-[0.08] [background-image:repeating-linear-gradient(0deg,rgba(255,255,255,0.1)_0_1px,transparent_1px_3px)]" />
+                <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_130px_rgba(0,0,0,0.76)]" />
 
                 <div className="absolute inset-x-0 bottom-0 z-10 p-5 sm:p-7">
-                  <div className="space-y-4 rounded-2xl border border-zinc-700/60 bg-[linear-gradient(155deg,rgba(10,10,10,0.62),rgba(10,10,10,0.84))] p-4 backdrop-blur-sm sm:max-w-4xl sm:p-5">
+                  <div className="space-y-4 rounded-2xl border border-red-400/40 bg-[linear-gradient(155deg,rgba(7,7,9,0.62),rgba(7,7,9,0.88))] p-4 backdrop-blur-md shadow-[0_26px_52px_-28px_rgba(0,0,0,0.95),0_0_0_1px_rgba(239,68,68,0.2)] sm:max-w-4xl sm:p-5">
+                    <div className="h-px w-28 bg-gradient-to-r from-red-400/85 via-purple-400/55 to-transparent" />
                     <p className="text-xs uppercase tracking-[0.2em] text-zinc-300/90">
                       {entry.category}
                     </p>
@@ -161,16 +213,17 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
                     </div>
                     <DangerLevelBadge
                       dangerLevel={entry.dangerLevel}
-                      className="border-zinc-500/60 bg-black/45 backdrop-blur-sm"
+                      className="border-red-400/38 bg-black/52 backdrop-blur-sm"
                     />
                   </div>
                 </div>
               </div>
 
-              <div className="rounded-xl border border-zinc-700/70 bg-[linear-gradient(160deg,rgba(24,24,27,0.88),rgba(9,9,11,0.98))] p-4 shadow-[inset_0_1px_0_rgba(244,63,94,0.14)]">
+              <div className="rounded-xl border border-red-500/35 bg-[linear-gradient(160deg,rgba(24,24,27,0.9),rgba(9,9,11,0.99))] p-4 shadow-[0_22px_46px_-30px_rgba(220,38,38,0.5),inset_0_1px_0_rgba(244,63,94,0.2)]">
                 <p className="text-[10px] uppercase tracking-[0.16em] text-zinc-500">
                   Artifact Dossier
                 </p>
+                <div className="mt-2 h-px w-28 bg-gradient-to-r from-red-400/80 via-purple-400/50 to-transparent" />
                 {evidenceTags.length > 0 ? (
                   <div className="mb-3 mt-3 flex flex-wrap gap-2">
                     {evidenceTags.map((tag) => (
@@ -251,7 +304,7 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
             <button
               type="button"
               onClick={() => handleGalleryNav("left")}
-              className="absolute left-2 top-1/2 z-20 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-zinc-600/70 bg-black/60 text-zinc-200 backdrop-blur transition duration-300 ease-out hover:border-red-400/55 hover:bg-black/75 hover:text-red-200 hover:shadow-[0_0_24px_rgba(220,38,38,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400/60"
+              className="absolute left-2 top-1/2 z-20 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-zinc-600/70 bg-black/60 text-zinc-200 backdrop-blur transition duration-350 ease-out hover:scale-110 hover:border-red-400/70 hover:bg-black/80 hover:text-red-200 hover:shadow-[0_0_28px_rgba(220,38,38,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400/60"
               aria-label="Gambar sebelumnya"
             >
               &larr;
@@ -259,7 +312,7 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
             <button
               type="button"
               onClick={() => handleGalleryNav("right")}
-              className="absolute right-2 top-1/2 z-20 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-zinc-600/70 bg-black/60 text-zinc-200 backdrop-blur transition duration-300 ease-out hover:border-purple-400/55 hover:bg-black/75 hover:text-purple-200 hover:shadow-[0_0_24px_rgba(147,51,234,0.35)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400/60"
+              className="absolute right-2 top-1/2 z-20 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-zinc-600/70 bg-black/60 text-zinc-200 backdrop-blur transition duration-350 ease-out hover:scale-110 hover:border-red-400/70 hover:bg-black/80 hover:text-red-200 hover:shadow-[0_0_28px_rgba(220,38,38,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400/60"
               aria-label="Gambar berikutnya"
             >
               &rarr;
@@ -267,22 +320,31 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
 
             <div
               ref={galleryRef}
+              onScroll={handleGalleryScroll}
               className="no-scrollbar -mx-1 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-1 pb-2 pr-8 overscroll-x-contain sm:pr-10 lg:pr-12"
             >
               {entry.gallery.map((imagePath, index) => (
                 <div
                   key={`${entry.id}-gallery-${index}`}
                   data-gallery-item
-                  className="group relative h-52 w-[78%] min-w-[15.5rem] snap-start overflow-hidden rounded-xl border border-zinc-800 sm:w-[54%] lg:w-[34%]"
+                  className={`group relative h-52 w-[78%] min-w-[15.5rem] snap-start overflow-hidden rounded-xl border transition duration-350 ease-out sm:w-[54%] lg:w-[34%] ${
+                    activeGalleryIndex === index
+                      ? "scale-[1.02] border-red-500/55 shadow-[0_24px_42px_-26px_rgba(239,68,68,0.68)]"
+                      : "scale-[0.985] border-zinc-800/85 opacity-92"
+                  }`}
                 >
                   <Image
                     src={imagePath}
                     alt={`${entry.name} galeri ${index + 1}`}
                     fill
-                    className="object-cover transition duration-300 ease-out group-hover:scale-105"
+                    className={`object-cover transition duration-350 ease-out group-hover:scale-[1.045] ${
+                      activeGalleryIndex === index
+                        ? "brightness-[1.04] contrast-[1.1]"
+                        : "brightness-[0.86] contrast-[1.04]"
+                    }`}
                     sizes="(max-width: 768px) 78vw, (max-width: 1024px) 54vw, 34vw"
                   />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/15" />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/68 via-transparent to-black/18" />
                 </div>
               ))}
             </div>
@@ -294,7 +356,7 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
 
         <SectionWrapper title="Laporan Saksi" tone="featured">
           <div className="space-y-4">
-            <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-zinc-800/80 bg-zinc-900/55 p-3">
+            <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-red-500/28 bg-zinc-900/58 p-3 shadow-[0_14px_34px_-24px_rgba(220,38,38,0.45)]">
               <p className="text-xs uppercase tracking-[0.14em] text-zinc-400">
                 Thread Investigasi
               </p>
@@ -305,7 +367,7 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
                   onChange={(event) =>
                     setReportSortMode(event.target.value as ReportSortMode)
                   }
-                  className="rounded-lg border border-zinc-700 bg-zinc-950/85 px-2.5 py-1.5 text-xs text-zinc-200 outline-none transition duration-200 focus:border-red-400/60"
+                  className="rounded-lg border border-zinc-700 bg-zinc-950/85 px-2.5 py-1.5 text-xs text-zinc-200 outline-none transition duration-300 ease-out focus:border-red-400/70"
                 >
                   <option value="latest">Terbaru</option>
                   <option value="credible">Paling Kredibel</option>
@@ -315,14 +377,25 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
 
             <div className="relative pl-1 sm:pl-2">
               <div className="pointer-events-none absolute bottom-2 left-4 top-2 w-px bg-gradient-to-b from-red-400/40 via-zinc-700/90 to-transparent" />
+              <div className="pointer-events-none absolute bottom-2 left-4 top-2 w-px bg-gradient-to-b from-red-400/45 via-purple-400/30 to-transparent blur-[1.2px]" />
               <div className="space-y-3">
                 {sortedReports.map((report) => (
                   <article
                     key={report.id}
-                    className="relative ml-8 rounded-xl border border-zinc-800/90 bg-zinc-900/62 p-3 transition duration-300 ease-out hover:border-red-400/35 sm:p-4"
+                    className={`relative ml-8 rounded-xl border p-3 transition duration-350 ease-out hover:-translate-y-0.5 sm:p-4 ${
+                      report.credibilityScore >= 85
+                        ? "border-red-500/42 bg-[linear-gradient(160deg,rgba(24,24,27,0.8),rgba(8,8,11,0.98))] shadow-[0_20px_40px_-28px_rgba(239,68,68,0.62)]"
+                        : "border-zinc-800/90 bg-zinc-900/62 hover:border-red-400/35"
+                    }`}
                   >
                     <div className="pointer-events-none absolute -left-4 top-5 h-px w-4 bg-zinc-700/90" />
-                    <div className="absolute -left-8 top-2.5 flex h-8 w-8 items-center justify-center rounded-full border border-zinc-700/80 bg-zinc-900 text-xs font-semibold uppercase tracking-[0.08em] text-zinc-200">
+                    <div
+                      className={`absolute -left-8 top-2.5 flex h-8 w-8 items-center justify-center rounded-full border bg-zinc-900 text-xs font-semibold uppercase tracking-[0.08em] text-zinc-200 ${
+                        report.credibilityScore >= 85
+                          ? "border-red-400/65 shadow-[0_0_22px_rgba(239,68,68,0.45)]"
+                          : "border-zinc-700/80"
+                      }`}
+                    >
                       {getAvatarInitial(report.username)}
                     </div>
 
@@ -337,7 +410,13 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
                           </p>
                         ) : null}
                       </div>
-                      <span className="rounded-full border border-zinc-700/90 bg-zinc-950/95 px-2.5 py-1 text-[10px] uppercase tracking-[0.1em] text-zinc-300">
+                      <span
+                        className={`rounded-full border px-2.5 py-1 text-[10px] uppercase tracking-[0.1em] ${
+                          report.credibilityScore >= 85
+                            ? "border-red-400/50 bg-red-950/35 text-red-100"
+                            : "border-zinc-700/90 bg-zinc-950/95 text-zinc-300"
+                        }`}
+                      >
                         Kredibel {report.credibilityScore}
                       </span>
                     </div>
@@ -361,6 +440,20 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
           </div>
         </SectionWrapper>
       </div>
+
+      <style jsx global>{`
+        @keyframes archiveHeroDrift {
+          0% {
+            transform: scale(1) translate3d(0%, 0%, 0);
+          }
+          50% {
+            transform: scale(1.04) translate3d(-1.1%, 0.8%, 0);
+          }
+          100% {
+            transform: scale(1.08) translate3d(1.4%, -0.7%, 0);
+          }
+        }
+      `}</style>
     </main>
   );
 }
