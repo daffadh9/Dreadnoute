@@ -6,8 +6,6 @@ type ArchiveHeaderProps = {
 };
 
 export function ArchiveHeader({ total, totalArchive }: ArchiveHeaderProps) {
-  const hasFilter = total !== totalArchive;
-
   return (
     <header className="relative overflow-hidden rounded-2xl border border-red-500/30 bg-[linear-gradient(165deg,rgba(24,24,27,0.98),rgba(6,6,9,1))] p-6 shadow-[0_36px_86px_-36px_rgba(0,0,0,0.98)]">
       <div className="pointer-events-none absolute -right-20 -top-32 h-96 w-96 rounded-full bg-red-500/42 blur-3xl animate-pulse" />
