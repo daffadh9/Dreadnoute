@@ -13,19 +13,19 @@ export const SectionWrapper = ({ title, children, tone = "default" }: Props) => 
     <section
       className={`relative overflow-hidden rounded-2xl border p-6 ${
         isFeatured
-          ? "border-red-500/42 bg-[linear-gradient(160deg,rgba(24,24,27,0.97),rgba(8,8,11,0.99))] shadow-[0_30px_64px_-34px_rgba(220,38,38,0.4)]"
-          : "border-zinc-800/95 bg-[linear-gradient(160deg,rgba(24,24,27,0.9),rgba(9,9,11,0.96))]"
+          ? "border-red-500/55 bg-[linear-gradient(160deg,rgba(24,24,27,0.97),rgba(7,7,10,1))] shadow-[0_34px_78px_-34px_rgba(220,38,38,0.56)]"
+          : "border-zinc-800/95 bg-[linear-gradient(160deg,rgba(24,24,27,0.9),rgba(9,9,11,0.96))] shadow-[0_20px_46px_-34px_rgba(0,0,0,0.95)]"
       }`}
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(95%_72%_at_84%_6%,rgba(220,38,38,0.12),transparent_62%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(85%_66%_at_14%_100%,rgba(76,29,149,0.1),transparent_65%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(95%_72%_at_84%_6%,rgba(220,38,38,0.2),transparent_60%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(85%_66%_at_14%_100%,rgba(76,29,149,0.15),transparent_62%)]" />
       {isFeatured ? (
-        <div className="pointer-events-none absolute -top-10 right-10 h-32 w-32 rounded-full bg-red-500/18 blur-2xl animate-pulse" />
+        <div className="pointer-events-none absolute -top-12 right-8 h-40 w-40 rounded-full bg-red-500/34 blur-2xl animate-pulse" />
       ) : null}
       <div
         className={`pointer-events-none absolute inset-x-0 top-0 h-px ${
           isFeatured
-            ? "bg-gradient-to-r from-transparent via-red-400/80 to-transparent"
+            ? "bg-gradient-to-r from-transparent via-red-400/95 to-transparent"
             : "bg-gradient-to-r from-transparent via-zinc-500/60 to-transparent"
         }`}
       />
@@ -41,7 +41,7 @@ export const SectionWrapper = ({ title, children, tone = "default" }: Props) => 
         <div
           className={`mt-2 h-px w-24 ${
             isFeatured
-              ? "bg-gradient-to-r from-red-400/85 via-purple-400/55 to-transparent"
+              ? "bg-gradient-to-r from-red-400/100 via-purple-400/70 to-transparent shadow-[0_0_14px_rgba(248,113,113,0.52)]"
               : "bg-gradient-to-r from-zinc-500/60 to-transparent"
           }`}
         />
