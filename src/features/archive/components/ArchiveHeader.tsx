@@ -1,3 +1,5 @@
+import { BookOpenText } from "lucide-react";
+
 type ArchiveHeaderProps = {
   total: number;
   totalArchive: number;
@@ -16,13 +18,16 @@ export function ArchiveHeader({ total, totalArchive }: ArchiveHeaderProps) {
       <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_180px_rgba(0,0,0,0.75)]" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-red-400/90 to-transparent" />
 
-      <div className="relative z-10 space-y-3">
-        <p className="text-[11px] uppercase tracking-[0.22em] text-zinc-400">
+      <div className="relative z-10 space-y-4">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-red-500">
           DreadNoute Curated Index
         </p>
-        <div className="relative inline-flex">
+        <div className="relative flex items-center gap-4">
           <div className="pointer-events-none absolute -inset-x-12 -inset-y-6 bg-[radial-gradient(circle,rgba(239,68,68,0.62)_0%,rgba(168,85,247,0.3)_35%,transparent_74%)] blur-2xl" />
-          <h1 className="relative text-3xl font-semibold text-zinc-100 drop-shadow-[0_0_22px_rgba(248,113,113,0.6)] sm:text-4xl">
+          <div className="relative rounded-xl border border-red-500/40 bg-zinc-950/60 p-3 shadow-[0_0_24px_rgba(220,38,38,0.5),inset_0_0_12px_rgba(248,113,113,0.2)] animate-[pulse_3s_ease-in-out_infinite]">
+            <BookOpenText className="h-9 w-9 text-red-400 drop-shadow-[0_0_12px_rgba(248,113,113,0.9)]" />
+          </div>
+          <h1 className="relative text-3xl font-bold tracking-tight text-zinc-100 drop-shadow-[0_0_22px_rgba(248,113,113,0.6)] sm:text-5xl">
             Ghost Archive
           </h1>
         </div>

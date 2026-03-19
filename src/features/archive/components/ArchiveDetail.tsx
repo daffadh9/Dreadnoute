@@ -1,8 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ChevronDown } from "lucide-react";
 import type { GhostArchiveEntry } from "../types/archive";
 import {
   getArchiveAlias,
@@ -28,14 +29,25 @@ const getAvatarInitial = (username: string) => {
   return initial ? initial.toUpperCase() : "?";
 };
 
+const AccordionCard = ({ title, defaultOpen = false, children }: { title: string, defaultOpen?: boolean, children: React.ReactNode }) => {
+  return (
+    <details className="group rounded-xl border border-zinc-800/80 bg-zinc-950/40 shadow-md transition-all duration-300 open:border-red-500/50 open:bg-zinc-900/60" open={defaultOpen}>
+      <summary className="flex cursor-pointer list-none items-center justify-between p-4 font-semibold tracking-wide text-zinc-200 outline-none transition-colors group-hover:text-red-400">
+        <span className="text-sm uppercase tracking-[0.16em]">{title}</span>
+        <ChevronDown className="h-4 w-4 text-zinc-500 transition-transform duration-300 group-open:rotate-180 group-open:text-red-500" />
+      </summary>
+      <div className="border-t border-zinc-800/80 px-4 pb-4 pt-3 text-sm text-zinc-300">
+        {children}
+      </div>
+    </details>
+  );
+};
+
 export function ArchiveDetail({ entry }: ArchiveDetailProps) {
   const meta = getArchiveMeta(entry);
   const aliases = getArchiveAlias(entry);
   const evidenceTags = getArchiveTags(entry);
-  const galleryRef = useRef<HTMLDivElement | null>(null);
-  const galleryScrollRafRef = useRef(0);
   const [scrollY, setScrollY] = useState(0);
-  const [activeGalleryIndex, setActiveGalleryIndex] = useState(0);
   const [reportSortMode, setReportSortMode] = useState<ReportSortMode>("latest");
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
@@ -96,64 +108,7 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
   const heroTranslateX = Math.min(scrollY * 0.03, 12);
   const heroScale = 1 + Math.min(scrollY * 0.00006, 0.02);
 
-  const updateActiveGalleryItem = useCallback(() => {
-    const gallery = galleryRef.current;
-    if (!gallery) {
-      return;
-    }
 
-    const items = Array.from(
-      gallery.querySelectorAll<HTMLElement>("[data-gallery-item]")
-    );
-    if (items.length === 0) {
-      return;
-    }
-
-    const galleryCenter = gallery.scrollLeft + gallery.clientWidth / 2;
-    let closestIndex = 0;
-    let smallestDistance = Number.POSITIVE_INFINITY;
-
-    items.forEach((item, index) => {
-      const itemCenter = item.offsetLeft + item.offsetWidth / 2;
-      const distance = Math.abs(itemCenter - galleryCenter);
-
-      if (distance < smallestDistance) {
-        smallestDistance = distance;
-        closestIndex = index;
-      }
-    });
-
-    setActiveGalleryIndex((previous) =>
-      previous === closestIndex ? previous : closestIndex
-    );
-  }, []);
-
-  const handleGalleryScroll = useCallback(() => {
-    cancelAnimationFrame(galleryScrollRafRef.current);
-    galleryScrollRafRef.current = requestAnimationFrame(updateActiveGalleryItem);
-  }, [updateActiveGalleryItem]);
-
-  const handleGalleryNav = (direction: "left" | "right") => {
-    const gallery = galleryRef.current;
-    if (!gallery) {
-      return;
-    }
-
-    const firstItem = gallery.querySelector<HTMLElement>("[data-gallery-item]");
-    const scrollStep = (firstItem?.offsetWidth ?? gallery.clientWidth * 0.74) + 16;
-
-    gallery.scrollBy({
-      left: direction === "right" ? scrollStep : -scrollStep,
-      behavior: "smooth"
-    });
-  };
-
-  useEffect(
-    () => () => {
-      cancelAnimationFrame(galleryScrollRafRef.current);
-    },
-    []
-  );
 
   return (
     <main 
@@ -273,109 +228,77 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
           </div>
         </header>
 
-        {/* Riwayat was moved into Sejarah dan Asal Usul so this section grid reduces to 3 items */}
-        <section className="grid gap-6 lg:grid-cols-3">
-          <div className="lg:col-span-1">
-            <SectionWrapper title="Kemampuan">
-            <ul className="space-y-2 text-sm text-zinc-300">
+        <section className="grid gap-6 lg:grid-cols-2">
+          <AccordionCard title="Kemampuan" defaultOpen>
+            <ul className="space-y-3">
               {entry.abilities.map((item) => (
-                <li
-                  key={item}
-                  className="rounded-lg border border-zinc-800/80 bg-zinc-900/50 p-3"
-                >
+                <li key={item} className="rounded-lg border border-red-500/10 bg-black/40 p-3 leading-relaxed">
                   {item}
                 </li>
               ))}
             </ul>
-            </SectionWrapper>
-          </div>
+          </AccordionCard>
 
-          <div className="lg:col-span-1">
-            <SectionWrapper title="Kelemahan">
-            <ul className="space-y-2 text-sm text-zinc-300">
+          <AccordionCard title="Kelemahan" defaultOpen>
+            <ul className="space-y-3">
               {entry.weaknesses.map((item) => (
-                <li
-                  key={item}
-                  className="rounded-lg border border-zinc-800/80 bg-zinc-900/50 p-3"
-                >
+                <li key={item} className="rounded-lg border border-red-500/10 bg-black/40 p-3 leading-relaxed">
                   {item}
                 </li>
               ))}
             </ul>
-            </SectionWrapper>
-          </div>
+          </AccordionCard>
 
-          <div className="lg:col-span-1">
-            <SectionWrapper title="Zona Rawan">
-            <div className="flex flex-wrap gap-2">
+          <AccordionCard title="Zona Rawan" defaultOpen>
+            <ul className="space-y-3">
               {entry.dangerZones.map((zone) => (
-                <span
-                  key={zone}
-                  className="rounded-full border border-zinc-700 bg-zinc-900/70 px-3 py-1.5 text-xs text-zinc-200"
-                >
+                <li key={zone} className="rounded-lg border border-red-500/10 bg-black/40 p-3 leading-relaxed">
                   {zone}
-                </span>
+                </li>
               ))}
-            </div>
-            </SectionWrapper>
-          </div>
+            </ul>
+          </AccordionCard>
+
+          <AccordionCard title="Panduan Selamat" defaultOpen={true}>
+            <ul className="space-y-3">
+              {(entry.survivalGuide && entry.survivalGuide.length > 0) ? entry.survivalGuide.map((rule) => (
+                <li key={rule} className="rounded-lg border border-green-500/20 bg-green-950/20 p-3 leading-relaxed text-zinc-200">
+                  {rule}
+                </li>
+              )) : (
+                <li className="rounded-lg border border-zinc-800/80 bg-zinc-900/50 p-3 leading-relaxed italic text-zinc-500">
+                  Tidak ada panduan selamat yang terdokumentasi secara resmi. Kontak secara langsung berisiko tinggi.
+                </li>
+              )}
+            </ul>
+          </AccordionCard>
         </section>
 
         <SectionWrapper title="Galeri" tone="featured">
-          <div className="relative">
-            <div className="pointer-events-none absolute bottom-0 left-0 top-0 z-10 hidden w-10 bg-gradient-to-r from-black to-transparent sm:block" />
-            <div className="pointer-events-none absolute bottom-0 right-0 top-0 z-10 hidden w-10 bg-gradient-to-l from-black to-transparent sm:block" />
-
-            <button
-              type="button"
-              onClick={() => handleGalleryNav("left")}
-              className="absolute left-2 top-1/2 z-20 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-zinc-600/70 bg-black/60 text-zinc-200 backdrop-blur transition duration-350 ease-out hover:scale-[1.16] hover:border-red-400/82 hover:bg-black/82 hover:text-red-200 hover:shadow-[0_0_40px_rgba(220,38,38,0.62)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400/60"
-              aria-label="Gambar sebelumnya"
-            >
-              &larr;
-            </button>
-            <button
-              type="button"
-              onClick={() => handleGalleryNav("right")}
-              className="absolute right-2 top-1/2 z-20 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-zinc-600/70 bg-black/60 text-zinc-200 backdrop-blur transition duration-350 ease-out hover:scale-[1.16] hover:border-red-400/82 hover:bg-black/82 hover:text-red-200 hover:shadow-[0_0_40px_rgba(220,38,38,0.62)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400/60"
-              aria-label="Gambar berikutnya"
-            >
-              &rarr;
-            </button>
-
-            <div
-              ref={galleryRef}
-              onScroll={handleGalleryScroll}
-              className="no-scrollbar -mx-1 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-1 pb-2 pr-8 overscroll-x-contain sm:pr-10 lg:pr-12"
-            >
-              {entry.gallery.map((imagePath, index) => (
-                <div
-                  key={`${entry.id}-gallery-${index}`}
-                  data-gallery-item
-                  className={`group relative h-52 w-[78%] min-w-[15.5rem] snap-start overflow-hidden rounded-xl border transition duration-350 ease-out sm:w-[54%] lg:w-[34%] ${
-                    activeGalleryIndex === index
-                      ? "scale-[1.08] border-red-500/75 shadow-[0_30px_56px_-24px_rgba(239,68,68,0.82)]"
-                      : "scale-[0.95] border-zinc-800/85 opacity-80"
-                  }`}
-                >
-                  <Image
-                    src={imagePath}
-                    alt={`${entry.name} galeri ${index + 1}`}
-                    fill
-                    className={`object-cover transition duration-350 ease-out group-hover:scale-[1.045] ${
-                      activeGalleryIndex === index
-                        ? "brightness-[1.16] contrast-[1.18] saturate-[1.08]"
-                        : "brightness-[0.8] contrast-[1.06]"
-                    }`}
-                    sizes="(max-width: 768px) 78vw, (max-width: 1024px) 54vw, 34vw"
-                  />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/68 via-transparent to-black/18" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {entry.gallery.map((imagePath, index) => (
+              <div
+                key={`${entry.id}-gallery-${index}`}
+                className="group relative h-64 w-full overflow-hidden rounded-xl border border-zinc-800/80 bg-zinc-950/60 shadow-[0_10px_20px_-10px_rgba(0,0,0,0.8)] transition duration-500 hover:border-red-500/60 hover:shadow-[0_12px_30px_-10px_rgba(220,38,38,0.3)]"
+              >
+                <Image
+                  src={imagePath}
+                  alt={`${entry.name} galeri visual ${index + 1}`}
+                  fill
+                  className="object-cover transition duration-700 ease-out group-hover:scale-110 group-hover:brightness-110"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-60 transition duration-500 group-hover:from-black/95 group-hover:opacity-100" />
+                <div className="absolute inset-x-0 bottom-0 p-4 translate-y-3 opacity-0 transition duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100">
+                  <p className="text-[10px] font-mono tracking-[0.2em] text-red-400 uppercase">
+                    [ RECORD {index + 1} ]
+                  </p>
+                  <p className="mt-1 text-xs text-zinc-300">
+                    Dokumentasi {entry.name} tertangkap kamera investigasi di lapangan.
+                  </p>
                 </div>
-              ))}
-            </div>
-            <p className="mt-3 text-xs uppercase tracking-[0.12em] text-zinc-500">
-              Gunakan panah atau geser untuk melihat dokumentasi visual tambahan.
-            </p>
+              </div>
+            ))}
           </div>
         </SectionWrapper>
 

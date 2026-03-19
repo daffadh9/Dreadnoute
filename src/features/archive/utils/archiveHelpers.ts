@@ -139,6 +139,47 @@ export const getArchiveCountryOptions = (
   return getUniqueValues(entries.map((entry) => entry.country));
 };
 
+const INDONESIA_GEO: Record<string, string[]> = {
+  "Aceh": ["Banda Aceh", "Sabang", "Lhokseumawe", "Langsa", "Subulussalam"],
+  "Sumatera Utara": ["Medan", "Binjai", "Pematangsiantar", "Tanjungbalai", "Tebing Tinggi", "Sibolga", "Padangsidempuan"],
+  "Sumatera Barat": ["Padang", "Bukittinggi", "Payakumbuh", "Pariaman", "Sawahlunto", "Solok", "Padang Panjang"],
+  "Riau": ["Pekanbaru", "Dumai"],
+  "Kepulauan Riau": ["Batam", "Tanjungpinang"],
+  "Jambi": ["Jambi", "Sungai Penuh"],
+  "Sumatera Selatan": ["Palembang", "Prabumulih", "Lubuklinggau", "Pagar Alam"],
+  "Bangka Belitung": ["Pangkal Pinang"],
+  "Bengkulu": ["Bengkulu"],
+  "Lampung": ["Bandar Lampung", "Metro"],
+  "DKI Jakarta": ["Jakarta Pusat", "Jakarta Utara", "Jakarta Barat", "Jakarta Selatan", "Jakarta Timur"],
+  "Jawa Barat": ["Bandung", "Bekasi", "Bogor", "Cimahi", "Cirebon", "Depok", "Sukabumi", "Tasikmalaya", "Banjar"],
+  "Banten": ["Serang", "Cilegon", "Tangerang", "Tangerang Selatan"],
+  "Jawa Tengah": ["Semarang", "Surakarta", "Magelang", "Pekalongan", "Salatiga", "Tegal", "Banyumas", "Klaten"],
+  "Daerah Istimewa Yogyakarta": ["Yogyakarta", "Sleman", "Bantul", "Gunungkidul", "Kulon Progo"],
+  "Jawa Timur": ["Surabaya", "Malang", "Batu", "Kediri", "Blitar", "Madiun", "Mojokerto", "Pasuruan", "Probolinggo", "Banyuwangi", "Sidoarjo"],
+  "Bali": ["Denpasar", "Badung", "Gianyar", "Buleleng", "Klungkung", "Tabanan"],
+  "Nusa Tenggara Barat": ["Mataram", "Bima", "Sumbawa"],
+  "Nusa Tenggara Timur": ["Kupang", "Ende", "Maumere"],
+  "Kalimantan Barat": ["Pontianak", "Singkawang", "Ketapang"],
+  "Kalimantan Tengah": ["Palangka Raya", "Sampit", "Pangkalan Bun"],
+  "Kalimantan Selatan": ["Banjarmasin", "Banjarbaru", "Martapura"],
+  "Kalimantan Timur": ["Samarinda", "Balikpapan", "Bontang", "Berau"],
+  "Kalimantan Utara": ["Tarakan", "Tanjung Selor"],
+  "Sulawesi Utara": ["Manado", "Bitung", "Tomohon", "Kotamobagu"],
+  "Gorontalo": ["Gorontalo"],
+  "Sulawesi Tengah": ["Palu", "Poso", "Luwuk"],
+  "Sulawesi Barat": ["Mamuju", "Majene"],
+  "Sulawesi Selatan": ["Makassar", "Parepare", "Palopo", "Bone", "Gowa"],
+  "Sulawesi Tenggara": ["Kendari", "Baubau"],
+  "Maluku": ["Ambon", "Tual"],
+  "Maluku Utara": ["Ternate", "Tidore Kepulauan", "Tobelo"],
+  "Papua": ["Jayapura", "Biak", "Serui"],
+  "Papua Barat": ["Manokwari", "Sorong", "Fakfak"],
+  "Papua Selatan": ["Merauke"],
+  "Papua Tengah": ["Nabire", "Timika"],
+  "Papua Pegunungan": ["Wamena"],
+  "Papua Barat Daya": ["Sorong Raya"]
+};
+
 export const getArchiveProvinceOptions = (
   entries: GhostArchiveEntry[] = GHOST_ARCHIVE_ENTRIES,
   country?: string
@@ -150,7 +191,13 @@ export const getArchiveProvinceOptions = (
       ? entries
       : entries.filter((entry) => normalize(entry.country) === normalizedCountry);
 
-  return getUniqueValues(countryScopedEntries.map((e) => e.province).filter(Boolean));
+  let extraProvinces: string[] = [];
+  if (normalizedCountry === "indonesia" || normalizedCountry.length === 0) {
+    extraProvinces = Object.keys(INDONESIA_GEO);
+  }
+
+  const extractedOptions = countryScopedEntries.map((e) => e.province).filter(Boolean);
+  return getUniqueValues([...extractedOptions, ...extraProvinces]).sort();
 };
 
 export const getArchiveCityOptions = (
@@ -164,5 +211,14 @@ export const getArchiveCityOptions = (
       ? entries
       : entries.filter((entry) => normalize(entry.province) === normalizedProvince);
 
-  return getUniqueValues(provinceScopedEntries.map((e) => e.city ?? "").filter(Boolean));
+  let extraCities: string[] = [];
+  const validProvince = Object.keys(INDONESIA_GEO).find(
+    (p) => normalize(p) === normalizedProvince
+  );
+  if (validProvince) {
+    extraCities = INDONESIA_GEO[validProvince] || [];
+  }
+
+  const extractedOptions = provinceScopedEntries.map((e) => e.city ?? "").filter(Boolean);
+  return getUniqueValues([...extractedOptions, ...extraCities]).sort();
 };
