@@ -12,6 +12,13 @@ export type GhostArchiveEntry = {
   name: string;
   category: string;
   origin: string;
+  country: string;
+  province: string;
+  city?: string;
+  aliases?: string[];
+  era?: string;
+  evidenceTags?: string[];
+  sourceType?: string;
   dangerLevel: "Rendah" | "Sedang" | "Tinggi" | "Ekstrem";
   summary: string;
   history: string[];
