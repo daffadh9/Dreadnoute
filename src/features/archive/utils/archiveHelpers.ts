@@ -7,7 +7,8 @@ export type GhostArchiveFilterParams = {
   query?: string;
   category?: string;
   country?: string;
-  region?: string;
+  province?: string;
+  city?: string;
 };
 
 export type GhostArchiveMeta = {
@@ -98,7 +99,8 @@ export const getGhostEntriesByFilters = (
   const normalizedQuery = normalize(filters.query ?? "");
   const normalizedCategory = normalize(filters.category ?? "");
   const normalizedCountry = normalize(filters.country ?? "");
-  const normalizedRegion = normalize(filters.region ?? "");
+  const normalizedProvince = normalize(filters.province ?? "");
+  const normalizedCity = normalize(filters.city ?? "");
 
   return GHOST_ARCHIVE_ENTRIES.filter((entry) => {
     const matchesQuery =
@@ -113,11 +115,15 @@ export const getGhostEntriesByFilters = (
       normalizedCountry.length === 0 ||
       normalize(entry.country) === normalizedCountry;
 
-    const matchesRegion =
-      normalizedRegion.length === 0 ||
-      normalize(getGhostRegionLabel(entry)) === normalizedRegion;
+    const matchesProvince =
+      normalizedProvince.length === 0 ||
+      normalize(entry.province) === normalizedProvince;
 
-    return matchesQuery && matchesCategory && matchesCountry && matchesRegion;
+    const matchesCity =
+      normalizedCity.length === 0 ||
+      normalize(entry.city ?? "") === normalizedCity;
+
+    return matchesQuery && matchesCategory && matchesCountry && matchesProvince && matchesCity;
   });
 };
 
@@ -133,7 +139,7 @@ export const getArchiveCountryOptions = (
   return getUniqueValues(entries.map((entry) => entry.country));
 };
 
-export const getArchiveRegionOptions = (
+export const getArchiveProvinceOptions = (
   entries: GhostArchiveEntry[] = GHOST_ARCHIVE_ENTRIES,
   country?: string
 ): string[] => {
@@ -142,9 +148,21 @@ export const getArchiveRegionOptions = (
   const countryScopedEntries =
     normalizedCountry.length === 0
       ? entries
-      : entries.filter(
-          (entry) => normalize(entry.country) === normalizedCountry
-        );
+      : entries.filter((entry) => normalize(entry.country) === normalizedCountry);
 
-  return getUniqueValues(countryScopedEntries.map(getGhostRegionLabel));
+  return getUniqueValues(countryScopedEntries.map((e) => e.province).filter(Boolean));
+};
+
+export const getArchiveCityOptions = (
+  entries: GhostArchiveEntry[] = GHOST_ARCHIVE_ENTRIES,
+  province?: string
+): string[] => {
+  const normalizedProvince = normalize(province ?? "");
+
+  const provinceScopedEntries =
+    normalizedProvince.length === 0
+      ? entries
+      : entries.filter((entry) => normalize(entry.province) === normalizedProvince);
+
+  return getUniqueValues(provinceScopedEntries.map((e) => e.city ?? "").filter(Boolean));
 };

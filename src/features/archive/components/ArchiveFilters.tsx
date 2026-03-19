@@ -12,38 +12,47 @@ type ArchiveFiltersProps = {
   searchValue: string;
   selectedCategory: ArchiveFilterCategory;
   selectedCountry: string;
-  selectedRegion: string;
+  selectedProvince: string;
+  selectedCity: string;
   hasActiveFilters: boolean;
   activeFilterCount: number;
   categoryOptions: string[];
   countryOptions: string[];
-  regionOptions: string[];
+  provinceOptions: string[];
+  cityOptions: string[];
   onSearchChange: (value: string) => void;
   onCategoryChange: (category: ArchiveFilterCategory) => void;
   onCountryChange: (country: string) => void;
-  onRegionChange: (region: string) => void;
+  onProvinceChange: (province: string) => void;
+  onCityChange: (city: string) => void;
   onResetFilters: () => void;
+  totalEntries: number;
 };
 
 export function ArchiveFilters({
   searchValue,
   selectedCategory,
   selectedCountry,
-  selectedRegion,
+  selectedProvince,
+  selectedCity,
   hasActiveFilters,
   activeFilterCount,
   categoryOptions,
   countryOptions,
-  regionOptions,
+  provinceOptions,
+  cityOptions,
   onSearchChange,
   onCategoryChange,
   onCountryChange,
-  onRegionChange,
-  onResetFilters
+  onProvinceChange,
+  onCityChange,
+  onResetFilters,
+  totalEntries
 }: ArchiveFiltersProps) {
   const categories = [ALL_CATEGORY_FILTER, ...categoryOptions];
   const countries = [ALL_COUNTRY_FILTER, ...countryOptions];
-  const regions = [ALL_REGION_FILTER, ...regionOptions];
+  const provinces = [ALL_REGION_FILTER, ...provinceOptions];
+  const cities = ["Semua Kota", ...cityOptions];
 
   return (
     <section className="space-y-5 rounded-2xl border border-zinc-800 bg-[linear-gradient(160deg,rgba(24,24,27,0.94),rgba(9,9,11,0.95))] p-5 shadow-[0_12px_30px_-20px_rgba(0,0,0,0.9)]">
@@ -90,7 +99,7 @@ export function ArchiveFilters({
         </label>
       </div>
 
-      <div className="grid gap-3 md:grid-cols-2">
+      <div className="grid gap-3 md:grid-cols-3">
         <label className="group relative block overflow-hidden rounded-xl border border-zinc-700 bg-zinc-900/75 transition focus-within:border-red-400/45 focus-within:shadow-[0_0_0_1px_rgba(248,113,113,0.22)]">
           <Globe2 className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500 transition group-focus-within:text-red-300" />
           <select
@@ -110,13 +119,30 @@ export function ArchiveFilters({
         <label className="group relative block overflow-hidden rounded-xl border border-zinc-700 bg-zinc-900/75 transition focus-within:border-red-400/45 focus-within:shadow-[0_0_0_1px_rgba(248,113,113,0.22)]">
           <MapPin className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500 transition group-focus-within:text-red-300" />
           <select
-            value={selectedRegion}
-            onChange={(event) => onRegionChange(event.target.value)}
+            value={selectedProvince}
+            onChange={(event) => onProvinceChange(event.target.value)}
             className="w-full appearance-none bg-transparent py-3 pl-10 pr-10 text-sm text-zinc-100 outline-none"
           >
-            {regions.map((region) => (
-              <option key={region} value={region} className="bg-zinc-900 text-zinc-100">
-                {region}
+            {provinces.map((province) => (
+              <option key={province} value={province} className="bg-zinc-900 text-zinc-100">
+                {province}
+              </option>
+            ))}
+          </select>
+          <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
+        </label>
+
+        <label className={`group relative block overflow-hidden rounded-xl border border-zinc-700 bg-zinc-900/75 transition ${selectedProvince === ALL_REGION_FILTER ? "opacity-50" : ""} focus-within:border-red-400/45 focus-within:shadow-[0_0_0_1px_rgba(248,113,113,0.22)]`}>
+          <MapPin className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500 transition group-focus-within:text-red-300" />
+          <select
+            value={selectedCity}
+            onChange={(event) => onCityChange(event.target.value)}
+            disabled={selectedProvince === ALL_REGION_FILTER}
+            className="w-full appearance-none bg-transparent py-3 pl-10 pr-10 text-sm text-zinc-100 outline-none disabled:cursor-not-allowed"
+          >
+            {cities.map((city) => (
+              <option key={city} value={city} className="bg-zinc-900 text-zinc-100">
+                {city}
               </option>
             ))}
           </select>
@@ -126,7 +152,7 @@ export function ArchiveFilters({
 
       {hasActiveFilters && (
         <div className="flex flex-wrap gap-2">
-          {searchValue.trim().length > 0 && (
+           {searchValue.trim().length > 0 && (
             <span className="rounded-full border border-zinc-700 bg-zinc-900/75 px-3 py-1 text-[10px] uppercase tracking-[0.1em] text-zinc-300">
               Kata kunci: {searchValue.trim()}
             </span>
@@ -136,9 +162,14 @@ export function ArchiveFilters({
               Negara: {selectedCountry}
             </span>
           )}
-          {selectedRegion !== ALL_REGION_FILTER && (
+          {selectedProvince !== ALL_REGION_FILTER && (
             <span className="rounded-full border border-zinc-700 bg-zinc-900/75 px-3 py-1 text-[10px] uppercase tracking-[0.1em] text-zinc-300">
-              Daerah: {selectedRegion}
+              Provinsi: {selectedProvince}
+            </span>
+          )}
+          {selectedCity !== "Semua Kota" && (
+            <span className="rounded-full border border-zinc-700 bg-zinc-900/75 px-3 py-1 text-[10px] uppercase tracking-[0.1em] text-zinc-300">
+              Kota: {selectedCity}
             </span>
           )}
           {selectedCategory !== ALL_CATEGORY_FILTER && (
@@ -149,25 +180,35 @@ export function ArchiveFilters({
         </div>
       )}
 
-      <div className="flex flex-wrap gap-2.5">
-        {categories.map((category) => {
-          const isActive = selectedCategory === category;
+      <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap gap-2.5">
+          {categories.map((category) => {
+            const isActive = selectedCategory === category;
 
-          return (
-            <button
-              key={category}
-              type="button"
-              onClick={() => onCategoryChange(category)}
-              className={`rounded-full border px-4 py-2 text-xs font-semibold tracking-[0.08em] transition ${
-                isActive
-                  ? "border-red-300/45 bg-red-500/16 text-red-100 shadow-[0_0_0_1px_rgba(248,113,113,0.22)]"
-                  : "border-zinc-700 bg-zinc-900/70 text-zinc-300 hover:border-zinc-500 hover:text-zinc-100"
-              }`}
-            >
-              {category}
-            </button>
-          );
-        })}
+            return (
+              <button
+                key={category}
+                type="button"
+                onClick={() => onCategoryChange(category)}
+                className={`group relative overflow-hidden rounded-full border px-4 py-2 text-xs font-semibold tracking-[0.08em] transition-all duration-300 ${
+                  isActive
+                    ? "border-red-400/60 bg-red-600/20 text-red-100 shadow-[0_0_12px_rgba(248,113,113,0.3)]"
+                    : "border-zinc-700 bg-zinc-900/70 text-zinc-300 hover:scale-[1.03] hover:border-red-400/40 hover:bg-zinc-800 hover:text-zinc-100 hover:shadow-[0_0_10px_rgba(220,38,38,0.2)]"
+                }`}
+              >
+                {/* Subtle shine effect on hover */}
+                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-500 group-hover:translate-x-full"></span>
+                <span className="relative">{category}</span>
+              </button>
+            );
+          })}
+        </div>
+        
+        <div className="ml-auto rounded-xl border border-zinc-800/80 bg-black/40 px-3 py-1.5 backdrop-blur-sm">
+           <p className="text-xs font-medium text-zinc-300">
+            <span className="text-red-400 font-bold">{totalEntries}</span> entitas
+           </p>
+        </div>
       </div>
     </section>
   );

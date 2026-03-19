@@ -37,6 +37,25 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
   const [scrollY, setScrollY] = useState(0);
   const [activeGalleryIndex, setActiveGalleryIndex] = useState(0);
   const [reportSortMode, setReportSortMode] = useState<ReportSortMode>("latest");
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    let rafId = 0;
+    const handleMouseMove = (e: MouseEvent) => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        setMousePos({
+          x: (e.clientX / window.innerWidth) * 20 - 10,
+          y: (e.clientY / window.innerHeight) * 20 - 10,
+        });
+      });
+    };
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
 
   useEffect(() => {
     let rafId = 0;
@@ -137,7 +156,12 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
   );
 
   return (
-    <main className="min-h-screen bg-[radial-gradient(95%_70%_at_90%_0%,rgba(127,29,29,0.34),transparent_50%),radial-gradient(80%_60%_at_0%_30%,rgba(91,33,182,0.2),transparent_54%),#000] px-6 py-8 text-zinc-100 md:px-10">
+    <main 
+      className="min-h-screen px-6 py-8 text-zinc-100 md:px-10 transition-colors duration-300"
+      style={{
+        background: `radial-gradient(95% 70% at ${90 + mousePos.x}% ${mousePos.y}%, rgba(127,29,29,0.28), transparent 50%), radial-gradient(80% 60% at ${mousePos.x}% ${30 + mousePos.y}%, rgba(91,33,182,0.18), transparent 54%), #000`
+      }}
+    >
       <div className="mx-auto max-w-6xl space-y-8">
         <header className="relative space-y-5 overflow-hidden rounded-2xl border border-red-500/28 bg-zinc-950/82 p-6 shadow-[0_32px_80px_-40px_rgba(220,38,38,0.55)]">
           <div className="pointer-events-none absolute -right-28 top-[-8rem] h-[26rem] w-[26rem] rounded-full bg-red-500/42 blur-3xl animate-pulse" />
@@ -147,117 +171,112 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
           <div className="pointer-events-none absolute inset-0 opacity-[0.1] [background-image:repeating-linear-gradient(0deg,rgba(255,255,255,0.1)_0_1px,transparent_1px_3px)]" />
           <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_180px_rgba(0,0,0,0.78)]" />
 
-          <div className="relative z-10 space-y-5">
+          <div className="relative z-10 space-y-6">
             <Link
               href="/ghost-archive"
-              className="inline-flex items-center text-sm text-zinc-300 transition duration-300 ease-out hover:text-red-300"
+              className="group inline-flex items-center text-sm text-zinc-300 transition duration-300 ease-out hover:-translate-x-1 hover:text-red-400"
             >
-              &larr; Kembali ke Arsip
+              &larr; <span className="ml-1">Kembali ke Arsip</span>
             </Link>
 
-            <div className="space-y-5">
-              <div className="relative h-[22rem] overflow-hidden rounded-2xl border border-red-500/28 sm:h-[30rem] lg:h-[34rem]">
-                <div className="absolute inset-0 [animation:archiveHeroDrift_10s_ease-in-out_infinite_alternate] will-change-transform">
-                  <Image
-                    src={entry.mainImage}
-                    alt={entry.name}
-                    fill
-                    className="object-cover object-top brightness-[1.02] contrast-[1.22] saturate-[1.08] will-change-transform"
-                    style={{
-                      transform: `translate3d(${heroTranslateX}px,${heroTranslateY}px,0) scale(${heroScale})`
-                    }}
-                    sizes="100vw"
+            <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
+              <div className="order-2 space-y-6 lg:order-1">
+                <div className="space-y-4 rounded-2xl border border-red-400/30 bg-[linear-gradient(155deg,rgba(7,7,9,0.56),rgba(7,7,9,0.86))] p-5 shadow-[0_34px_66px_-28px_rgba(0,0,0,0.98),0_0_0_1px_rgba(239,68,68,0.15)] backdrop-blur-lg sm:p-6">
+                  <div className="h-px w-32 bg-gradient-to-r from-red-400/100 via-purple-400/70 to-transparent shadow-[0_0_16px_rgba(248,113,113,0.58)]" />
+                  <p className="text-xs uppercase tracking-[0.2em] text-zinc-300/90">
+                    {entry.category}
+                  </p>
+                  <h1 className="text-3xl font-semibold text-zinc-100 sm:text-4xl lg:text-5xl drop-shadow-md">
+                    {entry.name}
+                  </h1>
+                  {aliases.length > 0 ? (
+                    <p className="text-xs uppercase tracking-[0.12em] text-zinc-300/85">
+                      Alias: {aliases.join(" | ")}
+                    </p>
+                  ) : null}
+                  <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.12em] text-zinc-300/90">
+                    <span className="rounded-full border border-zinc-600/70 bg-black/45 px-3 py-1.5">
+                      {meta.country}
+                    </span>
+                    <span className="rounded-full border border-zinc-600/70 bg-black/45 px-3 py-1.5">
+                      {meta.regionLabel}
+                    </span>
+                    <span className="rounded-full border border-zinc-600/70 bg-black/45 px-3 py-1.5">
+                      Asal: {entry.origin}
+                    </span>
+                    {meta.era ? (
+                      <span className="rounded-full border border-zinc-600/70 bg-black/45 px-3 py-1.5">
+                        Era: {meta.era}
+                      </span>
+                    ) : null}
+                    {meta.sourceType ? (
+                      <span className="rounded-full border border-zinc-600/70 bg-black/45 px-3 py-1.5">
+                        Sumber: {meta.sourceType}
+                      </span>
+                    ) : null}
+                  </div>
+                  <DangerLevelBadge
+                    dangerLevel={entry.dangerLevel}
+                    className="border-red-400/58 bg-black/58 backdrop-blur-sm"
                   />
                 </div>
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/54 via-black/44 to-black/95" />
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/95 via-black/72 to-transparent" />
-                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(95%_88%_at_86%_12%,rgba(220,38,38,0.4),transparent_50%)]" />
-                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(90%_76%_at_14%_100%,rgba(126,34,206,0.3),transparent_62%)]" />
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-44 bg-[radial-gradient(80%_100%_at_50%_100%,rgba(255,255,255,0.12),transparent_70%)] opacity-35 blur-xl" />
-                <div className="pointer-events-none absolute inset-0 opacity-[0.08] [background-image:repeating-linear-gradient(0deg,rgba(255,255,255,0.1)_0_1px,transparent_1px_3px)]" />
-                <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_180px_rgba(0,0,0,0.86)]" />
 
-                <div className="absolute inset-x-0 bottom-0 z-10 p-5 sm:p-7">
-                  <div className="space-y-4 rounded-2xl border border-red-400/62 bg-[linear-gradient(155deg,rgba(7,7,9,0.56),rgba(7,7,9,0.86))] p-4 backdrop-blur-lg shadow-[0_34px_66px_-28px_rgba(0,0,0,0.98),0_0_0_1px_rgba(239,68,68,0.34),0_0_34px_rgba(239,68,68,0.3)] sm:max-w-4xl sm:p-5">
-                    <div className="h-px w-32 bg-gradient-to-r from-red-400/100 via-purple-400/70 to-transparent shadow-[0_0_16px_rgba(248,113,113,0.58)]" />
-                    <p className="text-xs uppercase tracking-[0.2em] text-zinc-300/90">
-                      {entry.category}
-                    </p>
-                    <h1 className="text-3xl font-semibold text-zinc-100 sm:text-4xl lg:text-5xl">
-                      {entry.name}
-                    </h1>
-                    {aliases.length > 0 ? (
-                      <p className="text-xs uppercase tracking-[0.12em] text-zinc-300/85">
-                        Alias: {aliases.join(" | ")}
-                      </p>
-                    ) : null}
-                    <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.12em] text-zinc-300/90">
-                      <span className="rounded-full border border-zinc-600/70 bg-black/45 px-3 py-1">
-                        {meta.country}
-                      </span>
-                      <span className="rounded-full border border-zinc-600/70 bg-black/45 px-3 py-1">
-                        {meta.regionLabel}
-                      </span>
-                      <span className="rounded-full border border-zinc-600/70 bg-black/45 px-3 py-1">
-                        Asal: {entry.origin}
-                      </span>
-                      {meta.era ? (
-                        <span className="rounded-full border border-zinc-600/70 bg-black/45 px-3 py-1">
-                          Era: {meta.era}
+                <div className="rounded-xl border border-red-500/30 bg-[linear-gradient(160deg,rgba(24,24,27,0.7),rgba(9,9,11,0.95))] p-5 shadow-[0_30px_58px_-30px_rgba(220,38,38,0.2),inset_0_1px_0_rgba(244,63,94,0.1)] sm:p-6">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-zinc-400">
+                    Sejarah dan Asal Usul
+                  </p>
+                  <div className="mt-3 mb-4 h-px w-24 bg-gradient-to-r from-red-400/80 via-purple-400/40 to-transparent" />
+                  {evidenceTags.length > 0 ? (
+                    <div className="mb-4 flex flex-wrap gap-2">
+                      {evidenceTags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full border border-zinc-700/80 bg-zinc-900/80 px-2.5 py-1 text-[10px] uppercase tracking-[0.12em] text-zinc-300"
+                        >
+                          {tag}
                         </span>
-                      ) : null}
-                      {meta.sourceType ? (
-                        <span className="rounded-full border border-zinc-600/70 bg-black/45 px-3 py-1">
-                          Sumber: {meta.sourceType}
-                        </span>
-                      ) : null}
+                      ))}
                     </div>
-                    <DangerLevelBadge
-                      dangerLevel={entry.dangerLevel}
-                      className="border-red-400/58 bg-black/58 backdrop-blur-sm"
-                    />
+                  ) : null}
+                  <div className="space-y-4">
+                    <p className="text-sm leading-relaxed text-zinc-300 font-medium italic border-l-2 border-red-500/50 pl-3">
+                      {entry.summary}
+                    </p>
+                    <p className="text-sm leading-relaxed text-zinc-300/90 whitespace-pre-wrap">
+                      {entry.history.join("\n\n")}
+                    </p>
                   </div>
                 </div>
               </div>
 
-              <div className="rounded-xl border border-red-500/52 bg-[linear-gradient(160deg,rgba(24,24,27,0.9),rgba(9,9,11,0.99))] p-4 shadow-[0_30px_58px_-30px_rgba(220,38,38,0.62),inset_0_1px_0_rgba(244,63,94,0.28)]">
-                <p className="text-[10px] uppercase tracking-[0.16em] text-zinc-500">
-                  Artifact Dossier
-                </p>
-                <div className="mt-2 h-px w-36 bg-gradient-to-r from-red-400/100 via-purple-400/65 to-transparent shadow-[0_0_16px_rgba(248,113,113,0.56)]" />
-                {evidenceTags.length > 0 ? (
-                  <div className="mb-3 mt-3 flex flex-wrap gap-2">
-                    {evidenceTags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full border border-zinc-700 bg-zinc-900/75 px-2.5 py-1 text-[10px] uppercase tracking-[0.12em] text-zinc-300"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+              <div className="order-1 lg:order-2">
+                <div className="relative h-[24rem] w-full overflow-hidden rounded-2xl border border-red-500/20 shadow-2xl sm:h-[32rem] lg:h-[40rem]">
+                  <div className="absolute inset-0 [animation:archiveHeroDrift_10s_ease-in-out_infinite_alternate] will-change-transform">
+                    <Image
+                      src={entry.mainImage}
+                      alt={entry.name}
+                      fill
+                      className="object-cover object-top brightness-[1.05] contrast-[1.2] saturate-[1.1] will-change-transform"
+                      style={{
+                        transform: `translate3d(${heroTranslateX}px,${heroTranslateY}px,0) scale(${heroScale})`
+                      }}
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                    />
                   </div>
-                ) : null}
-                <p className="max-w-3xl leading-relaxed text-zinc-200">{entry.summary}</p>
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
+                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)]" />
+                  <div className="pointer-events-none absolute inset-0 opacity-[0.15] [background-image:repeating-linear-gradient(0deg,rgba(255,255,255,0.1)_0_1px,transparent_1px_3px)]" />
+                  <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_80px_rgba(0,0,0,0.8)]" />
+                </div>
               </div>
             </div>
           </div>
         </header>
 
-        <section className="grid gap-6 lg:grid-cols-2">
-          <SectionWrapper title="Riwayat">
-            <ul className="space-y-3 text-sm leading-relaxed text-zinc-300">
-              {entry.history.map((item) => (
-                <li
-                  key={item}
-                  className="rounded-lg border border-zinc-800/80 bg-zinc-900/50 p-3"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </SectionWrapper>
-
-          <SectionWrapper title="Kemampuan">
+        {/* Riwayat was moved into Sejarah dan Asal Usul so this section grid reduces to 3 items */}
+        <section className="grid gap-6 lg:grid-cols-3">
+          <div className="lg:col-span-1">
+            <SectionWrapper title="Kemampuan">
             <ul className="space-y-2 text-sm text-zinc-300">
               {entry.abilities.map((item) => (
                 <li
@@ -268,9 +287,11 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
                 </li>
               ))}
             </ul>
-          </SectionWrapper>
+            </SectionWrapper>
+          </div>
 
-          <SectionWrapper title="Kelemahan">
+          <div className="lg:col-span-1">
+            <SectionWrapper title="Kelemahan">
             <ul className="space-y-2 text-sm text-zinc-300">
               {entry.weaknesses.map((item) => (
                 <li
@@ -281,9 +302,11 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
                 </li>
               ))}
             </ul>
-          </SectionWrapper>
+            </SectionWrapper>
+          </div>
 
-          <SectionWrapper title="Zona Rawan">
+          <div className="lg:col-span-1">
+            <SectionWrapper title="Zona Rawan">
             <div className="flex flex-wrap gap-2">
               {entry.dangerZones.map((zone) => (
                 <span
@@ -294,7 +317,8 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
                 </span>
               ))}
             </div>
-          </SectionWrapper>
+            </SectionWrapper>
+          </div>
         </section>
 
         <SectionWrapper title="Galeri" tone="featured">
@@ -422,20 +446,22 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
                       </span>
                     </div>
 
-                    <p className="mt-2 text-sm leading-relaxed text-zinc-300">{report.report}</p>
-
                     {report.credibilityScore >= 85 ? (
                       <div className="mt-3 ml-2 border-l border-red-400/30 pl-3">
-                        <p className="text-[10px] uppercase tracking-[0.12em] text-zinc-500">
-                          @arsip_editor
-                        </p>
-                        <p className="mt-1 text-xs text-zinc-400">
-                          Laporan diprioritaskan untuk verifikasi lapangan lanjutan.
-                        </p>
-                      </div>
-                    ) : null}
-                  </article>
-                ))}
+                      <p className="text-[10px] uppercase tracking-[0.12em] text-zinc-500">
+                        @arsip_editor
+                      </p>
+                      <p className="mt-1 text-xs text-zinc-400">
+                        Laporan diprioritaskan untuk verifikasi lapangan lanjutan.
+                      </p>
+                    </div>
+                  ) : null}
+
+                  <p className="mt-4 text-sm leading-relaxed text-zinc-200 font-mono tracking-wide bg-black/20 p-3 rounded-lg border border-zinc-800 italic">
+                    {report.report}
+                  </p>
+                </article>
+              ))}
               </div>
             </div>
           </div>

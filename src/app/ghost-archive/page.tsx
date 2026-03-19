@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useMemo, useState } from "react";
 import { ArchiveGrid } from "@/features/archive/components/ArchiveGrid";
@@ -14,7 +14,8 @@ import {
   getAllGhostEntries,
   getArchiveCategoryOptions,
   getArchiveCountryOptions,
-  getArchiveRegionOptions,
+  getArchiveProvinceOptions,
+  getArchiveCityOptions,
   getGhostEntriesByFilters
 } from "@/features/archive/utils/archiveHelpers";
 
@@ -23,18 +24,30 @@ export default function GhostArchivePage() {
   const [selectedCategory, setSelectedCategory] =
     useState<ArchiveFilterCategory>(ALL_CATEGORY_FILTER);
   const [selectedCountry, setSelectedCountry] = useState(ALL_COUNTRY_FILTER);
-  const [selectedRegion, setSelectedRegion] = useState(ALL_REGION_FILTER);
+  const [selectedProvince, setSelectedProvince] = useState(ALL_REGION_FILTER); // Reusing ALL_REGION_FILTER as "Semua Daerah"
+  const [selectedCity, setSelectedCity] = useState("Semua Kota");
 
   const entries = useMemo(() => getAllGhostEntries(), []);
   const categoryOptions = useMemo(() => getArchiveCategoryOptions(entries), [entries]);
-  const countryOptions = useMemo(() => getArchiveCountryOptions(entries), [entries]);
+  const dataCountryOptions = useMemo(() => getArchiveCountryOptions(entries), [entries]);
+
+  // Combine fixed countries with any missing from data
+  const fixedCountries = ["Indonesia", "Jepang", "Filipina", "Korea", "Thailand", "Malaysia", "Amerika Serikat", "Meksiko", "Inggris", "Spanyol", "Arab Saudi", "Brasil", "India", "Turki"];
+  const countryOptions = useMemo(() => Array.from(new Set([...fixedCountries, ...dataCountryOptions])), [dataCountryOptions]);
 
   const selectedCountryFilter =
     selectedCountry === ALL_COUNTRY_FILTER ? undefined : selectedCountry;
+  const selectedProvinceFilter = 
+    selectedProvince === ALL_REGION_FILTER ? undefined : selectedProvince;
 
-  const regionOptions = useMemo(
-    () => getArchiveRegionOptions(entries, selectedCountryFilter),
+  const provinceOptions = useMemo(
+    () => getArchiveProvinceOptions(entries, selectedCountryFilter),
     [entries, selectedCountryFilter]
+  );
+
+  const cityOptions = useMemo(
+    () => getArchiveCityOptions(entries, selectedProvinceFilter),
+    [entries, selectedProvinceFilter]
   );
 
   const filteredEntries = useMemo(() => {
@@ -43,33 +56,43 @@ export default function GhostArchivePage() {
       category:
         selectedCategory === ALL_CATEGORY_FILTER ? undefined : selectedCategory,
       country: selectedCountryFilter,
-      region: selectedRegion === ALL_REGION_FILTER ? undefined : selectedRegion
+      province: selectedProvinceFilter,
+      city: selectedCity === "Semua Kota" ? undefined : selectedCity
     });
-  }, [searchValue, selectedCategory, selectedCountryFilter, selectedRegion]);
+  }, [searchValue, selectedCategory, selectedCountryFilter, selectedProvinceFilter, selectedCity]);
 
   const hasActiveFilters =
     searchValue.trim().length > 0 ||
     selectedCategory !== ALL_CATEGORY_FILTER ||
     selectedCountry !== ALL_COUNTRY_FILTER ||
-    selectedRegion !== ALL_REGION_FILTER;
+    selectedProvince !== ALL_REGION_FILTER ||
+    selectedCity !== "Semua Kota";
 
   const activeFilterCount = [
     searchValue.trim().length > 0,
     selectedCategory !== ALL_CATEGORY_FILTER,
     selectedCountry !== ALL_COUNTRY_FILTER,
-    selectedRegion !== ALL_REGION_FILTER
+    selectedProvince !== ALL_REGION_FILTER,
+    selectedCity !== "Semua Kota"
   ].filter(Boolean).length;
 
   const handleCountryChange = (country: string) => {
     setSelectedCountry(country);
-    setSelectedRegion(ALL_REGION_FILTER);
+    setSelectedProvince(ALL_REGION_FILTER);
+    setSelectedCity("Semua Kota");
+  };
+  
+  const handleProvinceChange = (province: string) => {
+    setSelectedProvince(province);
+    setSelectedCity("Semua Kota");
   };
 
   const handleResetFilters = () => {
     setSearchValue("");
     setSelectedCategory(ALL_CATEGORY_FILTER);
     setSelectedCountry(ALL_COUNTRY_FILTER);
-    setSelectedRegion(ALL_REGION_FILTER);
+    setSelectedProvince(ALL_REGION_FILTER);
+    setSelectedCity("Semua Kota");
   };
 
   return (
@@ -84,17 +107,21 @@ export default function GhostArchivePage() {
           searchValue={searchValue}
           selectedCategory={selectedCategory}
           selectedCountry={selectedCountry}
-          selectedRegion={selectedRegion}
+          selectedProvince={selectedProvince}
+          selectedCity={selectedCity}
           hasActiveFilters={hasActiveFilters}
           activeFilterCount={activeFilterCount}
           categoryOptions={categoryOptions}
           countryOptions={countryOptions}
-          regionOptions={regionOptions}
+          provinceOptions={provinceOptions}
+          cityOptions={cityOptions}
           onSearchChange={setSearchValue}
           onCategoryChange={setSelectedCategory}
           onCountryChange={handleCountryChange}
-          onRegionChange={setSelectedRegion}
+          onProvinceChange={handleProvinceChange}
+          onCityChange={setSelectedCity}
           onResetFilters={handleResetFilters}
+          totalEntries={filteredEntries.length}
         />
 
         <ArchiveGrid entries={filteredEntries} />
