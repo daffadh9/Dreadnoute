@@ -12,6 +12,11 @@ export type GhostArchiveReport = {
   report: string;
 };
 
+export type ArchiveGalleryImage = {
+  url: string;
+  caption: string;
+};
+
 export type GhostArchiveEntry = {
   id: string;
   slug: string;
@@ -34,6 +39,6 @@ export type GhostArchiveEntry = {
   dangerZones: string[];
   survivalGuide?: string[];
   mainImage: string;
-  gallery: string[];
+  gallery: string[] | ArchiveGalleryImage[];
   reports: GhostArchiveReport[];
 };

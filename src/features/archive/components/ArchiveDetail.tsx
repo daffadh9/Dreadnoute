@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, ChevronLeft, ChevronRight, FolderLock, ShieldAlert, Radar, Zap, ShieldCheck, MapPin, Target, TrendingUp, CheckCircle2, FileText, BookOpen, Eye, Activity, Brain, Users } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, FolderLock, ShieldAlert, Radar, Zap, ShieldCheck, MapPin, Target, TrendingUp, CheckCircle2, FileText, BookOpen, Eye, Activity, Brain, Users, X, ZoomIn, ZoomOut } from "lucide-react";
 import type { GhostArchiveEntry } from "../types/archive";
 import {
   getArchiveAlias,
@@ -61,6 +61,7 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
   const [scrollY, setScrollY] = useState(0);
   const [reportSortMode, setReportSortMode] = useState<ReportSortMode>("latest");
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [selectedImage, setSelectedImage] = useState<{url: string, caption: string} | null>(null);
 
   useEffect(() => {
     let rafId = 0;
@@ -427,32 +428,70 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
               ref={galleryRef}
               className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth"
             >
-              {entry.gallery.map((imagePath, index) => (
-                <div
-                  key={`${entry.id}-gallery-${index}`}
-                  className="group relative h-64 w-[85vw] shrink-0 snap-center overflow-hidden rounded-xl border border-zinc-800/80 bg-zinc-950/60 shadow-md transition duration-500 hover:border-red-500/60 sm:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-0.7rem)]"
-                >
-                  <Image
-                    src={imagePath}
-                    alt={`${entry.name} galeri visual ${index + 1}`}
-                    fill
-                    className="object-cover transition duration-700 ease-out group-hover:scale-110 group-hover:brightness-110"
-                    sizes="(max-width: 768px) 80vw, (max-width: 1024px) 50vw, 30vw"
-                  />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-60 transition duration-500 group-hover:from-black/95 group-hover:opacity-100" />
-                  <div className="absolute inset-x-0 bottom-0 translate-y-3 p-4 opacity-0 transition duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100">
-                    <p className="text-[10px] font-mono tracking-[0.2em] text-red-400 uppercase">
-                      [ RECORD {index + 1} ]
-                    </p>
-                    <p className="mt-1 text-xs text-zinc-300">
-                      Dokumentasi {entry.name} tertangkap kamera investigasi di lapangan.
-                    </p>
+              {entry.gallery.map((item, index) => {
+                const isObject = typeof item !== 'string';
+                const url = isObject ? item.url : item;
+                const caption = isObject ? item.caption : `Dokumentasi ${entry.name} tertangkap kamera investigasi di lapangan.`;
+
+                return (
+                  <div
+                    key={`${entry.id}-gallery-${index}`}
+                    onClick={() => setSelectedImage({ url, caption })}
+                    className="group relative h-64 w-[85vw] shrink-0 cursor-zoom-in snap-center overflow-hidden rounded-xl border border-zinc-800/80 bg-zinc-950/60 shadow-md transition duration-500 hover:border-red-500/60 sm:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-0.7rem)]"
+                  >
+                    <Image
+                      src={url}
+                      alt={`${entry.name} galeri visual ${index + 1}`}
+                      fill
+                      className="object-cover transition duration-700 ease-out group-hover:scale-110 group-hover:brightness-110"
+                      sizes="(max-width: 768px) 80vw, (max-width: 1024px) 50vw, 30vw"
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-60 transition duration-500 group-hover:from-black/95 group-hover:opacity-100" />
+                    <div className="absolute inset-x-0 bottom-0 translate-y-3 p-4 opacity-0 transition duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100">
+                      <p className="text-[10px] font-mono tracking-[0.2em] text-red-400 uppercase">
+                        [ RECORD {index + 1} ]
+                      </p>
+                      <p className="mt-1 text-xs text-zinc-300 line-clamp-2">
+                        {caption}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
+
+        {/* Gallery Zoom Modal */}
+        {selectedImage && (
+          <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/95 backdrop-blur-md transition-all animate-in fade-in duration-300">
+            <button 
+              onClick={() => setSelectedImage(null)}
+              className="absolute right-6 top-6 z-[110] flex h-12 w-12 items-center justify-center rounded-full bg-zinc-900 border border-zinc-800 text-white hover:bg-zinc-800 transition-colors"
+            >
+              <X className="h-6 w-6" />
+            </button>
+            
+            <div className="relative h-[70vh] w-[90vw] max-w-5xl overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950 shadow-2xl">
+              <Image
+                src={selectedImage.url}
+                alt="Selected"
+                fill
+                className="object-contain"
+                sizes="90vw"
+              />
+            </div>
+            
+            <div className="mt-6 max-w-3xl px-6 text-center">
+              <p className="text-zinc-100 text-lg font-medium">
+                {selectedImage.caption}
+              </p>
+              <p className="mt-2 text-zinc-500 text-xs uppercase tracking-[0.2em]">
+                Archives // Classified // {entry.id}
+              </p>
+            </div>
+          </div>
+        )}
 
         <SectionWrapper title="Laporan Saksi" icon={<TrendingUp className="h-5 w-5" />} tone="featured">
           <div className="space-y-4">

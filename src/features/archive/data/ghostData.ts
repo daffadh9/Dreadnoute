@@ -83,10 +83,11 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
     ],
     mainImage: "/images/ghost-archive/NYI RORO KIDUL/NYI RORO KIDUL - hero.jpg",
     gallery: [
-      "/images/ghost-archive/NYI RORO KIDUL/Gallery 1.png",
-      "/images/ghost-archive/NYI RORO KIDUL/Gallery 3.png",
-      "/images/ghost-archive/NYI RORO KIDUL/Gallery 4.png",
-      "/images/ghost-archive/NYI RORO KIDUL/Gallery 6.png"
+      { url: "/images/ghost-archive/NYI RORO KIDUL/Gallery 1.png", caption: "Manifestasi energi ektoplasma hijau yang muncul sesaat sebelum gelombang pasang ekstrem di Parangtritis." },
+      { url: "/images/ghost-archive/NYI RORO KIDUL/Gallery 3.png", caption: "Formasi awan aneh yang menyerupai siluet kereta kencana, tertangkap kamera drone di pesisir selatan." },
+      { url: "/images/ghost-archive/NYI RORO KIDUL/Gallery 4.png", caption: "Sisa ritual sesaji yang hancur dalam hitungan detik setelah diletakkan di bibir pantai Pelabuhan Ratu." },
+      { url: "/images/ghost-archive/NYI RORO KIDUL/Gallery 6.png", caption: "Bayangan wanita berbusana kemben hijau yang berdiri tegak di atas buih ombak laut ganas." },
+      { url: "/images/ghost-archive/NYI RORO KIDUL/Gallery 7.jpg", caption: "Arsip rahasia 1994: Penampakan armada dayang keraton selatan di tengah badai kabut tebal." }
     ],
     reports: [
       {
@@ -188,10 +189,10 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
     ],
     mainImage: "/images/ghost-archive/KUNTILANAK/Kuntilanak -- hero.png",
     gallery: [
-      "/images/ghost-archive/KUNTILANAK/Gallery 1.png",
-      "/images/ghost-archive/KUNTILANAK/Gallery 3.png",
-      "/images/ghost-archive/KUNTILANAK/Gallery 4.png",
-      "/images/ghost-archive/KUNTILANAK/gallery 6.png"
+      { url: "/images/ghost-archive/KUNTILANAK/Gallery 1.png", caption: "Siluet wanita berambut panjang mengintip dari balik pohon beringin tua saat observasi malam." },
+      { url: "/images/ghost-archive/KUNTILANAK/Gallery 3.png", caption: "Rekaman CCTV menunjukkan distorsi statik bertepatan dengan aroma melati yang menyengat di lorong apartemen." },
+      { url: "/images/ghost-archive/KUNTILANAK/Gallery 4.png", caption: "Penampakan daster putih kusam yang melayang di ketinggian 5 meter tanpa penyangga fisik." },
+      { url: "/images/ghost-archive/KUNTILANAK/gallery 6.png", caption: "Detail wajah pucat dengan bola mata mendelik terbalik, tertangkap oleh tim investigasi teknis Bandung." }
     ],
     reports: [
       {
@@ -293,10 +294,10 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
     ],
     mainImage: "/images/ghost-archive/POCONG/POCONG - Hero.png",
     gallery: [
-      "/images/ghost-archive/POCONG/Galery 1.png",
-      "/images/ghost-archive/POCONG/Galery 2.png",
-      "/images/ghost-archive/POCONG/Gallery 3.png",
-      "/images/ghost-archive/POCONG/Gallery 4.png"
+      { url: "/images/ghost-archive/POCONG/Galery 1.png", caption: "Objek putih asimetris tertangkap sedang melompat di antara nisan blok utara pemakaman." },
+      { url: "/images/ghost-archive/POCONG/Galery 2.png", caption: "Detail kain kafan usang yang basah dan bersimbah tanah liat, ditemukan di lokasi kejadian." },
+      { url: "/images/ghost-archive/POCONG/Gallery 3.png", caption: "Anomali visual menyerupai guling berdiri yang menghilang saat sorot lampu senter diarahkan langsung." },
+      { url: "/images/ghost-archive/POCONG/Gallery 4.png", caption: "Rekaman thermal menunjukkan lonjakan suhu dingin ekstrem di titik kemunculan entitas kafan." }
     ],
     reports: [
       {
@@ -515,10 +516,10 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
     ],
     mainImage: "/images/ghost-archive/JERUK PURUT/Jeruk Purut - Hero.jpg",
     gallery: [
-      "/images/ghost-archive/JERUK PURUT/Gallery 2.jpg",
-      "/images/ghost-archive/JERUK PURUT/Gallery 3.png",
-      "/images/ghost-archive/JERUK PURUT/Gallery 4.png",
-      "/images/ghost-archive/JERUK PURUT/Gallery 5.jpg"
+      { url: "/images/ghost-archive/JERUK PURUT/Gallery 2.jpg", caption: "Penampakan anjing hitam gaib dengan mata merah menyala di dekat gerbang makam Kristen." },
+      { url: "/images/ghost-archive/JERUK PURUT/Gallery 3.png", caption: "Siluet Pastor Buntung berjubah Cassock sedang meronda di bawah pohon benda tua." },
+      { url: "/images/ghost-archive/JERUK PURUT/Gallery 4.png", caption: "Foto infra-merah menunjukkan tetesan cairan ektoplasma yang tak memiliki bayangan fisik." },
+      { url: "/images/ghost-archive/JERUK PURUT/Gallery 5.jpg", caption: "Kondisi area makam setelah ritual putaran ganjil, disertai aktivitas poltergeist dahan patah." }
     ],
     reports: [
       {
