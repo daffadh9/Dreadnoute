@@ -55,24 +55,25 @@ export function ArchiveHeader({ }: ArchiveHeaderProps) {
             </div>
           </div>
 
-          <div className="flex items-center gap-3.5 rounded-xl border border-zinc-800/80 bg-black/40 w-fit p-2.5 pr-5 shadow-[0_8px_30px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-md transition-all duration-500 hover:border-red-500/30 hover:bg-black/60">
-            <div className="flex -space-x-2">
-              <div className="relative z-30 h-7 w-7 overflow-hidden rounded-full ring-2 ring-zinc-950/80 bg-zinc-800">
+          <div className="flex items-center gap-5 rounded-2xl border border-zinc-800/80 bg-black/40 w-fit p-3.5 pr-7 shadow-[0_8px_30px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-md transition-all duration-500 hover:border-red-500/30 hover:bg-black/60">
+            <div className="flex -space-x-3">
+              <div className="relative z-30 h-11 w-11 overflow-hidden rounded-full ring-2 ring-zinc-950/80 bg-zinc-800 shadow-md">
                 <img src="https://i.pravatar.cc/100?img=33" alt="Visitor" className="h-full w-full object-cover" />
               </div>
-              <div className="relative z-20 h-7 w-7 overflow-hidden rounded-full ring-2 ring-zinc-950/80 bg-zinc-800">
+              <div className="relative z-20 h-11 w-11 overflow-hidden rounded-full ring-2 ring-zinc-950/80 bg-zinc-800 shadow-md">
                 <img src="https://i.pravatar.cc/100?img=47" alt="Visitor" className="h-full w-full object-cover" />
               </div>
-              <div className="relative z-10 h-7 w-7 overflow-hidden rounded-full ring-2 ring-zinc-950/80 bg-zinc-800">
+              <div className="relative z-10 h-11 w-11 overflow-hidden rounded-full ring-2 ring-zinc-950/80 bg-zinc-800 shadow-md">
                 <img src="https://i.pravatar.cc/100?img=12" alt="Visitor" className="h-full w-full object-cover" />
               </div>
-              <div className="relative z-0 h-7 w-7 overflow-hidden rounded-full ring-2 ring-zinc-950/80 bg-zinc-800">
+              <div className="relative z-0 h-11 w-11 overflow-hidden rounded-full ring-2 ring-zinc-950/80 bg-zinc-800 shadow-md">
                 <img src="https://i.pravatar.cc/100?img=32" alt="Visitor" className="h-full w-full object-cover" />
               </div>
             </div>
-            <p className="text-[11px] text-zinc-400">
-              <strong className="font-semibold text-zinc-200">+13.000 orang</strong> mengunjungi arsip ini
-            </p>
+            <div className="flex flex-col">
+              <span className="text-lg font-bold text-zinc-100 drop-shadow-md">+13.000 orang</span>
+              <span className="text-sm text-zinc-400">mengunjungi arsip ini</span>
+            </div>
           </div>
         </div>
         <p className="max-w-2xl text-sm leading-relaxed text-zinc-300">
