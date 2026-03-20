@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, ChevronLeft, ChevronRight, FolderLock, ShieldAlert, Radar, Zap, ShieldCheck, MapPin, Target, TrendingUp, RefreshCw, CheckCircle2 } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, FolderLock, ShieldAlert, Radar, Zap, ShieldCheck, MapPin, Target, TrendingUp, CheckCircle2 } from "lucide-react";
 import type { GhostArchiveEntry } from "../types/archive";
 import {
   getArchiveAlias,
@@ -112,7 +112,7 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
 
     if (reportSortMode === "location") {
       // Dummy logic for 'location', sorting randomly for now to show visual change
-      return reports.sort(() => Math.random() - 0.5);
+      return reports.sort((a,b) => b.id.length - a.id.length || a.username.length - b.username.length);
     }
     
     if (reportSortMode === "witness") {
@@ -248,9 +248,11 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
                     <div className="mt-2 h-px w-full bg-gradient-to-r from-yellow-700/50 to-transparent" />
                   </summary>
 
-                  <div className="relative mt-2 overflow-hidden rounded-b-lg border-x border-b border-yellow-900/30 bg-[#ebd5b3] px-5 py-6 shadow-[inset_0_0_40px_rgba(139,69,19,0.15)] transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] [clip-path:inset(0_0_100%_0)] group-open:animate-[unrollPaper_0.8s_forwards]">
+                  <div className="relative mt-2 overflow-hidden rounded-b border-x border-b border-[#3b271d] bg-[#ebd5b3] px-5 py-6 shadow-[inset_0_5px_15px_rgba(0,0,0,0.5),inset_0_-15px_40px_rgba(139,69,19,0.2)] transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] [clip-path:inset(0_0_100%_0)] group-open:animate-[unrollPaper_0.8s_forwards]">
                     {/* Paper Texture Overlay */}
                     <div className="pointer-events-none absolute inset-0 opacity-40 [background-image:repeating-linear-gradient(0deg,transparent,transparent_23px,#d2b48c_24px)]" />
+                    <div className="pointer-events-none absolute inset-0 opacity-[0.25] mix-blend-multiply bg-[url('https://www.transparenttextures.com/patterns/old-wall.png')]" />
+                    <div className="pointer-events-none absolute inset-0 bg-[#3b271d] opacity-10 shadow-[inset_0_0_80px_rgba(59,39,29,0.8)]" />
                     
                     {evidenceTags.length > 0 ? (
                       <div className="relative mb-5 flex flex-wrap gap-2">
@@ -285,23 +287,23 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
               </div>
 
               <div className="order-1 lg:order-2">
-                <div className="relative h-[24rem] w-full overflow-hidden rounded-2xl border border-red-500/20 shadow-2xl sm:h-[32rem] lg:h-[40rem]">
+                <div className="relative h-[24rem] w-full overflow-hidden rounded-md border border-red-500/20 shadow-2xl sm:h-[32rem] lg:h-[40rem]">
                   <div className="absolute inset-0 [animation:archiveHeroDrift_10s_ease-in-out_infinite_alternate] will-change-transform">
                     <Image
                       src={entry.mainImage}
                       alt={entry.name}
                       fill
-                      className="object-cover object-top brightness-[1.05] contrast-[1.2] saturate-[1.1] will-change-transform"
+                      className="object-cover object-top brightness-[1.1] contrast-[1.3] saturate-[1.0] will-change-transform"
                       style={{
                         transform: `translate3d(${heroTranslateX}px,${heroTranslateY}px,0) scale(${heroScale})`
                       }}
                       sizes="(max-width: 1024px) 100vw, 50vw"
                     />
                   </div>
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
-                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)]" />
-                  <div className="pointer-events-none absolute inset-0 opacity-[0.15] [background-image:repeating-linear-gradient(0deg,rgba(255,255,255,0.1)_0_1px,transparent_1px_3px)]" />
-                  <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_80px_rgba(0,0,0,0.8)]" />
+                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(255,255,255,0.08)_0%,transparent_60%)] animate-[pulse_4s_alternate_infinite]" />
+                  <div className="pointer-events-none absolute inset-0 opacity-[0.10] mix-blend-overlay bg-[url('https://www.transparenttextures.com/patterns/black-paper.png')]" />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/50 mix-blend-multiply" />
+                  <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_150px_rgba(0,0,0,0.9),inset_0_0_60px_rgba(0,0,0,0.8)]" />
                 </div>
               </div>
             </div>

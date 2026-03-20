@@ -13,18 +13,18 @@ export function ArchiveCard({ entry }: ArchiveCardProps) {
     <>
       <Link
         href={`/ghost-archive/${entry.slug}`}
-        className="group relative block overflow-hidden rounded-3xl border border-zinc-800/82 bg-[linear-gradient(160deg,rgba(24,24,27,0.97),rgba(9,9,11,0.99))] shadow-[0_30px_74px_-34px_rgba(0,0,0,0.98)] transition duration-350 ease-out hover:-translate-y-2 hover:border-red-500/82 hover:shadow-[0_48px_100px_-32px_rgba(220,38,38,0.72)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400/65 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+        className="group relative block overflow-hidden rounded-3xl border border-zinc-800/82 bg-[linear-gradient(160deg,rgba(24,24,27,0.97),rgba(9,9,11,0.99))] shadow-[0_30px_74px_-34px_rgba(0,0,0,0.98)] transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] hover:-translate-y-2 hover:border-red-500 hover:shadow-[0_48px_120px_-32px_rgba(220,38,38,0.85),inset_0_0_30px_rgba(220,38,38,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400/65 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
       >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(100%_84%_at_86%_10%,rgba(220,38,38,0.58),transparent_50%)] opacity-0 transition-opacity duration-350 ease-out group-hover:opacity-100 group-focus-visible:opacity-100" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(78%_68%_at_14%_100%,rgba(126,34,206,0.36),transparent_60%)] opacity-0 transition-opacity duration-350 ease-out group-hover:opacity-100 group-focus-visible:opacity-100" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(100%_84%_at_86%_10%,rgba(220,38,38,0.58),transparent_50%)] opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100 group-focus-visible:opacity-100" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(78%_68%_at_14%_100%,rgba(126,34,206,0.36),transparent_60%)] opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100 group-focus-visible:opacity-100" />
       <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_190px_rgba(0,0,0,0.62)]" />
-      <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-350 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 shadow-[inset_0_0_0_1px_rgba(248,113,113,0.72),inset_0_0_64px_rgba(220,38,38,0.34)]" />
+      <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 shadow-[inset_0_0_0_1px_rgba(248,113,113,0.72),inset_0_0_64px_rgba(220,38,38,0.54)]" />
       <div className="relative aspect-[3/4] min-h-[26rem] overflow-hidden">
         <Image
           src={entry.mainImage}
           alt={entry.name}
           fill
-          className={`glitch-img-${entry.id} object-cover object-top saturate-[1.1] contrast-[1.28] brightness-[1.1] transition duration-350 ease-out group-hover:scale-[1.1] group-focus-visible:scale-[1.1]`}
+          className={`glitch-img-${entry.id} object-cover object-top saturate-[1.1] contrast-[1.28] brightness-[1.1] transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.08] group-focus-visible:scale-[1.08]`}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
 
@@ -68,19 +68,19 @@ export function ArchiveCard({ entry }: ArchiveCardProps) {
       </Link>
       <style>{`
         @keyframes glitchHero-${entry.id} {
-          0% { transform: translate(0) }
-          20% { transform: translate(-2px, 1px) }
-          40% { transform: translate(-1px, -2px) }
-          60% { transform: translate(2px, 1px) }
-          80% { transform: translate(1px, -1px) }
-          100% { transform: translate(0) }
+          0% { transform: scale(1.08) translate(0) }
+          20% { transform: scale(1.08) translate(-2px, 1px) }
+          40% { transform: scale(1.08) translate(-1px, -2px) }
+          60% { transform: scale(1.08) translate(2px, 1px) }
+          80% { transform: scale(1.08) translate(1px, -1px) }
+          100% { transform: scale(1.08) translate(0) }
         }
         .group:hover .glitch-img-${entry.id} {
           animation: glitchHero-${entry.id} 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
           filter: sepia(0.8) hue-rotate(320deg) saturate(2) brightness(1.2) contrast(1.4);
         }
         .glitch-img-${entry.id} {
-          transition: filter 0.3s ease-out, transform 0.35s ease-out;
+          transition: filter 0.4s ease-out, transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
         }
       `}</style>
     </>
