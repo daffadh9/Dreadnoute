@@ -123,42 +123,88 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
     id: "GA-003",
     slug: "pocong",
     name: "Pocong",
-    category: "Tempat Angker",
-    origin: "Area pemakaman lama dan jalur lembap berkabut",
+    category: "Entitas Kafan",
+    origin: "Ritual Pemakaman Klasik",
     country: "Indonesia",
-    province: "Jawa Tengah",
-    city: "Semarang",
-    aliases: ["Hantu Kafan", "Mayat Kain Putih"],
-    era: "Klasik",
-    evidenceTags: ["Penampakan", "Jejak", "Suara Gesekan"],
-    sourceType: "Cerita Rakyat",
+    province: "Nusantara",
+    city: "Rural Area & Pemakaman Tua",
+    aliases: ["Hantu Kafan", "Mayat Berjalan"],
+    era: "Klasik & Modern",
+    evidenceTags: ["Penampakan Visual", "Jejak Suara", "Aroma Kapur Barus"],
+    sourceType: "Cerita Rakyat & Kasus Urban",
     dangerLevel: "Sedang",
     summary:
-      "Manifestasi entitas berkain kafan yang dominan muncul di zona pemakaman tidak aktif dan lahan kosong lembap. Risiko utama berasal dari efek kaget ekstrem dan gangguan orientasi sesaat.",
+      "Manifestasi arwah yang terjebak dalam kain kafan, dipercaya muncul ketika ikatan kematian tidak dilepaskan. Ia tidak berjalan, melainkan meloncat—namun sering kali penampakannya justru terlihat bergerak menembus logika ruang tanpa gaya gesek.",
     history: [
-      "Pocong menjadi salah satu figur paling konsisten dalam narasi horor Nusantara, terutama terkait ritus pemakaman tradisional.",
-      "Dokumentasi lapangan modern mengaitkan intensitas kemunculan dengan kondisi area makam yang minim penerangan dan jarang dirawat.",
-      "Laporan warga umumnya diawali suara gesekan kain sebelum objek terlihat dalam rentang visual pendek."
+      "Pocong dipercaya sebagai perwujudan roh yang tidak tenang akibat tali kafan yang gagal dilepaskan sebelum tanah ditimbun.",
+      "Arsip kejadian mencatat entitas ini tidak hanya mendiami area pemakaman, melainkan juga merambah ke permukiman via sugesti trauma masyarakat setempat."
+    ],
+    detailedHistory: [
+      {
+        title: "Ringkasan Singkat (Hook)",
+        icon: "FileText",
+        content: "Pocong adalah manifestasi arwah yang terjebak dalam kain kafan, dipercaya muncul ketika ikatan kematian tidak dilepaskan. Ia tidak berjalan, melainkan meloncat — namun rentetan laporan paling mencekam mendeskripsikannya bergerak mulus tanpa gaya gesek, melayang tanpa suara mendekati sang saksi."
+      },
+      {
+        title: "Asal Usul (Origin Story)",
+        icon: "BookOpen",
+        content: [
+          "Dalam tradisi pemakaman di Indonesia, jenazah dibungkus dengan kain kafan dan diikat pada beberapa bagian tubuh—kepala, leher, dan kaki. Ikatan ini bukan sekadar ritual, melainkan simbol bahwa tubuh telah dikembalikan sepenuhnya kepada sang pencipta dan tanah tempat ia berasal.",
+          "Namun dalam pusaran mitologi kelam masyarakat, terdapat satu ketakutan terdistorsi yang mengakar kuat: bagaimana jika ikatan tersebut tidak dilepas oleh para pekuasa liang lahat?",
+          "Mitologi ini menetaskan kepercayaan bahwa arwah tersebut tertahan di ambang dunia fana. Ia bangkit dan melampaui pelindung maut demi 'meminta tolong' atau membawa bala peringatan. Transisi dari sebuah roh yang tersiksa menjadi entitas ektoplasma pemburu teror inilah yang mendefinisikan keberadaan mutlak Sang Pocong."
+        ]
+      },
+      {
+        title: "Lokasi & Kemunculan",
+        icon: "MapPin",
+        content: "Entitas kafan ini sangat bertalian dengan elemen kelembapan. Laporan penampakan meroket drastis pada areal kuburan yang basah tergenang, belukar kebun pisang yang rimbun dan minim drainase, hingga koridor ujung gang mati. Skala interaksi terkuat tercatat antara titik jam 01:15 hingga 03:00 dini hari."
+      },
+      {
+        title: "Ciri-Ciri Penampakan",
+        icon: "Eye",
+        content: [
+          "Siluet asimetris berupa bungkusan kain kafan usang yang basah, sobek, dan dililit kotoran liang lahat.",
+          "Jahitan simpul wajah sering kali terbuka, merilis pemandangan kulit kering kehitaman dengan liang mata kosong lebam.",
+          "Tidak memiliki bayangan yang memantulkan geometri sekitarnya. Pergerakan berkedip; melaporkan 'ada di ujung jalan', merunduk sesaat, lalu entitas 'telah berdiri tepat di samping telinga'."
+        ]
+      },
+      {
+        title: "Perilaku & Pola",
+        icon: "Activity",
+        content: "Entitas ini nyaris tidak pernah menunjukkan agresi mutilatif. Namun, siksaan mental yang ia sebar berkaliber ekstrem. Metode serangannya berkisar pada terror pengawasan statis—muncul tiba-tiba dari ambang cermin gelap lemarimu, berdiri mendadak dari balik bagasi mobil di perjalanan sepi, atau sekadar memiringkan kepala mengintip saksi mata selama berjam-jam secara membisu."
+      },
+      {
+        title: "Interpretasi / Teori",
+        icon: "Brain",
+        content: "Keberadaan kolektifnya melahirkan friksi antar peneliti DreadNoute. Kalangan pakar folklor menyepakati adanya endapan energi negatif *(residual haunting)*, yang dikirim melalui dendam pribadi mendiang. Sedangkan divisi neuropsikologi percaya fenomena ini 90% lahir dari proyeksi phobia kolektif (thanatophobia) otak masyarakat tropis yang direfleksikan secara visual lewat anomali gelombang cahaya."
+      },
+      {
+        title: "Cerita Rakyat / Kasus Nyata",
+        icon: "Users",
+        content: "Salah satu rilis arsip level merah kami merekam kesaksian seorang relawan Poskamling Jatingaleh tahun 1998. 'Malam itu gerimis. Rekan saya menyorot senter ke pohon beringin ujung karena ada bayangan guling jatuh. Kami baru tersadar, guling itu bergetar... kainnya merembes cairan tanah. Lalu saat ia loncat memutar menghadap kami, aromanya seketika mengunci leher seisi pos. Kami tak ingat apa-apa lagi sampai azan Subuh.' - Eks-Saksi #DRD-1998."
+      }
     ],
     abilities: [
-      "Muncul mendadak pada sudut pandang sempit untuk memicu respons refleks.",
-      "Menggunakan ritme lompatan tidak beraturan untuk mengacaukan perkiraan jarak target.",
-      "Memanfaatkan kabut tipis sebagai penutup gerak di area tanah lembap."
+      "Micro-Blinking: Menipulasi letak presensi secara sporadis yang menggugurkan keharusan berjalan.",
+      "Radiasi Kapur Barus: Menyebarkan gelombang miasma tak kasat mata yang mencekik oksigen saksi mata.",
+      "Distorsi Mekanik: Mengacaukan kelistrikan kendaraan dan memadamkan sumber cahaya intensitas rendah."
     ],
     weaknesses: [
-      "Kehadiran menurun pada lokasi dengan pencahayaan menyebar dan kontrol akses ketat.",
-      "Entitas cenderung tidak mengejar bila target menjaga jarak aman dan tidak memicu kontak.",
-      "Patroli rutin di perimeter makam menurunkan kejadian berulang."
+      "Pandangan Pariferal Terbatas: Postur kaku membuat manuver saksi dengan arah menyamping sulit dilacak entitas.",
+      "Penghalang Fisik Solid: Tidak memiliki manifestasi lengan atau kontrol motorik untuk mendobrak halangan masif tebal.",
+      "Area Penerangan Ambien Intens: Agregasi entitas gagal total saat dipaksa muncul di bawah spektrum cahaya kuat yang konsisten."
     ],
     dangerZones: [
-      "TPU Bergota lama, Semarang",
-      "Jalur makam Jatingaleh",
-      "Lahan kosong belakang Genuk"
+      "Komplek Pemakaman Sepi di pinggiran kota",
+      "Jalur lintas antar pedesaan di lereng dataran tinggi",
+      "Infrastruktur tak terawat berlumpur"
     ],
-    mainImage: "/assets/images/jerangkong.jpg",
+    mainImage: "/images/ghost-archive/POCONG/POCONG - Hero.png",
     gallery: [
-      "/assets/images/jerangkong.jpg",
-      "/assets/images/GHOST WIKI DASHBOARD.jpg"
+      "/images/ghost-archive/POCONG/Galery 1.png",
+      "/images/ghost-archive/POCONG/Galery 2.png",
+      "/images/ghost-archive/POCONG/Gallery 3.png",
+      "/images/ghost-archive/POCONG/Gallery 4.png"
     ],
     reports: [
       {

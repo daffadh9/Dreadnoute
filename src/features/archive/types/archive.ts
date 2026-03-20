@@ -1,3 +1,9 @@
+export type ArchiveHistorySection = {
+  title: string;
+  icon?: string;
+  content: string[] | string;
+};
+
 export type GhostArchiveReport = {
   id: string;
   username: string;
@@ -22,6 +28,7 @@ export type GhostArchiveEntry = {
   dangerLevel: "Rendah" | "Sedang" | "Tinggi" | "Ekstrem";
   summary: string;
   history: string[];
+  detailedHistory?: ArchiveHistorySection[];
   abilities: string[];
   weaknesses: string[];
   dangerZones: string[];

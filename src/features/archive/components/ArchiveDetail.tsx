@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, ChevronLeft, ChevronRight, FolderLock, ShieldAlert, Radar, Zap, ShieldCheck, MapPin, Target, TrendingUp, CheckCircle2 } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, FolderLock, ShieldAlert, Radar, Zap, ShieldCheck, MapPin, Target, TrendingUp, CheckCircle2, FileText, BookOpen, Eye, Activity, Brain, Users } from "lucide-react";
 import type { GhostArchiveEntry } from "../types/archive";
 import {
   getArchiveAlias,
@@ -267,13 +267,48 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
                       </div>
                     ) : null}
 
-                    <div className="relative space-y-5 font-serif text-sm leading-relaxed text-[#3e2723]">
+                    <div className="relative space-y-6 font-serif text-sm leading-relaxed text-[#3e2723]">
                       <p className="border-l-2 border-[#8b4513]/40 pl-4 font-medium italic">
                         {entry.summary}
                       </p>
-                      <p className="whitespace-pre-wrap">
-                        {entry.history.join("\n\n")}
-                      </p>
+                      
+                      {entry.detailedHistory ? (
+                        <div className="space-y-6 pt-2">
+                          {entry.detailedHistory.map((section, index) => {
+                            const iconMap: Record<string, React.ReactNode> = {
+                              FileText: <FileText className="h-4 w-4 text-[#8b4513]" />,
+                              BookOpen: <BookOpen className="h-4 w-4 text-[#8b4513]" />,
+                              MapPin: <MapPin className="h-4 w-4 text-[#8b4513]" />,
+                              Eye: <Eye className="h-4 w-4 text-[#8b4513]" />,
+                              Activity: <Activity className="h-4 w-4 text-[#8b4513]" />,
+                              Brain: <Brain className="h-4 w-4 text-[#8b4513]" />,
+                              Users: <Users className="h-4 w-4 text-[#8b4513]" />
+                            };
+
+                            return (
+                              <div key={index} className="space-y-3">
+                                <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-[#4a2e1b] font-sans border-b border-[#8b4513]/20 pb-1">
+                                  {section.icon && iconMap[section.icon]}
+                                  {section.title}
+                                </h3>
+                                {Array.isArray(section.content) ? (
+                                  <ul className="space-y-2 pl-4 list-disc marker:text-[#8b4513]/60">
+                                    {section.content.map((p, i) => (
+                                      <li key={i}>{p}</li>
+                                    ))}
+                                  </ul>
+                                ) : (
+                                  <p>{section.content}</p>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      ) : (
+                        <p className="whitespace-pre-wrap">
+                          {entry.history.join("\n\n")}
+                        </p>
+                      )}
                     </div>
                     
                     {/* Stamp */}
@@ -386,7 +421,7 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
               {entry.gallery.map((imagePath, index) => (
                 <div
                   key={`${entry.id}-gallery-${index}`}
-                  className="group relative h-64 w-[80vw] min-w-[280px] shrink-0 snap-center overflow-hidden rounded-xl border border-zinc-800/80 bg-zinc-950/60 shadow-md transition duration-500 hover:border-red-500/60 sm:w-[50vw] sm:min-w-[320px] lg:w-[30vw] lg:min-w-[400px]"
+                  className="group relative h-64 w-[85vw] shrink-0 snap-center overflow-hidden rounded-xl border border-zinc-800/80 bg-zinc-950/60 shadow-md transition duration-500 hover:border-red-500/60 sm:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-0.7rem)]"
                 >
                   <Image
                     src={imagePath}
