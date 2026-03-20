@@ -144,9 +144,9 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
 
   return (
     <main 
-      className="min-h-screen px-6 py-8 text-zinc-100 md:px-10 transition-colors duration-300"
+      className="min-h-screen px-6 py-12 text-zinc-100 md:px-10 md:py-16 transition-colors duration-300"
       style={{
-        background: `radial-gradient(95% 70% at ${90 + mousePos.x}% ${mousePos.y}%, rgba(127,29,29,0.28), transparent 50%), radial-gradient(80% 60% at ${mousePos.x}% ${30 + mousePos.y}%, rgba(91,33,182,0.18), transparent 54%), #000`
+        background: `radial-gradient(95% 70% at ${90 + mousePos.x}% ${mousePos.y}%, rgba(127,29,29,0.28), transparent 50%), radial-gradient(80% 60% at ${mousePos.x}% ${30 + mousePos.y}%, rgba(91,33,182,0.18), transparent 54%), #0B0B0F`
       }}
     >
       <style>{`
@@ -171,6 +171,14 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
         @keyframes shieldGlow {
           0% { box-shadow: inset 0 0 0 rgba(59, 130, 246, 0); }
           100% { box-shadow: inset 0 0 40px rgba(59, 130, 246, 0.2); }
+        }
+        @keyframes flickerLight {
+          0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% { opacity: 0; }
+          20%, 21.999%, 63%, 63.999%, 65%, 69.999% { opacity: 0.15; }
+        }
+        @keyframes archiveHeroDrift {
+          0% { transform: scale(1.05) translate(0, 0); }
+          100% { transform: scale(1.15) translate(-1%, 2%); }
         }
       `}</style>
       <div className="mx-auto max-w-6xl space-y-8">
@@ -197,15 +205,15 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
                   <p className="text-xs uppercase tracking-[0.2em] text-zinc-300/90">
                     {entry.category}
                   </p>
-                  <h1 className="text-3xl font-semibold text-zinc-100 sm:text-4xl lg:text-5xl drop-shadow-md">
+                  <h1 className="text-3xl font-semibold text-zinc-100 sm:text-4xl lg:text-5xl drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">
                     {entry.name}
                   </h1>
                   {aliases.length > 0 ? (
-                    <p className="text-xs uppercase tracking-[0.12em] text-zinc-300/85">
+                    <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#E5E5E5]">
                       Alias: {aliases.join(" | ")}
                     </p>
                   ) : null}
-                  <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.12em] text-zinc-300/90">
+                  <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.12em] text-[#E5E5E5] font-medium">
                     <span className="rounded-full border border-zinc-600/70 bg-black/45 px-3 py-1.5">
                       {meta.country}
                     </span>
@@ -323,21 +331,22 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
 
               <div className="order-1 lg:order-2">
                 <div className="relative h-[24rem] w-full overflow-hidden rounded-md border border-red-500/20 shadow-2xl sm:h-[32rem] lg:h-[40rem]">
-                  <div className="absolute inset-0 [animation:archiveHeroDrift_10s_ease-in-out_infinite_alternate] will-change-transform">
+                  <div className="absolute inset-0 [animation:archiveHeroDrift_15s_ease-in-out_infinite_alternate] will-change-transform">
                     <Image
                       src={entry.mainImage}
                       alt={entry.name}
                       fill
-                      className="object-cover object-top brightness-[1.1] contrast-[1.3] saturate-[1.0] will-change-transform"
+                      className="object-cover object-top brightness-[0.8] contrast-[1.3] saturate-[1.0] sepia-[0.2] will-change-transform"
                       style={{
                         transform: `translate3d(${heroTranslateX}px,${heroTranslateY}px,0) scale(${heroScale})`
                       }}
                       sizes="(max-width: 1024px) 100vw, 50vw"
                     />
                   </div>
-                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(255,255,255,0.08)_0%,transparent_60%)] animate-[pulse_4s_alternate_infinite]" />
-                  <div className="pointer-events-none absolute inset-0 opacity-[0.10] mix-blend-overlay bg-[url('https://www.transparenttextures.com/patterns/black-paper.png')]" />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/50 mix-blend-multiply" />
+                  <div className="pointer-events-none absolute inset-0 bg-white/10 opacity-0 animate-[flickerLight_8s_infinite]" />
+                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(255,255,255,0.1)_0%,transparent_60%)] animate-[pulse_4s_alternate_infinite]" />
+                  <div className="pointer-events-none absolute inset-0 opacity-[0.25] mix-blend-overlay bg-[url('https://www.transparenttextures.com/patterns/black-paper.png')]" />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/30 to-black/60 mix-blend-multiply" />
                   <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_150px_rgba(0,0,0,0.9),inset_0_0_60px_rgba(0,0,0,0.8)]" />
                 </div>
               </div>
@@ -345,7 +354,7 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
           </div>
         </header>
 
-        <section className="grid gap-6 lg:grid-cols-2">
+        <section className="mt-12 grid gap-8 lg:grid-cols-2 mb-12">
           <AccordionCard title="Kemampuan" icon={<Zap className="h-5 w-5 text-purple-400" />} theme="glitch" defaultOpen>
             <ul className="space-y-3">
               {entry.abilities.map((item) => (
