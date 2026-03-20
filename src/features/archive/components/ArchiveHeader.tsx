@@ -71,7 +71,7 @@ export function ArchiveHeader({ }: ArchiveHeaderProps) {
               </div>
             </div>
             <div className="flex flex-col">
-              <span className="text-lg font-bold text-zinc-100 drop-shadow-md">+13.000 orang</span>
+              <span className="text-lg font-bold text-zinc-100 drop-shadow-md">+13.897 orang</span>
               <span className="text-sm text-zinc-400">mengunjungi arsip ini</span>
             </div>
           </div>
