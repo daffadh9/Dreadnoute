@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, FolderLock, ShieldAlert, Radar, Zap, ShieldCheck, MapPin, Target, TrendingUp, RefreshCw, CheckCircle2 } from "lucide-react";
 import type { GhostArchiveEntry } from "../types/archive";
 import {
   getArchiveAlias,
@@ -17,7 +17,7 @@ type ArchiveDetailProps = {
   entry: GhostArchiveEntry;
 };
 
-type ReportSortMode = "latest" | "credible";
+type ReportSortMode = "latest" | "credible" | "location" | "witness" | "trending";
 
 const getReportSequence = (reportId: string) => {
   const sequence = Number(reportId.replace(/\D/g, ""));
@@ -29,14 +29,25 @@ const getAvatarInitial = (username: string) => {
   return initial ? initial.toUpperCase() : "?";
 };
 
-const AccordionCard = ({ title, defaultOpen = false, children }: { title: string, defaultOpen?: boolean, children: React.ReactNode }) => {
+const AccordionCard = ({ title, icon, defaultOpen = false, theme = "default", children }: { title: string, icon?: React.ReactNode, defaultOpen?: boolean, theme?: "glitch" | "warning" | "radar" | "shield" | "default", children: React.ReactNode }) => {
+  const themeStyles = {
+    glitch: "open:border-purple-500/50 group-open:animate-[glitchAppear_0.4s_ease-out_forwards]",
+    warning: "open:border-orange-500/50 group-open:animate-[warningFlash_0.6s_ease-out_forwards]",
+    radar: "open:border-green-500/50 group-open:animate-[radarPulse_1s_ease-out_forwards]",
+    shield: "open:border-blue-500/50 group-open:animate-[shieldGlow_0.8s_ease-out_forwards]",
+    default: "open:border-red-500/50 group-open:animate-in group-open:fade-in group-open:slide-in-from-top-2"
+  };
+
   return (
-    <details className="group rounded-xl border border-zinc-800/80 bg-zinc-950/40 shadow-md transition-all duration-300 open:border-red-500/50 open:bg-zinc-900/60" open={defaultOpen}>
+    <details className={`group rounded-xl border border-zinc-800/80 bg-zinc-950/40 shadow-md transition-all duration-500 open:bg-zinc-900/60 ${themeStyles[theme].split(' ')[0]}`} open={defaultOpen}>
       <summary className="flex cursor-pointer list-none items-center justify-between p-4 font-semibold tracking-wide text-zinc-200 outline-none transition-colors group-hover:text-red-400">
-        <span className="text-sm uppercase tracking-[0.16em]">{title}</span>
-        <ChevronDown className="h-4 w-4 text-zinc-500 transition-transform duration-300 group-open:rotate-180 group-open:text-red-500" />
+        <div className="flex items-center gap-3">
+          {icon}
+          <span className="text-sm uppercase tracking-[0.16em]">{title}</span>
+        </div>
+        <ChevronDown className="h-4 w-4 text-zinc-500 transition-transform duration-500 group-open:-rotate-180 group-open:text-red-500" />
       </summary>
-      <div className="border-t border-zinc-800/80 px-4 pb-4 pt-3 text-sm text-zinc-300">
+      <div className={`border-t border-zinc-800/80 px-4 pb-4 pt-3 text-sm text-zinc-300 ${themeStyles[theme].split(' ').slice(1).join(' ')}`}>
         {children}
       </div>
     </details>
@@ -99,10 +110,31 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
       });
     }
 
+    if (reportSortMode === "location") {
+      // Dummy logic for 'location', sorting randomly for now to show visual change
+      return reports.sort(() => Math.random() - 0.5);
+    }
+    
+    if (reportSortMode === "witness") {
+      return reports.sort((a,b) => a.username.localeCompare(b.username));
+    }
+    
+    if (reportSortMode === "trending") {
+      return reports.sort((a,b) => b.credibilityScore - a.credibilityScore);
+    }
+
     return reports.sort(
       (left, right) => getReportSequence(right.id) - getReportSequence(left.id)
     );
   }, [entry.reports, reportSortMode]);
+
+  const galleryRef = useRef<HTMLDivElement>(null);
+  const scrollGallery = (direction: "left" | "right") => {
+    if (galleryRef.current) {
+      const scrollStep = galleryRef.current.clientWidth * 0.8;
+      galleryRef.current.scrollBy({ left: direction === "right" ? scrollStep : -scrollStep, behavior: "smooth" });
+    }
+  };
 
   const heroTranslateY = Math.min(scrollY * 0.08, 36);
   const heroTranslateX = Math.min(scrollY * 0.03, 12);
@@ -117,6 +149,30 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
         background: `radial-gradient(95% 70% at ${90 + mousePos.x}% ${mousePos.y}%, rgba(127,29,29,0.28), transparent 50%), radial-gradient(80% 60% at ${mousePos.x}% ${30 + mousePos.y}%, rgba(91,33,182,0.18), transparent 54%), #000`
       }}
     >
+      <style>{`
+        @keyframes unrollPaper {
+          0% { clip-path: inset(0 0 100% 0); transform: translateY(-10px); }
+          100% { clip-path: inset(0 0 0% 0); transform: translateY(0); }
+        }
+        @keyframes glitchAppear {
+          0% { opacity: 0; filter: blur(4px) contrast(200%); transform: scale(0.98); }
+          50% { opacity: 0.8; filter: blur(2px) contrast(150%); transform: scale(1.01); }
+          100% { opacity: 1; filter: blur(0) contrast(100%); transform: scale(1); }
+        }
+        @keyframes warningFlash {
+          0% { background-color: rgba(249, 115, 22, 0.4); }
+          100% { background-color: transparent; }
+        }
+        @keyframes radarPulse {
+          0% { box-shadow: inset 0 0 0 rgba(34, 197, 94, 0); }
+          50% { box-shadow: inset 0 0 30px rgba(34, 197, 94, 0.25); }
+          100% { box-shadow: inset 0 0 0 rgba(34, 197, 94, 0); }
+        }
+        @keyframes shieldGlow {
+          0% { box-shadow: inset 0 0 0 rgba(59, 130, 246, 0); }
+          100% { box-shadow: inset 0 0 40px rgba(59, 130, 246, 0.2); }
+        }
+      `}</style>
       <div className="mx-auto max-w-6xl space-y-8">
         <header className="relative space-y-5 overflow-hidden rounded-2xl border border-red-500/28 bg-zinc-950/82 p-6 shadow-[0_32px_80px_-40px_rgba(220,38,38,0.55)]">
           <div className="pointer-events-none absolute -right-28 top-[-8rem] h-[26rem] w-[26rem] rounded-full bg-red-500/42 blur-3xl animate-pulse" />
@@ -176,32 +232,56 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
                   />
                 </div>
 
-                <div className="rounded-xl border border-red-500/30 bg-[linear-gradient(160deg,rgba(24,24,27,0.7),rgba(9,9,11,0.95))] p-5 shadow-[0_30px_58px_-30px_rgba(220,38,38,0.2),inset_0_1px_0_rgba(244,63,94,0.1)] sm:p-6">
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-zinc-400">
-                    Sejarah dan Asal Usul
-                  </p>
-                  <div className="mt-3 mb-4 h-px w-24 bg-gradient-to-r from-red-400/80 via-purple-400/40 to-transparent" />
-                  {evidenceTags.length > 0 ? (
-                    <div className="mb-4 flex flex-wrap gap-2">
-                      {evidenceTags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-full border border-zinc-700/80 bg-zinc-900/80 px-2.5 py-1 text-[10px] uppercase tracking-[0.12em] text-zinc-300"
-                        >
-                          {tag}
+                <details className="group relative rounded-xl border border-yellow-900/40 bg-[#1a1412] p-2 shadow-[0_10px_30px_rgba(0,0,0,0.8)] transition-all duration-500 open:bg-[#201815]">
+                  <summary className="flex cursor-pointer list-none flex-col gap-2 rounded-lg border border-yellow-800/30 bg-[linear-gradient(45deg,#2a1f1a,#3d2c24)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_4px_10px_rgba(0,0,0,0.5)] transition-all hover:bg-[linear-gradient(45deg,#32251f,#4a352c)]">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <FolderLock className="h-5 w-5 text-yellow-600/80" />
+                        <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-yellow-500/90">
+                          Sejarah dan Asal Usul
                         </span>
-                      ))}
+                      </div>
+                      <ChevronDown className="h-4 w-4 text-yellow-600/80 transition-transform duration-500 group-open:rotate-180" />
                     </div>
-                  ) : null}
-                  <div className="space-y-4">
-                    <p className="text-sm leading-relaxed text-zinc-300 font-medium italic border-l-2 border-red-500/50 pl-3">
-                      {entry.summary}
-                    </p>
-                    <p className="text-sm leading-relaxed text-zinc-300/90 whitespace-pre-wrap">
-                      {entry.history.join("\n\n")}
-                    </p>
+                    
+                    {/* Folder Tab Effect */}
+                    <div className="mt-2 h-px w-full bg-gradient-to-r from-yellow-700/50 to-transparent" />
+                  </summary>
+
+                  <div className="relative mt-2 overflow-hidden rounded-b-lg border-x border-b border-yellow-900/30 bg-[#ebd5b3] px-5 py-6 shadow-[inset_0_0_40px_rgba(139,69,19,0.15)] transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] [clip-path:inset(0_0_100%_0)] group-open:animate-[unrollPaper_0.8s_forwards]">
+                    {/* Paper Texture Overlay */}
+                    <div className="pointer-events-none absolute inset-0 opacity-40 [background-image:repeating-linear-gradient(0deg,transparent,transparent_23px,#d2b48c_24px)]" />
+                    
+                    {evidenceTags.length > 0 ? (
+                      <div className="relative mb-5 flex flex-wrap gap-2">
+                        {evidenceTags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded border border-[#8b4513]/30 bg-[#d2b48c]/40 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-[#5c3a21]"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    ) : null}
+
+                    <div className="relative space-y-5 font-serif text-sm leading-relaxed text-[#3e2723]">
+                      <p className="border-l-2 border-[#8b4513]/40 pl-4 font-medium italic">
+                        {entry.summary}
+                      </p>
+                      <p className="whitespace-pre-wrap">
+                        {entry.history.join("\n\n")}
+                      </p>
+                    </div>
+                    
+                    {/* Stamp */}
+                    <div className="pointer-events-none absolute bottom-4 right-4 h-16 w-16 rotate-12 rounded-full border-2 border-red-800/40 p-1 opacity-60">
+                      <div className="flex h-full w-full items-center justify-center rounded-full border border-red-800/40 text-[8px] font-bold tracking-widest text-red-800/60">
+                        VERIFIED
+                      </div>
+                    </div>
                   </div>
-                </div>
+                </details>
               </div>
 
               <div className="order-1 lg:order-2">
@@ -229,40 +309,41 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
         </header>
 
         <section className="grid gap-6 lg:grid-cols-2">
-          <AccordionCard title="Kemampuan" defaultOpen>
+          <AccordionCard title="Kemampuan" icon={<Zap className="h-5 w-5 text-purple-400" />} theme="glitch" defaultOpen>
             <ul className="space-y-3">
               {entry.abilities.map((item) => (
-                <li key={item} className="rounded-lg border border-red-500/10 bg-black/40 p-3 leading-relaxed">
+                <li key={item} className="rounded-lg border border-purple-500/10 bg-black/40 p-3 leading-relaxed shadow-[inset_0_0_10px_rgba(168,85,247,0.05)]">
                   {item}
                 </li>
               ))}
             </ul>
           </AccordionCard>
 
-          <AccordionCard title="Kelemahan" defaultOpen>
+          <AccordionCard title="Kelemahan" icon={<ShieldAlert className="h-5 w-5 text-orange-400" />} theme="warning" defaultOpen>
             <ul className="space-y-3">
               {entry.weaknesses.map((item) => (
-                <li key={item} className="rounded-lg border border-red-500/10 bg-black/40 p-3 leading-relaxed">
+                <li key={item} className="rounded-lg border border-orange-500/10 bg-black/40 p-3 leading-relaxed shadow-[inset_0_0_10px_rgba(249,115,22,0.05)]">
                   {item}
                 </li>
               ))}
             </ul>
           </AccordionCard>
 
-          <AccordionCard title="Zona Rawan" defaultOpen>
+          <AccordionCard title="Zona Rawan" icon={<Radar className="h-5 w-5 text-green-400" />} theme="radar" defaultOpen>
             <ul className="space-y-3">
               {entry.dangerZones.map((zone) => (
-                <li key={zone} className="rounded-lg border border-red-500/10 bg-black/40 p-3 leading-relaxed">
-                  {zone}
+                <li key={zone} className="flex items-center gap-3 rounded-lg border border-green-500/10 bg-black/40 p-3 leading-relaxed shadow-[inset_0_0_10px_rgba(34,197,94,0.05)]">
+                  <MapPin className="h-4 w-4 text-green-500/80 shrink-0" />
+                  <span>{zone}</span>
                 </li>
               ))}
             </ul>
           </AccordionCard>
 
-          <AccordionCard title="Panduan Selamat" defaultOpen={true}>
+          <AccordionCard title="Panduan Selamat" icon={<ShieldCheck className="h-5 w-5 text-blue-400" />} theme="shield" defaultOpen={true}>
             <ul className="space-y-3">
               {(entry.survivalGuide && entry.survivalGuide.length > 0) ? entry.survivalGuide.map((rule) => (
-                <li key={rule} className="rounded-lg border border-green-500/20 bg-green-950/20 p-3 leading-relaxed text-zinc-200">
+                <li key={rule} className="rounded-lg border border-blue-500/20 bg-blue-950/20 p-3 leading-relaxed text-zinc-200">
                   {rule}
                 </li>
               )) : (
@@ -274,35 +355,60 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
           </AccordionCard>
         </section>
 
-        <SectionWrapper title="Galeri" tone="featured">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {entry.gallery.map((imagePath, index) => (
-              <div
-                key={`${entry.id}-gallery-${index}`}
-                className="group relative h-64 w-full overflow-hidden rounded-xl border border-zinc-800/80 bg-zinc-950/60 shadow-[0_10px_20px_-10px_rgba(0,0,0,0.8)] transition duration-500 hover:border-red-500/60 hover:shadow-[0_12px_30px_-10px_rgba(220,38,38,0.3)]"
-              >
-                <Image
-                  src={imagePath}
-                  alt={`${entry.name} galeri visual ${index + 1}`}
-                  fill
-                  className="object-cover transition duration-700 ease-out group-hover:scale-110 group-hover:brightness-110"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-60 transition duration-500 group-hover:from-black/95 group-hover:opacity-100" />
-                <div className="absolute inset-x-0 bottom-0 p-4 translate-y-3 opacity-0 transition duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100">
-                  <p className="text-[10px] font-mono tracking-[0.2em] text-red-400 uppercase">
-                    [ RECORD {index + 1} ]
-                  </p>
-                  <p className="mt-1 text-xs text-zinc-300">
-                    Dokumentasi {entry.name} tertangkap kamera investigasi di lapangan.
-                  </p>
-                </div>
-              </div>
-            ))}
+        <div className="pt-8">
+          <div className="mb-8 flex flex-col items-center justify-center space-y-3 text-center">
+            <h2 className="bg-gradient-to-br from-zinc-100 to-zinc-400 bg-clip-text text-3xl font-black uppercase tracking-[0.2em] text-transparent drop-shadow-[0_0_15px_rgba(220,38,38,0.5)] sm:text-4xl">
+              Galeri
+            </h2>
+            <div className="h-px w-24 bg-gradient-to-r from-transparent via-red-500/80 to-transparent" />
           </div>
-        </SectionWrapper>
 
-        <SectionWrapper title="Laporan Saksi" tone="featured">
+          <div className="group/gallery relative rounded-2xl border border-red-500/20 bg-black/40 p-4 shadow-[0_20px_40px_-20px_rgba(0,0,0,0.8)]">
+            <button
+              onClick={() => scrollGallery("left")}
+              className="absolute left-2 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-red-500/40 bg-zinc-950/80 text-white opacity-0 backdrop-blur transition-all duration-300 hover:scale-110 hover:border-red-400 hover:bg-black group-hover/gallery:opacity-100 focus:opacity-100"
+            >
+              <ChevronLeft className="h-6 w-6" />
+            </button>
+            <button
+              onClick={() => scrollGallery("right")}
+              className="absolute right-2 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-red-500/40 bg-zinc-950/80 text-white opacity-0 backdrop-blur transition-all duration-300 hover:scale-110 hover:border-red-400 hover:bg-black group-hover/gallery:opacity-100 focus:opacity-100"
+            >
+              <ChevronRight className="h-6 w-6" />
+            </button>
+
+            <div
+              ref={galleryRef}
+              className="no-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth"
+            >
+              {entry.gallery.map((imagePath, index) => (
+                <div
+                  key={`${entry.id}-gallery-${index}`}
+                  className="group relative h-64 w-[80vw] min-w-[280px] shrink-0 snap-center overflow-hidden rounded-xl border border-zinc-800/80 bg-zinc-950/60 shadow-md transition duration-500 hover:border-red-500/60 sm:w-[50vw] sm:min-w-[320px] lg:w-[30vw] lg:min-w-[400px]"
+                >
+                  <Image
+                    src={imagePath}
+                    alt={`${entry.name} galeri visual ${index + 1}`}
+                    fill
+                    className="object-cover transition duration-700 ease-out group-hover:scale-110 group-hover:brightness-110"
+                    sizes="(max-width: 768px) 80vw, (max-width: 1024px) 50vw, 30vw"
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-60 transition duration-500 group-hover:from-black/95 group-hover:opacity-100" />
+                  <div className="absolute inset-x-0 bottom-0 translate-y-3 p-4 opacity-0 transition duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100">
+                    <p className="text-[10px] font-mono tracking-[0.2em] text-red-400 uppercase">
+                      [ RECORD {index + 1} ]
+                    </p>
+                    <p className="mt-1 text-xs text-zinc-300">
+                      Dokumentasi {entry.name} tertangkap kamera investigasi di lapangan.
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <SectionWrapper title="Laporan Saksi" icon={<TrendingUp className="h-5 w-5" />} tone="featured">
           <div className="space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-red-500/45 bg-zinc-900/62 p-3 shadow-[0_20px_42px_-24px_rgba(220,38,38,0.58)]">
               <p className="text-xs uppercase tracking-[0.14em] text-zinc-400">
@@ -319,6 +425,9 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
                 >
                   <option value="latest">Terbaru</option>
                   <option value="credible">Paling Kredibel</option>
+                  <option value="location">Lokasi</option>
+                  <option value="witness">Saksi Mata</option>
+                  <option value="trending">Trending</option>
                 </select>
               </label>
             </div>
@@ -348,25 +457,33 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
                     </div>
 
                     <div className="flex flex-wrap items-start justify-between gap-2">
-                      <div>
+                      <div className="flex items-center gap-2">
                         <p className="text-sm font-medium text-zinc-100">
                           @{report.username}
                         </p>
+                        {report.credibilityScore > 80 && (
+                          <span className="flex items-center gap-1 rounded bg-red-500/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-widest text-red-500 shadow-[inset_0_0_8px_rgba(220,38,38,0.15)]">
+                            <CheckCircle2 className="h-2.5 w-2.5" />
+                            SAKSI AKTIF
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex flex-col items-end gap-1">
                         {report.badge ? (
-                          <p className="mt-0.5 text-[10px] uppercase tracking-[0.12em] text-zinc-500">
+                          <p className="text-[10px] uppercase tracking-[0.12em] text-zinc-500">
                             {report.badge}
                           </p>
                         ) : null}
+                        <span
+                          className={`rounded-full border px-2.5 py-1 text-[10px] uppercase tracking-[0.1em] ${
+                            report.credibilityScore >= 85
+                              ? "border-red-400/72 bg-red-950/52 text-red-100"
+                              : "border-zinc-700/90 bg-zinc-950/95 text-zinc-300"
+                          }`}
+                        >
+                          Kredibel {report.credibilityScore}
+                        </span>
                       </div>
-                      <span
-                        className={`rounded-full border px-2.5 py-1 text-[10px] uppercase tracking-[0.1em] ${
-                          report.credibilityScore >= 85
-                            ? "border-red-400/72 bg-red-950/52 text-red-100"
-                            : "border-zinc-700/90 bg-zinc-950/95 text-zinc-300"
-                        }`}
-                      >
-                        Kredibel {report.credibilityScore}
-                      </span>
                     </div>
 
                     {report.credibilityScore >= 85 ? (

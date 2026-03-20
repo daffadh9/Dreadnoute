@@ -1,11 +1,11 @@
-import { BookOpenText } from "lucide-react";
+import { BookOpenText, Flame, Skull } from "lucide-react";
 
 type ArchiveHeaderProps = {
   total: number;
   totalArchive: number;
 };
 
-export function ArchiveHeader({ total, totalArchive }: ArchiveHeaderProps) {
+export function ArchiveHeader({ }: ArchiveHeaderProps) {
   return (
     <header className="relative overflow-hidden rounded-2xl border border-red-500/30 bg-[linear-gradient(165deg,rgba(24,24,27,0.98),rgba(6,6,9,1))] p-6 shadow-[0_36px_86px_-36px_rgba(0,0,0,0.98)]">
       <div className="pointer-events-none absolute -right-20 -top-32 h-96 w-96 rounded-full bg-red-500/42 blur-3xl animate-pulse" />
@@ -16,18 +16,42 @@ export function ArchiveHeader({ total, totalArchive }: ArchiveHeaderProps) {
       <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_180px_rgba(0,0,0,0.75)]" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-red-400/90 to-transparent" />
 
-      <div className="relative z-10 space-y-4">
+      <style>{`
+        @keyframes headerTitleGlitch {
+          0%, 100% { transform: translate(0); text-shadow: 0 0 12px rgba(220, 38, 38, 0.6); }
+          10% { transform: translate(-3px, 1px); text-shadow: 3px 0 rgba(239, 68, 68, 0.9), -3px 0 rgba(168, 85, 247, 0.7); }
+          20% { transform: translate(2px, -2px); text-shadow: -3px 0 rgba(239, 68, 68, 0.9), 3px 0 rgba(168, 85, 247, 0.7); }
+          30% { transform: translate(0); text-shadow: 0 0 12px rgba(220, 38, 38, 0.6); }
+        }
+        .animate-glitch-title {
+          animation: headerTitleGlitch 5s infinite alternate-reverse;
+        }
+      `}</style>
+
+      <div className="relative z-10 space-y-5">
         <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-red-500">
           DreadNoute Curated Index
         </p>
-        <div className="relative flex items-center gap-4">
-          <div className="pointer-events-none absolute -inset-x-12 -inset-y-6 bg-[radial-gradient(circle,rgba(239,68,68,0.62)_0%,rgba(168,85,247,0.3)_35%,transparent_74%)] blur-2xl" />
-          <div className="relative rounded-xl border border-red-500/40 bg-zinc-950/60 p-3 shadow-[0_0_24px_rgba(220,38,38,0.5),inset_0_0_12px_rgba(248,113,113,0.2)] animate-[pulse_3s_ease-in-out_infinite]">
-            <BookOpenText className="h-9 w-9 text-red-400 drop-shadow-[0_0_12px_rgba(248,113,113,0.9)]" />
+        <div className="relative flex flex-col sm:flex-row sm:items-center gap-6 py-2">
+          <div className="pointer-events-none absolute -inset-x-12 -inset-y-6 bg-[radial-gradient(circle,rgba(239,68,68,0.5)_0%,rgba(147,51,234,0.2)_40%,transparent_75%)] blur-2xl animate-[pulse_5s_ease-in-out_infinite]" />
+          
+          <div className="relative flex h-[5.5rem] w-[5.5rem] shrink-0 items-center justify-center rounded-2xl border border-red-500/40 bg-[radial-gradient(circle_at_center,rgba(69,10,10,0.6)_0%,rgba(0,0,0,0.85)_100%)] shadow-[0_0_35px_rgba(220,38,38,0.4),inset_0_0_20px_rgba(239,68,68,0.25)] transition-transform duration-500 hover:scale-105 hover:border-red-400/80 hover:shadow-[0_0_45px_rgba(220,38,38,0.55)]">
+            <div className="absolute inset-0 animate-[spin_10s_linear_infinite] rounded-2xl border border-red-500/20 border-t-red-500/70" />
+            <div className="absolute inset-2 animate-[spin_14s_linear_infinite_reverse] rounded-xl border border-purple-500/20 border-b-purple-500/60" />
+            
+            <Skull className="absolute h-14 w-14 text-zinc-950/80 drop-shadow-md blur-[1px]" />
+            <BookOpenText className="relative z-10 h-11 w-11 text-red-100 drop-shadow-[0_0_12px_rgba(248,113,113,0.9)]" />
+            <div className="absolute bottom-2 right-2 z-20 overflow-hidden animate-pulse">
+              <Flame className="h-5 w-5 text-orange-400 drop-shadow-[0_0_10px_rgba(249,115,22,1)]" />
+            </div>
           </div>
-          <h1 className="relative text-3xl font-bold tracking-tight text-zinc-100 drop-shadow-[0_0_22px_rgba(248,113,113,0.6)] sm:text-5xl">
-            Ghost Archive
-          </h1>
+
+          <div className="relative flex-1">
+            <h1 className="relative inline-block bg-gradient-to-br from-zinc-100 via-zinc-200 to-red-400 bg-clip-text text-4xl font-black tracking-widest text-transparent drop-shadow-[0_0_18px_rgba(220,38,38,0.5)] sm:text-5xl lg:text-6xl animate-glitch-title">
+              GHOST ARCHIVE
+            </h1>
+            <div className="absolute -inset-1 z-[-1] animate-[pulse_4s_infinite] bg-gradient-to-r from-red-600/30 to-transparent blur-2xl" />
+          </div>
         </div>
         <p className="max-w-2xl text-sm leading-relaxed text-zinc-300">
           Arsip resmi entitas terlarang Nusantara yang dikurasi dari jejak saksi, laporan lapangan, dan observasi malam.

@@ -2,16 +2,17 @@ import type { ReactNode } from "react";
 
 type Props = {
   title: string;
+  icon?: React.ReactNode;
   children: ReactNode;
   tone?: "default" | "featured";
 };
 
-export const SectionWrapper = ({ title, children, tone = "default" }: Props) => {
+export const SectionWrapper = ({ title, icon, children, tone = "default" }: Props) => {
   const isFeatured = tone === "featured";
 
   return (
     <section
-      className={`relative overflow-hidden rounded-2xl border p-6 ${
+      className={`relative overflow-hidden rounded-2xl border p-6 transition-all duration-500 ${
         isFeatured
           ? "border-red-500/55 bg-[linear-gradient(160deg,rgba(24,24,27,0.97),rgba(7,7,10,1))] shadow-[0_34px_78px_-34px_rgba(220,38,38,0.56)]"
           : "border-zinc-800/95 bg-[linear-gradient(160deg,rgba(24,24,27,0.9),rgba(9,9,11,0.96))] shadow-[0_20px_46px_-34px_rgba(0,0,0,0.95)]"
@@ -31,13 +32,20 @@ export const SectionWrapper = ({ title, children, tone = "default" }: Props) => 
       />
 
       <div className="relative">
-        <h2
-          className={`text-lg font-semibold ${
-            isFeatured ? "text-zinc-100" : "text-zinc-200"
-          }`}
-        >
-          {title}
-        </h2>
+        <div className="flex items-center gap-3">
+          {icon && (
+            <div className={`flex items-center justify-center ${isFeatured ? "text-red-400 drop-shadow-[0_0_8px_rgba(248,113,113,0.8)]" : "text-zinc-400"}`}>
+              {icon}
+            </div>
+          )}
+          <h2
+            className={`text-lg font-bold uppercase tracking-[0.15em] ${
+              isFeatured ? "text-zinc-100" : "text-zinc-200"
+            }`}
+          >
+            {title}
+          </h2>
+        </div>
         <div
           className={`mt-2 h-px w-24 ${
             isFeatured
