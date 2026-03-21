@@ -18,6 +18,7 @@ export function SecretDocumentReader({
   onActiveChapterChange,
 }: SecretDocumentReaderProps) {
   const [isAnimating, setIsAnimating] = useState(false);
+  const [direction, setDirection] = useState<'next' | 'prev'>('next');
   const [displayIndex, setDisplayIndex] = useState(activeChapterIndex);
 
   // Sync internal display index if it changes from outside
@@ -53,6 +54,7 @@ export function SecretDocumentReader({
 
   const triggerPageTurnAnim = (newIndex: number) => {
     if (isAnimating) return;
+    setDirection(newIndex > displayIndex ? 'next' : 'prev');
     setIsAnimating(true);
     playPageFlipEvent();
     
@@ -122,7 +124,7 @@ export function SecretDocumentReader({
       `}} />
       
       {/* Top Header */}
-      <div className="relative z-10 flex items-center justify-between border-b border-[#8b4513]/30 px-5 py-4 font-serif bg-[#d2b48c]/40 backdrop-blur-sm">
+      <div className="relative z-10 flex items-center justify-between border-b border-[#8b4513]/30 px-5 py-4 font-serif bg-[#d2b48c]/40 backdrop-blur-sm shadow-md">
         <div className="flex items-center gap-2">
           <Bookmark className="h-5 w-5 text-[#8b4513]" />
           <div>
@@ -131,17 +133,24 @@ export function SecretDocumentReader({
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <div className="text-xs sm:text-sm font-black text-[#8b4513]/80 mr-1">
+          <div className="text-xs sm:text-sm font-black text-[#8b4513]/80 mr-1 bg-[#8b4513]/10 px-3 py-1 rounded-md border border-[#8b4513]/20 shadow-inner">
             {displayIndex + 1} / {chapters.length}
           </div>
         </div>
       </div>
 
-      {/* Pages Container with Roll/Scroll Animation */}
-      <div className="relative z-10 overflow-hidden">
+      {/* Pages Container with 3D Corner Peel Roll Animation */}
+      <div className="relative z-10 overflow-hidden bg-gradient-to-b from-transparent to-[#8b4513]/5" style={{ perspective: "1500px" }}>
         <div 
-          className={`px-5 py-8 sm:px-10 sm:py-10 font-serif flex flex-col min-h-[350px] transition-all duration-300 ease-in-out ${
-            isAnimating ? "opacity-0 translate-y-12 blur-[1px]" : "opacity-100 translate-y-0 blur-0"
+          style={{
+             transformStyle: "preserve-3d",
+             transformOrigin: direction === 'next' ? "bottom right" : "bottom left",
+             transform: isAnimating 
+               ? `rotate3d(${direction === 'next' ? '-1, 1, 0, 45deg' : '1, 1, 0, 45deg'}) translateZ(50px) scale(0.95)` 
+               : "rotate3d(0, 1, 0, 0deg) translateZ(0) scale(1)",
+          }}
+          className={`px-5 py-8 sm:px-10 sm:py-10 font-serif flex flex-col min-h-[400px] transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] ${
+            isAnimating ? "opacity-20 blur-[2px]" : "opacity-100 blur-0"
           }`}
         >
           <div className="mb-8 border-b border-[#8b4513]/30 pb-5">
