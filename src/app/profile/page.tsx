@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -15,6 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { GHOST_ENTITIES } from "@/lib/ghostData";
+import { supabase } from "@/lib/supabase";
 
 const LEVEL_COLORS: Record<string, { border: string; glow: string; text: string; label: string }> = {
   "1-5":   { border: "border-zinc-500",   glow: "shadow-[0_0_20px_rgba(113,113,122,0.2)]",  text: "text-zinc-400",   label: "Novice" },
@@ -354,7 +355,7 @@ export default function ProfilePage() {
   const levelCfg = getLevelConfig(LEVEL);
 
   const [editMode, setEditMode] = useState(false);
-  const [alias, setAlias] = useState("Daffa D.K");
+  const [alias, setAlias] = useState("Loading...");
   const [bio, setBio] = useState("Penyelidik anomali dari dimensi fana. Saya mengumpulkan jejak entitas yang telah terlupakan dan mendokumentasikan keberadaan mereka untuk generasi berikutnya.");
   const [age, setAge] = useState("24");
   const [status, setStatus] = useState("Single - Uncommitted");
@@ -370,7 +371,6 @@ export default function ProfilePage() {
     if (typeof window === "undefined") {
       return DEFAULT_COVER;
     }
-
     try {
       return localStorage.getItem(COVER_STORAGE_KEY) || DEFAULT_COVER;
     } catch {
@@ -384,6 +384,19 @@ export default function ProfilePage() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
 
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        setAlias(user.user_metadata?.full_name || user.email?.split('@')[0] || "Archivist");
+        if (user.user_metadata?.avatar_url) {
+          setAvatarUrl(user.user_metadata.avatar_url);
+        }
+      }
+    };
+    fetchUserProfile();
+  }, []);
+
   // Persist cover to localStorage whenever it changes
   const setCoverUrl = (url: string) => {
     setCoverUrlState(url);
@@ -394,7 +407,6 @@ export default function ProfilePage() {
         localStorage.removeItem(COVER_STORAGE_KEY);
       }
     } catch (e) {
-      // localStorage quota exceeded (base64 too large) â€” ignore
       console.warn("Could not persist cover to localStorage:", e);
     }
   };
@@ -413,7 +425,7 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen bg-[#020202] font-cinzel text-white selection:bg-accent pb-24 relative overflow-hidden">
       
-      {/* â”€â”€ FOG ANIMATION OVERLAY â”€â”€ */}
+      {/* ── FOG ANIMATION OVERLAY ── */}
       <div className="absolute inset-0 pointer-events-none z-[1]">
          <motion.div 
             animate={{ 
@@ -426,7 +438,7 @@ export default function ProfilePage() {
          />
       </div>
 
-      {/* â”€â”€ TOP HEADER (NAV) â”€â”€ */}
+      {/* ── TOP HEADER (NAV) ── */}
       <header className="fixed top-0 left-0 lg:left-[100px] right-0 h-20 flex items-center justify-between px-8 z-[100] border-b border-white/5 backdrop-blur-3xl bg-black/40">
          <div className="flex items-center gap-8">
             <Link href="/">

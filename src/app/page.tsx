@@ -81,6 +81,21 @@ export default function DashboardPage() {
   const [searchFocused, setSearchFocused] = useState(false);
   const [showDossier, setShowDossier] = useState(false);
   const [showTutorial, setShowTutorial] = useState(false);
+  const [userProfile, setUserProfile] = useState<{name: string, avatar: string, level: number} | null>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        setUserProfile({
+          name: user.user_metadata?.full_name || user.email?.split('@')[0] || "Archivist",
+          avatar: user.user_metadata?.avatar_url || "/assets/images/profile.jpg",
+          level: 18 // Mock level or pull from DB if exists
+        });
+      }
+    };
+    fetchUser();
+  }, []);
 
   const handleSignOut = useCallback(async () => {
     await supabase.auth.signOut();
@@ -177,19 +192,20 @@ export default function DashboardPage() {
                 className="flex items-center gap-4 p-2 px-5 bg-white/[0.04] border border-white/10 rounded-2xl hover:border-accent/50 transition-all cursor-pointer group shadow-2xl"
               >
                   <div className="flex flex-col items-end">
-                    <span className="text-[13px] font-black text-white uppercase tracking-wider">Daffa</span>
-                    <span className="text-[11px] font-black text-yellow-400 tracking-widest uppercase drop-shadow-[0_0_8px_rgba(234,179,8,0.8)]">Archivist Lv.18</span>
+                    <span className="text-[13px] font-black text-white uppercase tracking-wider">{userProfile?.name || 'Loading...'}</span>
+                    <span className="text-[11px] font-black text-yellow-400 tracking-widest uppercase drop-shadow-[0_0_8px_rgba(234,179,8,0.8)]">Archivist Lv.{userProfile?.level || 1}</span>
                   </div>
 
                   <div className="relative">
                     <div className="w-14 h-14 rounded-full border-2 border-accent p-0.5 shadow-[0_0_25px_rgba(255,0,0,0.6)] overflow-hidden relative group-hover:scale-105 group-hover:shadow-[0_0_40px_rgba(255,0,0,0.9)] transition-all duration-300 bg-zinc-900">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
-                        src="/assets/images/profile.jpg"
+                        src={userProfile?.avatar || "/assets/images/profile.jpg"}
                         alt="User Profile"
                         className="w-full h-full object-cover brightness-110 contrast-105"
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src = "https://ui-avatars.com/api/?name=Daffa&background=8b0000&color=fff";
+                          const fallbackName = userProfile?.name || 'Archivist';
+                          (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${fallbackName}&background=8b0000&color=fff`;
                         }}
                       />
                     </div>

@@ -3,15 +3,19 @@
 import { useEffect, useMemo, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, ChevronLeft, ChevronRight, FolderLock, ShieldAlert, Radar, Zap, ShieldCheck, MapPin, Target, TrendingUp, CheckCircle2, FileText, BookOpen, Eye, Activity, Brain, Users, X, ZoomIn, ZoomOut } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, FolderLock, ShieldAlert, Radar, Zap, ShieldCheck, MapPin, Target, TrendingUp, CheckCircle2, FileText, BookOpen, Eye, Activity, Brain, Users, X, ZoomIn, ZoomOut, Volume2, Headphones, Disc3, Mic2, Network, Waves, Settings2, Loader2 } from "lucide-react";
 import type { GhostArchiveEntry } from "../types/archive";
 import {
   getArchiveAlias,
   getArchiveMeta,
-  getArchiveTags
+  getArchiveTags,
+  getRelatedEntities
 } from "../utils/archiveHelpers";
 import { DangerLevelBadge } from "./DangerLevelBadge";
 import { SectionWrapper } from "./SectionWrapper";
+import { ArchiveCard } from "./ArchiveCard";
+import { useStore } from "@/lib/store/store";
+import { SecretDocumentReader } from "./SecretDocumentReader";
 
 type ArchiveDetailProps = {
   entry: GhostArchiveEntry;
@@ -62,6 +66,206 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
   const [reportSortMode, setReportSortMode] = useState<ReportSortMode>("latest");
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [selectedImage, setSelectedImage] = useState<{url: string, caption: string} | null>(null);
+  
+  // Experience Engine State
+  const [voiceStyle, setVoiceStyle] = useState("kurator");
+  const [useAmbience, setUseAmbience] = useState(false);
+  const [activeReadingIndex, setActiveReadingIndex] = useState(-1);
+  const [isGeneratingSpeech, setIsGeneratingSpeech] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const ambienceAudioRef = useRef<HTMLAudioElement | null>(null);
+  const [audioProgress, setAudioProgress] = useState(0); // 0-1 float
+  const [activeChapterIndex, setActiveChapterIndex] = useState<number>(0);
+
+  const { isPlaying, currentTrack, setIsPlaying, setCurrentTrack } = useStore();
+  const baseTrackTitle = `Arsip Suara: ${entry.name}`;
+  const trackTitle = entry.chapters && entry.chapters.length > 0 
+    ? `${baseTrackTitle} (Bab ${activeChapterIndex + 1})` 
+    : baseTrackTitle;
+  const isThisTrackPlaying = isPlaying && currentTrack?.title === trackTitle;
+
+  // Prepare sections for TTS: If chapters exist, ONLY read the active chapter.
+  // Otherwise fallback to summary + detailedHistory.
+  const fullNarrativeSections = useMemo(() => {
+    if (entry.chapters && entry.chapters.length > 0) {
+      const chapter = entry.chapters[activeChapterIndex];
+      return [{
+        title: chapter.title,
+        content: Array.isArray(chapter.content) ? chapter.content.join(". ") : chapter.content
+      }];
+    }
+
+    const sections: { title: string; content: string }[] = [
+      { title: "Ringkasan", content: entry.summary }
+    ];
+    if (entry.detailedHistory) {
+      for (const section of entry.detailedHistory) {
+        sections.push({
+          title: section.title,
+          content: Array.isArray(section.content) ? section.content.join(". ") : section.content
+        });
+      }
+    }
+    return sections;
+  }, [entry, activeChapterIndex]);
+
+  // Restart/Clear Audio whenever the Active Chapter changes so it forces regeneration
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.src = "";
+      audioRef.current = null;
+    }
+    if (isThisTrackPlaying) {
+      setIsPlaying(false);
+    }
+  }, [activeChapterIndex]);
+
+  // Sync the actual <audio> playback with the isThisTrackPlaying state
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (isThisTrackPlaying) {
+      audio.play().catch(() => {});
+    } else {
+      audio.pause();
+    }
+  }, [isThisTrackPlaying]);
+
+  // Reading index highlight sync — accurate via audio timeupdate
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!isThisTrackPlaying || !audio) {
+      setActiveReadingIndex(-1);
+      setAudioProgress(0);
+      return;
+    }
+
+    const totalSections = fullNarrativeSections.length;
+    const handleTimeUpdate = () => {
+      if (audio.duration && !isNaN(audio.duration)) {
+        const progress = audio.currentTime / audio.duration;
+        setAudioProgress(progress);
+        const currentSection = Math.min(Math.floor(progress * totalSections), totalSections - 1);
+        setActiveReadingIndex(currentSection);
+      }
+    };
+    audio.addEventListener("timeupdate", handleTimeUpdate);
+    return () => audio.removeEventListener("timeupdate", handleTimeUpdate);
+  }, [isThisTrackPlaying, fullNarrativeSections.length]);
+
+  // Ambient audio using real MP3 file from public/sounds
+  useEffect(() => {
+    if (useAmbience) {
+      const ambienceAudio = new Audio("/sounds/Background Music (BGM)/ES_Mental Stillness - Jay Varton.mp3");
+      ambienceAudio.loop = true;
+      ambienceAudio.volume = 0;
+      ambienceAudio.play().catch(() => {});
+      ambienceAudioRef.current = ambienceAudio;
+
+      // Fade in over 3 seconds — max 0.08 sehingga vocal SELALU lebih keras dan ada "distant feeling"
+      let vol = 0;
+      const fadeIn = setInterval(() => {
+        vol = Math.min(vol + 0.005, 0.08);
+        if (ambienceAudio) ambienceAudio.volume = vol;
+        if (vol >= 0.12) clearInterval(fadeIn);
+      }, 100);
+
+      return () => {
+        clearInterval(fadeIn);
+        let v = ambienceAudio.volume;
+        const fadeOut = setInterval(() => {
+          v = Math.max(v - 0.02, 0);
+          ambienceAudio.volume = v;
+          if (v <= 0) { clearInterval(fadeOut); ambienceAudio.pause(); ambienceAudio.src = ""; }
+        }, 80);
+        ambienceAudioRef.current = null;
+      };
+    } else {
+      if (ambienceAudioRef.current) {
+        const a = ambienceAudioRef.current;
+        let v = a.volume;
+        const fadeOut = setInterval(() => {
+          v = Math.max(v - 0.02, 0);
+          a.volume = v;
+          if (v <= 0) { clearInterval(fadeOut); a.pause(); a.src = ""; }
+        }, 80);
+        ambienceAudioRef.current = null;
+      }
+    }
+  }, [useAmbience]);
+
+  // Cleanup all audio on unmount
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) { audioRef.current.pause(); audioRef.current.src = ""; audioRef.current = null; }
+      if (ambienceAudioRef.current) { ambienceAudioRef.current.pause(); ambienceAudioRef.current.src = ""; ambienceAudioRef.current = null; }
+    };
+  }, []);
+
+  const handlePlayAudio = async () => {
+    // Toggle pause
+    if (isThisTrackPlaying) {
+      setIsPlaying(false);
+      return;
+    }
+
+    // Resume if already generated for THIS specific section
+    if (audioRef.current && currentTrack?.title === trackTitle) {
+      setIsPlaying(true);
+      return;
+    }
+
+    // Generate new audio from ElevenLabs with FULL sections
+    try {
+      setIsGeneratingSpeech(true);
+
+      // PENTING: Stop & destroy audio sebelumnya agar tidak muncul double voice
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = "";
+        audioRef.current = null;
+      }
+
+      const res = await fetch("/api/tts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sections: fullNarrativeSections,
+          voiceStyle
+        })
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+
+      const audioUrl = `data:audio/mpeg;base64,${data.audioBase64}`;
+
+      // Create single Audio element — playback dikendalikan HANYA via useEffect sync
+      const audio = new Audio(audioUrl);
+      audio.volume = 1.0;
+      audio.onended = () => {
+        setIsPlaying(false);
+      };
+      audioRef.current = audio;
+
+      setCurrentTrack({
+        title: trackTitle,
+        artist: `DreadNoute AI Curator`,
+        cover: entry.mainImage,
+        url: audioUrl
+      });
+      // Setting isPlaying will trigger useEffect sync yang memanggil audio.play() SEKALI saja
+      setIsPlaying(true);
+    } catch (err: any) {
+      console.error("Gagal generate audio:", err);
+      alert("Gagal memanggil arsip suara: " + err.message);
+    } finally {
+      setIsGeneratingSpeech(false);
+    }
+  };
+
+  const relatedEntities = useMemo(() => getRelatedEntities(entry).slice(0, 3), [entry]);
 
   useEffect(() => {
     let rafId = 0;
@@ -182,14 +386,14 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
           100% { transform: scale(1.15) translate(-1%, 2%); }
         }
       `}</style>
-      <div className="mx-auto max-w-6xl space-y-8">
-        <header className="relative space-y-5 overflow-hidden rounded-2xl border border-red-500/28 bg-zinc-950/82 p-6 shadow-[0_32px_80px_-40px_rgba(220,38,38,0.55)]">
+      <div className="mx-auto max-w-6xl space-y-8" style={{ overflow: 'visible' }}>
+        <header className="relative space-y-5 rounded-2xl border border-red-500/28 bg-zinc-950/82 p-6 shadow-[0_32px_80px_-40px_rgba(220,38,38,0.55)]" style={{ overflow: 'visible' }}>
           <div className="pointer-events-none absolute -right-28 top-[-8rem] h-[26rem] w-[26rem] rounded-full bg-red-500/42 blur-3xl animate-pulse" />
           <div className="pointer-events-none absolute -left-28 -bottom-24 h-[22rem] w-[22rem] rounded-full bg-purple-500/30 blur-3xl" />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-red-900/30 via-transparent to-black" />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-purple-900/24 via-transparent to-black" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-red-900/30 via-transparent to-black/60" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-purple-900/24 via-transparent to-black/50" />
           <div className="pointer-events-none absolute inset-0 opacity-[0.1] [background-image:repeating-linear-gradient(0deg,rgba(255,255,255,0.1)_0_1px,transparent_1px_3px)]" />
-          <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_180px_rgba(0,0,0,0.78)]" />
+          <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_100px_rgba(0,0,0,0.6)]" />
 
           <div className="relative z-10 space-y-6">
             <Link
@@ -199,7 +403,7 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
               &larr; <span className="ml-1">Kembali ke Arsip</span>
             </Link>
 
-            <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
+            <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
               <div className="order-2 space-y-6 lg:order-1">
                 <div className="space-y-4 rounded-2xl border border-red-400/30 bg-[linear-gradient(155deg,rgba(7,7,9,0.56),rgba(7,7,9,0.86))] p-5 shadow-[0_34px_66px_-28px_rgba(0,0,0,0.98),0_0_0_1px_rgba(239,68,68,0.15)] backdrop-blur-lg sm:p-6">
                   <div className="h-px w-32 bg-gradient-to-r from-red-400/100 via-purple-400/70 to-transparent shadow-[0_0_16px_rgba(248,113,113,0.58)]" />
@@ -241,125 +445,213 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
                   />
                 </div>
 
-                <details className="group relative rounded-xl border border-yellow-900/40 bg-[#1a1412] p-2 shadow-[0_10px_30px_rgba(0,0,0,0.8)] transition-all duration-500 open:bg-[#201815]">
-                  <summary className="flex cursor-pointer list-none flex-col gap-2 rounded-lg border border-yellow-800/30 bg-[linear-gradient(45deg,#2a1f1a,#3d2c24)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_4px_10px_rgba(0,0,0,0.5)] transition-all hover:bg-[linear-gradient(45deg,#32251f,#4a352c)]">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <FolderLock className="h-5 w-5 text-yellow-600/80" />
-                        <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-yellow-500/90">
-                          Sejarah dan Asal Usul
-                        </span>
-                      </div>
-                      <ChevronDown className="h-4 w-4 text-yellow-600/80 transition-transform duration-500 group-open:rotate-180" />
-                    </div>
-                    
-                    {/* Folder Tab Effect */}
-                    <div className="mt-2 h-px w-full bg-gradient-to-r from-yellow-700/50 to-transparent" />
-                  </summary>
-
-                  <div className="relative mt-2 overflow-hidden rounded-b border-x border-b border-[#3b271d] bg-[#ebd5b3] px-5 py-6 shadow-[inset_0_5px_15px_rgba(0,0,0,0.5),inset_0_-15px_40px_rgba(139,69,19,0.2)] transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] [clip-path:inset(0_0_100%_0)] group-open:animate-[unrollPaper_0.8s_forwards]">
-                    {/* Paper Texture Overlay */}
-                    <div className="pointer-events-none absolute inset-0 opacity-40 [background-image:repeating-linear-gradient(0deg,transparent,transparent_23px,#d2b48c_24px)]" />
-                    <div className="pointer-events-none absolute inset-0 opacity-[0.25] mix-blend-multiply bg-[url('https://www.transparenttextures.com/patterns/old-wall.png')]" />
-                    <div className="pointer-events-none absolute inset-0 bg-[#3b271d] opacity-10 shadow-[inset_0_0_80px_rgba(59,39,29,0.8)]" />
-                    
-                    {evidenceTags.length > 0 ? (
-                      <div className="relative mb-5 flex flex-wrap gap-2">
-                        {evidenceTags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="rounded border border-[#8b4513]/30 bg-[#d2b48c]/40 px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest text-[#5c3a21]"
-                          >
-                            {tag}
-                          </span>
+                {/* ── DOKUMEN RAHASIA (Main Column) ── */}
+                <AccordionCard 
+                  title={entry.chapters && entry.chapters.length > 0 ? "Dokumen Rahasia (Arsip Lengkap)" : "Sejarah & Asal Usul"} 
+                  icon={<FolderLock className={`h-5 w-5 ${entry.chapters ? 'text-yellow-500' : 'text-zinc-400'}`} />} 
+                  theme={entry.chapters ? "warning" : "default"} 
+                  defaultOpen
+                >
+                  {entry.chapters && entry.chapters.length > 0 ? (
+                    <SecretDocumentReader
+                      ghostName={entry.name}
+                      chapters={entry.chapters}
+                      activeChapterIndex={activeChapterIndex}
+                      onActiveChapterChange={setActiveChapterIndex}
+                    />
+                  ) : (
+                    /* Fallback for entries without chapters yet */
+                    <div className="relative overflow-hidden rounded-xl border border-yellow-900/40 bg-[#ebd5b3] px-5 py-6 shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
+                      <div className="pointer-events-none absolute inset-0 opacity-40 [background-image:repeating-linear-gradient(0deg,transparent,transparent_23px,#d2b48c_24px)]" />
+                      <div className="relative space-y-4 font-serif text-sm leading-relaxed text-[#3e2723]">
+                        <p className="border-l-2 border-[#8b4513]/40 pl-4 font-medium italic">{entry.summary}</p>
+                        {entry.detailedHistory?.map((section, i) => (
+                          <div key={i} className="space-y-2 pt-2">
+                            <h3 className="text-sm font-bold uppercase tracking-widest text-[#4a2e1b] border-b border-[#8b4513]/20 pb-1">{section.title}</h3>
+                            {Array.isArray(section.content)
+                              ? <ul className="space-y-1 pl-4 list-disc marker:text-[#8b4513]/60 text-[#3e2723]">{section.content.map((p,j)=><li key={j}>{p}</li>)}</ul>
+                              : <p>{section.content}</p>
+                            }
+                          </div>
                         ))}
                       </div>
-                    ) : null}
-
-                    <div className="relative space-y-6 font-serif text-sm leading-relaxed text-[#3e2723]">
-                      <p className="border-l-2 border-[#8b4513]/40 pl-4 font-medium italic">
-                        {entry.summary}
-                      </p>
-                      
-                      {entry.detailedHistory ? (
-                        <div className="space-y-6 pt-2">
-                          {entry.detailedHistory.map((section, index) => {
-                            const iconMap: Record<string, React.ReactNode> = {
-                              FileText: <FileText className="h-4 w-4 text-[#8b4513]" />,
-                              BookOpen: <BookOpen className="h-4 w-4 text-[#8b4513]" />,
-                              MapPin: <MapPin className="h-4 w-4 text-[#8b4513]" />,
-                              Eye: <Eye className="h-4 w-4 text-[#8b4513]" />,
-                              Activity: <Activity className="h-4 w-4 text-[#8b4513]" />,
-                              Brain: <Brain className="h-4 w-4 text-[#8b4513]" />,
-                              Users: <Users className="h-4 w-4 text-[#8b4513]" />
-                            };
-
-                            return (
-                              <div key={index} className="space-y-3">
-                                <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-[#4a2e1b] font-sans border-b border-[#8b4513]/20 pb-1">
-                                  {section.icon && iconMap[section.icon]}
-                                  {section.title}
-                                </h3>
-                                {Array.isArray(section.content) ? (
-                                  <ul className="space-y-2 pl-4 list-disc marker:text-[#8b4513]/60">
-                                    {section.content.map((p, i) => (
-                                      <li key={i}>{p}</li>
-                                    ))}
-                                  </ul>
-                                ) : (
-                                  <p>{section.content}</p>
-                                )}
-                              </div>
-                            );
-                          })}
-                        </div>
-                      ) : (
-                        <p className="whitespace-pre-wrap">
-                          {entry.history.join("\n\n")}
-                        </p>
-                      )}
                     </div>
+                  )}
+                </AccordionCard>
+              </div>
+
+              {/* ── RIGHT MODULAR SIDEBAR ── */}
+              <div className="order-1 lg:order-2">
+                <div className="flex w-full flex-col gap-5 overflow-visible pb-6 pr-2">
+                  
+                  {/* Hero Image Block */}
+                  <div className="relative h-[24rem] w-full shrink-0 overflow-hidden rounded-md border border-red-500/20 shadow-2xl sm:h-[32rem] lg:h-[40rem]">
+                    <div className="absolute inset-0 [animation:archiveHeroDrift_15s_ease-in-out_infinite_alternate] will-change-transform">
+                      <Image
+                        src={entry.mainImage}
+                        alt={entry.name}
+                        fill
+                        className="object-cover object-top brightness-[1] contrast-[1.2] saturate-[1.0] sepia-[0.3] will-change-transform"
+                        style={{
+                          transform: `translate3d(${heroTranslateX}px,${heroTranslateY}px,0) scale(${heroScale})`
+                        }}
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                      />
+                    </div>
+                    <div className="pointer-events-none absolute inset-0 bg-white/10 opacity-0 animate-[flickerLight_8s_infinite]" />
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(255,255,255,0.15)_0%,transparent_50%)] animate-[pulse_4s_alternate_infinite]" />
+                    <div className="pointer-events-none absolute inset-0 opacity-[0.15] mix-blend-overlay bg-[url('https://www.transparenttextures.com/patterns/black-paper.png')]" />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent mix-blend-multiply" />
+                    <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_80px_rgba(0,0,0,0.7),inset_0_0_30px_rgba(0,0,0,0.6)]" />
+                  </div>
+
+                  {/* Audio Player Sticky */}
+                  <div className="group relative shrink-0 overflow-hidden rounded-xl border border-red-900/40 bg-[linear-gradient(160deg,#120909,#0a0505)] p-4 shadow-[0_10px_30px_-15px_rgba(220,38,38,0.4)]">
+                    <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-red-600/10 blur-3xl transition-all group-hover:bg-red-500/20" />
+                    <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10 mix-blend-overlay" />
                     
-                    {/* Stamp */}
-                    <div className="pointer-events-none absolute bottom-4 right-4 h-16 w-16 rotate-12 rounded-full border-2 border-red-800/40 p-1 opacity-60">
-                      <div className="flex h-full w-full items-center justify-center rounded-full border border-red-800/40 text-[8px] font-bold tracking-widest text-red-800/60">
-                        VERIFIED
+                    <div className="relative flex items-center gap-3">
+                      <button
+                        onClick={handlePlayAudio}
+                        className={`relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 transition-all ${
+                          isThisTrackPlaying 
+                            ? "border-red-500 bg-red-950/80 text-red-100 shadow-[0_0_20px_rgba(220,38,38,0.5)] scale-105" 
+                            : "border-red-900/60 bg-black/60 text-red-500 hover:border-red-500 hover:bg-red-950/40 hover:text-red-400"
+                        }`}
+                      >
+                        {isGeneratingSpeech ? (
+                          <Loader2 className="h-5 w-5 animate-spin text-red-500" />
+                        ) : isThisTrackPlaying ? (
+                          <div className="flex items-center justify-center gap-[3px]">
+                            <span className="h-2.5 w-[3px] animate-[bounce_1s_infinite_100ms] rounded-full bg-red-400" />
+                            <span className="h-3.5 w-[3px] animate-[bounce_1s_infinite_200ms] rounded-full bg-red-500" />
+                            <span className="h-2.5 w-[3px] animate-[bounce_1s_infinite_300ms] rounded-full bg-red-400" />
+                          </div>
+                        ) : (
+                          <Volume2 className="h-5 w-5 ml-0.5" />
+                        )}
+                        <div className={`absolute inset-0 rounded-full border border-red-500/30 ${isThisTrackPlaying || isGeneratingSpeech ? "animate-ping opacity-50" : "opacity-0"}`} />
+                      </button>
+                      <div className="flex-1 space-y-1 overflow-hidden">
+                        <h3 className="text-sm font-bold tracking-wide text-zinc-100 truncate">
+                          Arsip Suara
+                        </h3>
+                        <div className="flex items-center gap-2 text-[9px] font-medium uppercase tracking-[0.15em] text-red-500/80">
+                          <span className="flex items-center gap-1"><Headphones className="h-3 w-3" /> Kurator Narator</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </details>
-              </div>
 
-              <div className="order-1 lg:order-2">
-                <div className="relative h-[24rem] w-full overflow-hidden rounded-md border border-red-500/20 shadow-2xl sm:h-[32rem] lg:h-[40rem]">
-                  <div className="absolute inset-0 [animation:archiveHeroDrift_15s_ease-in-out_infinite_alternate] will-change-transform">
-                    <Image
-                      src={entry.mainImage}
-                      alt={entry.name}
-                      fill
-                      className="object-cover object-top brightness-[0.8] contrast-[1.3] saturate-[1.0] sepia-[0.2] will-change-transform"
-                      style={{
-                        transform: `translate3d(${heroTranslateX}px,${heroTranslateY}px,0) scale(${heroScale})`
-                      }}
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                    />
+                    <div className="relative z-10 mt-3 flex items-center gap-2 border-t border-red-900/40 pt-3">
+                      <button 
+                        onClick={() => setUseAmbience(!useAmbience)}
+                        className={`flex flex-1 items-center justify-center gap-2 rounded-lg border px-2 py-1.5 text-[10px] font-bold uppercase tracking-widest transition-colors ${
+                          useAmbience 
+                            ? "border-purple-500/40 bg-purple-950/30 text-purple-300 shadow-[0_0_15px_rgba(168,85,247,0.15)]" 
+                            : "border-zinc-800 bg-black/40 text-zinc-500 hover:bg-zinc-900/60"
+                        }`}
+                      >
+                        <Waves className={`h-3 w-3 ${useAmbience ? "animate-pulse" : ""}`} />
+                        Ambient
+                      </button>
+                    </div>
                   </div>
-                  <div className="pointer-events-none absolute inset-0 bg-white/10 opacity-0 animate-[flickerLight_8s_infinite]" />
-                  <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(255,255,255,0.1)_0%,transparent_60%)] animate-[pulse_4s_alternate_infinite]" />
-                  <div className="pointer-events-none absolute inset-0 opacity-[0.25] mix-blend-overlay bg-[url('https://www.transparenttextures.com/patterns/black-paper.png')]" />
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/30 to-black/60 mix-blend-multiply" />
-                  <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_150px_rgba(0,0,0,0.9),inset_0_0_60px_rgba(0,0,0,0.8)]" />
+
+                  {/* Active Status & Quick Facts */}
+                  <div className="shrink-0 space-y-3 rounded-xl border border-zinc-800 bg-[#0d0a09]/80 p-4 shadow-md backdrop-blur-md">
+                    <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                      <div className="flex items-center gap-2">
+                        <Activity className="h-4 w-4 text-zinc-400" />
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Status Entitas</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="relative flex h-2 w-2">
+                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
+                          <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500"></span>
+                        </span>
+                        <span className="text-[9px] font-bold uppercase tracking-widest text-red-400">Aktif</span>
+                      </div>
+                    </div>
+                    <ul className="space-y-2.5 pt-1 text-xs">
+                      <li className="flex items-start justify-between gap-4">
+                        <span className="text-zinc-500">Tingkat Bahaya</span>
+                        <span className="font-semibold text-zinc-300 text-right">{entry.dangerLevel}</span>
+                      </li>
+                      <li className="flex items-start justify-between gap-4">
+                        <span className="text-zinc-500">Era Asal</span>
+                        <span className="font-semibold text-zinc-300 text-right">{meta.era || "-"}</span>
+                      </li>
+                      <li className="flex items-start justify-between gap-4">
+                        <span className="text-zinc-500">Laporan Terakhir</span>
+                        <span className="font-semibold text-zinc-300 text-right">3 Hari Lalu</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* Navigasi Mini (TOC) */}
+                  {entry.chapters && entry.chapters.length > 0 && (
+                    <div className="shrink-0 space-y-3 rounded-xl border border-zinc-800 bg-[#0d0a09]/80 p-4 shadow-md backdrop-blur-md">
+                      <div className="flex items-center gap-2 border-b border-white/5 pb-2">
+                        <BookOpen className="h-4 w-4 text-zinc-400" />
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Navigasi Berkas</span>
+                      </div>
+                      <ul className="space-y-2 pt-1">
+                        {entry.chapters.map((ch, idx) => (
+                          <li key={idx}>
+                            <button
+                              onClick={() => {
+                                setActiveChapterIndex(idx);
+                              }}
+                              className={`w-full flex items-center gap-2 rounded px-2 py-2 text-left text-[13px] font-medium transition-colors ${
+                                activeChapterIndex === idx 
+                                  ? "bg-yellow-900/40 text-yellow-500 border border-yellow-700/40" 
+                                  : "text-zinc-400 hover:bg-white/5 hover:text-zinc-200"
+                              }`}
+                            >
+                              <ChevronRight className={`h-4 w-4 shrink-0 ${activeChapterIndex === idx ? "opacity-100 text-yellow-500" : "opacity-0"}`} />
+                              <span className="truncate">{ch.title}</span>
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {/* Entitas Terkait */}
+                  {relatedEntities.length > 0 && (
+                    <div className="shrink-0 space-y-3 rounded-xl border border-zinc-800 bg-[#0d0a09]/80 p-4 shadow-md backdrop-blur-md">
+                      <div className="flex items-center gap-2 border-b border-white/5 pb-2">
+                        <Network className="h-4 w-4 text-zinc-400" />
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Entitas Terkait</span>
+                      </div>
+                      <div className="space-y-3 pt-1">
+                        {relatedEntities.map((related) => (
+                          <Link href={`/ghost-archive/${related.slug}`} key={related.id} className="group flex items-center gap-3 rounded-lg border border-transparent p-1 transition-colors hover:border-zinc-800 hover:bg-white/5">
+                            <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-md border border-zinc-800">
+                              <Image src={related.mainImage} alt={related.name} fill className="object-cover transition-transform group-hover:scale-110" />
+                            </div>
+                            <div className="flex-1 overflow-hidden">
+                              <h4 className="truncate text-xs font-bold text-zinc-200 group-hover:text-red-400">{related.name}</h4>
+                              <p className="truncate text-[9px] uppercase tracking-widest text-zinc-500">{related.category}</p>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  
                 </div>
               </div>
+
             </div>
           </div>
         </header>
 
         <section className="mt-12 grid gap-8 lg:grid-cols-2 mb-12">
           <AccordionCard title="Kemampuan" icon={<Zap className="h-5 w-5 text-purple-400" />} theme="glitch" defaultOpen>
-            <ul className="space-y-3">
+            <ul className="space-y-4">
               {entry.abilities.map((item) => (
-                <li key={item} className="rounded-lg border border-purple-500/10 bg-black/40 p-3 leading-relaxed shadow-[inset_0_0_10px_rgba(168,85,247,0.05)]">
+                <li key={item} className="rounded-lg border border-purple-500/10 bg-black/40 p-4 leading-relaxed shadow-[inset_0_0_10px_rgba(168,85,247,0.05)] text-[15px]">
                   {item}
                 </li>
               ))}
@@ -367,9 +659,9 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
           </AccordionCard>
 
           <AccordionCard title="Kelemahan" icon={<ShieldAlert className="h-5 w-5 text-orange-400" />} theme="warning" defaultOpen>
-            <ul className="space-y-3">
+            <ul className="space-y-4">
               {entry.weaknesses.map((item) => (
-                <li key={item} className="rounded-lg border border-orange-500/10 bg-black/40 p-3 leading-relaxed shadow-[inset_0_0_10px_rgba(249,115,22,0.05)]">
+                <li key={item} className="rounded-lg border border-orange-500/10 bg-black/40 p-4 leading-relaxed shadow-[inset_0_0_10px_rgba(249,115,22,0.05)] text-[15px]">
                   {item}
                 </li>
               ))}
@@ -377,9 +669,9 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
           </AccordionCard>
 
           <AccordionCard title="Zona Rawan" icon={<Radar className="h-5 w-5 text-green-400" />} theme="radar" defaultOpen>
-            <ul className="space-y-3">
+            <ul className="space-y-4">
               {entry.dangerZones.map((zone) => (
-                <li key={zone} className="flex items-center gap-3 rounded-lg border border-green-500/10 bg-black/40 p-3 leading-relaxed shadow-[inset_0_0_10px_rgba(34,197,94,0.05)]">
+                <li key={zone} className="flex items-center gap-3 rounded-lg border border-green-500/10 bg-black/40 p-4 leading-relaxed shadow-[inset_0_0_10px_rgba(34,197,94,0.05)] text-[15px]">
                   <MapPin className="h-4 w-4 text-green-500/80 shrink-0" />
                   <span>{zone}</span>
                 </li>
@@ -388,9 +680,9 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
           </AccordionCard>
 
           <AccordionCard title="Panduan Selamat" icon={<ShieldCheck className="h-5 w-5 text-blue-400" />} theme="shield" defaultOpen={true}>
-            <ul className="space-y-3">
+            <ul className="space-y-4">
               {(entry.survivalGuide && entry.survivalGuide.length > 0) ? entry.survivalGuide.map((rule) => (
-                <li key={rule} className="rounded-lg border border-blue-500/20 bg-blue-950/20 p-3 leading-relaxed text-zinc-200">
+                <li key={rule} className="rounded-lg border border-blue-500/20 bg-blue-950/20 p-4 leading-relaxed text-zinc-200 text-[15px]">
                   {rule}
                 </li>
               )) : (
@@ -591,6 +883,27 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
             </div>
           </div>
         </SectionWrapper>
+
+        {relatedEntities.length > 0 && (
+          <div className="pt-12 pb-6 border-t border-zinc-800/60 mt-8 relative">
+             <div className="pointer-events-none absolute left-1/4 top-0 h-px w-1/2 bg-gradient-to-r from-transparent via-red-900/60 to-transparent blur-[2px]" />
+             <div className="mb-8 flex flex-col items-center justify-center space-y-3 text-center">
+               <h2 className="flex items-center gap-3 bg-gradient-to-br from-zinc-100 to-zinc-400 bg-clip-text text-2xl font-black uppercase tracking-[0.2em] text-transparent drop-shadow-[0_0_15px_rgba(220,38,38,0.5)] sm:text-3xl">
+                 <Network className="h-6 w-6 text-red-500" /> Entitas Terkait
+               </h2>
+               <p className="text-xs text-zinc-400 uppercase tracking-widest max-w-lg">
+                 Arsip entitas dengan klasifikasi teror, pola, atau koordinat temuan yang terhubung secara ekosistem.
+               </p>
+               <div className="mt-2 h-px w-24 bg-gradient-to-r from-transparent via-red-500/80 to-transparent" />
+             </div>
+
+             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+               {relatedEntities.map((entity) => (
+                 <ArchiveCard key={entity.id} entry={entity} />
+               ))}
+             </div>
+          </div>
+        )}
       </div>
 
       <style jsx global>{`

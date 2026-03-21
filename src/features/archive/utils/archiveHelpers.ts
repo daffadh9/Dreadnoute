@@ -222,3 +222,23 @@ export const getArchiveCityOptions = (
   const extractedOptions = provinceScopedEntries.map((e) => e.city ?? "").filter(Boolean);
   return getUniqueValues([...extractedOptions, ...extraCities]).sort();
 };
+
+export const getRelatedEntities = (
+  entry: GhostArchiveEntry,
+  entries: GhostArchiveEntry[] = GHOST_ARCHIVE_ENTRIES
+): GhostArchiveEntry[] => {
+  return entries
+    .filter((e) => e.id !== entry.id)
+    .map((e) => {
+      let score = 0;
+      if (e.category === entry.category) score += 3; // Similar Type
+      if (e.province === entry.province) score += 2; // Same Region
+      const commonTags = (e.evidenceTags ?? []).filter((t) => (entry.evidenceTags ?? []).includes(t));
+      score += commonTags.length; // Same Behavior / Tags
+      return { entry: e, score };
+    })
+    .filter((item) => item.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3)
+    .map((item) => item.entry);
+};

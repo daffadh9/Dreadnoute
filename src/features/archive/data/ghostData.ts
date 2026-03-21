@@ -315,6 +315,85 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
         report:
           "Dari balik pagar terdengar suara kain terseret, beberapa detik kemudian anjing sekitar menggonggong serempak tanpa sumber terlihat."
       }
+    ],
+    chapters: [
+      {
+        chapterNumber: 1,
+        title: "Sejarah & Asal Mula",
+        subtitle: "Klasifikasi: Arsip Primer",
+        icon: "BookOpen",
+        content: [
+          "Jauh sebelum fenomena ini tercatat dalam arsip modern, masyarakat Nusantara telah mengenal entitas ini melalui ritual pemakaman Islam yang mengakar kuat selama berabad-abad. Dalam tradisi tersebut, jenazah dibungkus kain kafan putih bersih dan diikat di tiga titik tubuh — kepala, leher, dan kaki — sebagai simbol penyerahan total kepada Sang Pencipta.",
+          "Namun dalam kedalaman kepercayaan populer yang berkembang di pedesaan Jawa, Sunda, dan Melayu, tumbuh sebuah ketakutan yang jauh lebih gelap: bagaimana jika ritual tersebut tidak dilakukan dengan sempurna? Bagaimana jika tali ikatan tidak dilepas sebelum liang lahat ditutup?",
+          "Dari pertanyaan gelap inilah lahir entitas yang kita sebut Pocong — roh yang terjebak di antara dua dunia, tidak mampu melintas ke alam baka karena daging dan tulangnya masih terbelenggu oleh ikatan kain pemakaman. Ia bukan hantu yang lahir dari dendam. Ia lahir dari ketidaksempurnaan ritual. Dari kelalaian manusia.",
+        ]
+      },
+      {
+        chapterNumber: 2,
+        title: "Evolusi Mitos: Dari Desa ke Kota",
+        subtitle: "Klasifikasi: Arsip Sekunder",
+        icon: "FileText",
+        content: [
+          "Narasi Pocong berevolusi secara dramatis seiring urbanisasi Indonesia. Pada era 1950-an hingga 1970-an, laporan penampakan hampir seluruhnya terklaster di area pekuburan desa dan ladang-ladang terbengkalai. Wujudnya ketika itu digambarkan sederhana — siluet putih memantul di antara nisan, tanpa interaksi langsung.",
+          "Namun memasuki dekade 1980-an dan 1990-an, seiring migrasi masif ke kota-kota besar, Pocong ikut 'bermigrasi'. Laporan mulai bermunculan dari gang-gang sempit perkotaan, parkiran basement gedung perkantoran, bahkan lorong-lorong apartemen tua. Mitos berkembang mengikuti kecemasan kolektif manusia.",
+          "Puncaknya, banjir film horor Indonesia era 2000-an mengkristalkan visualisasi Pocong dalam benak publik, menciptakan apa yang para peneliti sebut 'ikon ketakutan nasional' — sebuah fenomena langka di mana representasi budaya secara aktif memperkuat, dan bahkan menciptakan, kejadian supranatural yang dilaporkan.",
+        ]
+      },
+      {
+        chapterNumber: 3,
+        title: "Lokasi & Pola Kemunculan",
+        subtitle: "Klasifikasi: Laporan Lapangan",
+        icon: "MapPin",
+        content: [
+          "Tim investigasi DreadNoute telah memetakan lebih dari 340 laporan penampakan selama satu dekade terakhir. Dari data tersebut, tersusun pola koordinat yang konsisten dan sangat spesifik: Pocong hampir selalu termanifestasi di ruang-ruang dengan tingkat kelembapan di atas 78%, minim sirkulasi udara, dan jauh dari sumber cahaya buatan.",
+          "Titik-titik paling aktif mencakup: kompleks pemakaman pinggiran kota dengan nisan berusia di atas 50 tahun, kebun pisang yang rimbun dan berlumpur (karena tanaman ini secara budaya diasosiasikan erat dengan ritual kematian), serta koridor-koridor ujung gang mati yang tidak memiliki jalan tembus.",
+          "Yang paling mengejutkan dari analisis kami: 73% laporan terjadi dalam rentang waktu 01.15 hingga 03.00 dini hari — sebuah konsistensi statistik yang sulit dijelaskan hanya dengan faktor psikologis. Jam-jam ini dikenal dalam tradisi Jawa sebagai 'waktu tipis', ketika batas antara dimensi materi dan dimensi alam gaib konon berada pada titik paling rapuh.",
+        ]
+      },
+      {
+        chapterNumber: 4,
+        title: "Ciri-Ciri & Penampakan",
+        subtitle: "Klasifikasi: Deskripsi Teridentifikasi",
+        icon: "Eye",
+        content: [
+          "Berdasarkan kompilasi 340 laporan dan 12 rekaman visual yang berhasil diverifikasi tim forensik DreadNoute, wujud Pocong memiliki karakteristik yang sangat konsisten di seluruh laporan: Siluet asimetris berupa bungkusan kain kafan usang yang basah, sobek di beberapa bagian, dan dililit lumpur liang lahat — seolah entitas ini baru saja memaksa diri keluar dari kuburannya.",
+          "Fitur yang paling sering dilaporkan dan paling sulit dijelaskan secara logis adalah absennya bayangan. Dalam rekaman CCTV yang berhasil kami analisis, objek putih tersebut memantulkan cahaya lampu sorot — tanda bahwa ia memiliki massa fisik — namun gagal total memproduksi bayangan di permukaan lantai atau tanah. Ini adalah anomali optis yang hingga kini belum memiliki penjelasan ilmiah yang memuaskan.",
+          "Pergerakan Pocong adalah hal yang paling sering disalahpahami orang awam. Ia tidak berjalan. Ia meloncat — akibat keterbatasan fisik kaki yang masih terikat kafan. Namun laporan paling mencekam justru merekam sesuatu yang berbeda: entitas ini dapat berpindah tempat secara instan, berkedip dari satu titik ke titik lain tanpa pergerakan yang terdeteksi kamera.",
+        ]
+      },
+      {
+        chapterNumber: 5,
+        title: "Perilaku & Metode Serangan",
+        subtitle: "Klasifikasi: BAHAYA — Baca Lengkap",
+        icon: "Activity",
+        content: [
+          "Berbeda dengan mayoritas entitas vengeful spirit yang bersifat agresif secara langsung, Pocong adalah master teror psikologis jangka panjang. Ia tidak menyerang secara fisik. Ia tidak mengejar korban dengan kecepatan penuh. Keterbatasan gerak fisiknya justru menjadi senjata psikologis yang paling mematikan.",
+          "Metode primernnya adalah pengawasan statis yang berkelanjutan. Ia akan muncul di sudut penglihatan korban — dari balik cermin lemari, dari ambang pintu kamar mandi, dari sela-sela rel lift — dan hanya berdiri diam. Miring kepala pelan-pelan. Mengamati. Selama berjam-jam.",
+          "Efek psikologis dari pengawasan ini pada saksi dilaporkan lebih traumatis dibandingkan serangan fisik langsung. Dalam tiga kasus yang kami tangani pada 2019-2022, korban mengalami gangguan tidur kronis, paranoia visual, dan satu kasus bahkan mengalami selective mutism selama empat bulan setelah kejadian. Pocong mungkin adalah entitas paling 'efisien' dalam menghancurkan jiwa manusia tanpa sekali pun menyentuh fisik korbannya.",
+        ]
+      },
+      {
+        chapterNumber: 6,
+        title: "Interpretasi Psikologi & Teori",
+        subtitle: "Klasifikasi: Analisis Internal",
+        icon: "Brain",
+        content: [
+          "Di dalam divisi riset DreadNoute, perdebatan mengenai sifat dasar Pocong telah berlangsung secara sengit selama bertahun-tahun. Kubu pertama — dipimpin oleh pakar folklor kami — berargumen bahwa Pocong adalah manifestasi autentik dari residual haunting: endapan energi emosional yang tertinggal akibat kematian traumatis yang tidak diselesaikan dengan ritual yang benar.",
+          "Kubu kedua — dari divisi neuropsikologi — mengajukan hipotesis yang lebih mengusik: bahwa 'Pocong' sebagai fenomena adalah produk dari thanatophobia kolektif masyarakat tropis. Ketakutan komunal terhadap kematian yang tidak sempurna, yang dikombinasikan dengan sistem kepercayaan spiritual yang kuat, menciptakan gelombang proyeksi visioner yang ditangkap oleh pikiran-pikiran yang sensitif sebagai entitas nyata.",
+          "Yang paling sulit kami bantah adalah faktor statistik: laporan penampakan Pocong meningkat secara konsisten selama 14 hari setelah kematian seseorang di area tersebut, dan menurun drastis setelah ritual do'a 40 hari dilaksanakan. Pola ini terlalu konsisten untuk dimungkiri sebagai kebetulan semata.",
+        ]
+      },
+      {
+        chapterNumber: 7,
+        title: "Kasus Nyata — Kesaksian Lapangan",
+        subtitle: "Klasifikasi: ARSIP MERAH · Terbatas",
+        icon: "Users",
+        content: [
+          "ARSIP DRD-1998 — Poskamling Jatingaleh, Semarang. Malam Selasa, musim hujan. Empat orang relawan jaga malam. Salah satu dari mereka, yang kini meminta namanya tidak disebutkan, memberikan kesaksian yang kami verifikasi dengan rekaman audio kaset analog yang masih tersimpan.",
+          "'Malam itu gerimis tipis. Rekan saya menyorot senter ke pohon beringin di ujung pos karena ada sesuatu seperti guling terjatuh dari atas. Kami tertawa dulu, menyangka itu barang dari warga. Tapi senter itu tidak bergerak ke mana-mana. Saya lihat guling itu... bergerak sendiri. Kainnya basah. Merembes cairan tanah merah.'",
+          "'Lalu ia memutar wajahnya ke arah kami. Ada liang hitam di mana seharusnya ada wajah. Aromanya, seperti kapur barus tapi dicampur bau tanah basah yang dalam sekali. Kami tidak bisa bergerak. Semua empat orang. Berlutut di tempat. Kami tidak ingat apa-apa lagi sampai azan Subuh berkumandang dan kami terbangun di dalam pos dengan pintu tertutup dari dalam.' — Eks-Saksi, Indeks Arsip #DRD-1998-07.",
+        ]
+      },
     ]
   },
   {

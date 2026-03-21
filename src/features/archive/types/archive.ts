@@ -4,6 +4,15 @@ export type ArchiveHistorySection = {
   content: string[] | string;
 };
 
+export type DocumentChapter = {
+  chapterNumber: number;
+  title: string;
+  subtitle?: string; // e.g. "Klasifikasi: MERAH"
+  icon?: string;
+  content: string[] | string;
+  audioFile?: string; // path ke file audio lokal, e.g. "/sounds/chapters/pocong-ch1.mp3"
+};
+
 export type GhostArchiveReport = {
   id: string;
   username: string;
@@ -34,6 +43,7 @@ export type GhostArchiveEntry = {
   summary: string;
   history: string[];
   detailedHistory?: ArchiveHistorySection[];
+  chapters?: DocumentChapter[];
   abilities: string[];
   weaknesses: string[];
   dangerZones: string[];
