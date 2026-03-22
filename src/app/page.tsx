@@ -184,7 +184,7 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen pb-40 relative bg-[#020202] font-cinzel overflow-x-hidden">
-      <div className="max-w-[1440px] mx-auto px-8 w-full flex flex-col">
+      <div className="max-w-6xl mx-auto px-8 w-full flex flex-col">
         {/* Top Bar - Total Reset */}
         <header className="sticky top-0 z-[70] bg-[#020202]/95 backdrop-blur-3xl border-b border-white/5 py-4 flex items-center justify-between w-full">
          <div className="flex items-center gap-10">
@@ -535,7 +535,7 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                {CATEGORIES.map((cat, i) => (
                   <div key={i} className="flex flex-col gap-3">
-                     <div className="group relative h-[140px] rounded-3xl overflow-hidden border border-white/[0.07] bg-zinc-950 cursor-pointer hover:border-accent/30 hover:-translate-y-1 transition-all duration-500 shadow-lg">
+                     <div className="group relative aspect-[4/3] rounded-3xl overflow-hidden border border-white/[0.07] bg-zinc-950 cursor-pointer hover:border-accent/30 hover:-translate-y-1 transition-all duration-500 shadow-lg">
                         <Image src={cat.image} alt={cat.title} fill className="object-cover opacity-20 grayscale group-hover:grayscale-0 group-hover:opacity-55 transition-all duration-700 group-hover:scale-105" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
                         <div className="absolute top-5 left-5 w-10 h-10 rounded-xl bg-black/60 backdrop-blur-xl border border-white/10 flex items-center justify-center text-accent group-hover:border-accent/50 transition-all z-10">
