@@ -13,7 +13,7 @@ import {
 } from "../utils/archiveHelpers";
 import { DangerLevelBadge } from "./DangerLevelBadge";
 import { SectionWrapper } from "./SectionWrapper";
-import { ArchiveCard } from "./ArchiveCard";
+
 import { useStore } from "@/lib/store/store";
 import { SecretDocumentReader } from "./SecretDocumentReader";
 
@@ -617,28 +617,7 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
                     </div>
                   )}
 
-                  {/* Entitas Terkait */}
-                  {relatedEntities.length > 0 && (
-                    <div className="shrink-0 space-y-3 rounded-xl border border-zinc-800 bg-[#0d0a09]/80 p-4 shadow-md backdrop-blur-md">
-                      <div className="flex items-center gap-2 border-b border-white/5 pb-2">
-                        <Network className="h-4 w-4 text-zinc-400" />
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-400">Entitas Terkait</span>
-                      </div>
-                      <div className="space-y-3 pt-1">
-                        {relatedEntities.map((related) => (
-                          <Link href={`/ghost-archive/${related.slug}`} key={related.id} className="group flex items-center gap-3 rounded-lg border border-transparent p-1 transition-colors hover:border-zinc-800 hover:bg-white/5">
-                            <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-md border border-zinc-800">
-                              <Image src={related.mainImage} alt={related.name} fill className="object-cover transition-transform group-hover:scale-110" />
-                            </div>
-                            <div className="flex-1 overflow-hidden">
-                              <h4 className="truncate text-xs font-bold text-zinc-200 group-hover:text-red-400">{related.name}</h4>
-                              <p className="truncate text-[9px] uppercase tracking-widest text-zinc-500">{related.category}</p>
-                            </div>
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+
                   
                 </div>
               </div>
@@ -885,24 +864,58 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
         </SectionWrapper>
 
         {relatedEntities.length > 0 && (
-          <div className="pt-12 pb-6 border-t border-zinc-800/60 mt-8 relative">
-             <div className="pointer-events-none absolute left-1/4 top-0 h-px w-1/2 bg-gradient-to-r from-transparent via-red-900/60 to-transparent blur-[2px]" />
-             <div className="mb-8 flex flex-col items-center justify-center space-y-3 text-center">
-               <h2 className="flex items-center gap-3 bg-gradient-to-br from-zinc-100 to-zinc-400 bg-clip-text text-2xl font-black uppercase tracking-[0.2em] text-transparent drop-shadow-[0_0_15px_rgba(220,38,38,0.5)] sm:text-3xl">
-                 <Network className="h-6 w-6 text-red-500" /> Entitas Terkait
-               </h2>
-               <p className="text-xs text-zinc-400 uppercase tracking-widest max-w-lg">
-                 Arsip entitas dengan klasifikasi teror, pola, atau koordinat temuan yang terhubung secara ekosistem.
-               </p>
-               <div className="mt-2 h-px w-24 bg-gradient-to-r from-transparent via-red-500/80 to-transparent" />
-             </div>
+          <section className="mt-16">
+            <div className="mb-6 text-center text-zinc-100">
+              <h2 className="bg-gradient-to-br from-zinc-100 to-zinc-400 bg-clip-text text-3xl font-black uppercase tracking-[0.2em] text-transparent drop-shadow-[0_0_15px_rgba(220,38,38,0.5)] sm:text-4xl flex items-center justify-center gap-3">
+                <Network className="h-8 w-8 text-red-500" /> ENTITAS TERKAIT
+              </h2>
+              <div className="mt-4 mx-auto h-px w-32 bg-gradient-to-r from-transparent via-red-500/80 to-transparent" />
+              <p className="mt-4 text-sm text-zinc-400 max-w-2xl mx-auto tracking-wide">
+                Arsip entitas dengan klasifikasi teror, pola, atau keterkaitan folklor yang sering muncul berdampingan dalam laporan.
+              </p>
+            </div>
 
-             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-               {relatedEntities.map((entity) => (
-                 <ArchiveCard key={entity.id} entry={entity} />
-               ))}
-             </div>
-          </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+              {relatedEntities.map((ghost) => (
+                <Link
+                  key={ghost.slug}
+                  href={`/ghost-archive/${ghost.slug}`}
+                  className="group flex flex-col rounded-2xl border border-red-900/40 bg-[#0A0505] overflow-hidden shadow-[0_0_40px_rgba(120,0,0,0.18)] transition-all duration-300 hover:-translate-y-1 hover:border-red-500/60"
+                >
+                  <div className="relative aspect-[3/4] overflow-hidden">
+                    <Image
+                      src={ghost.mainImage}
+                      alt={ghost.name}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      className="h-full w-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110 group-hover:brightness-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80" />
+                    
+                    <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3">
+                      <div>
+                        <h3 className="text-xl font-bold tracking-wide text-zinc-100 group-hover:text-red-400 transition-colors drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                          {ghost.name}
+                        </h3>
+                        <p className="mt-1 text-[10px] uppercase tracking-widest text-[#E5E5E5] font-semibold drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
+                          {getArchiveMeta(ghost).regionLabel}
+                        </p>
+                      </div>
+                      <span className="shrink-0 rounded-full border border-amber-600/50 bg-black/60 px-2 py-1 text-[9px] uppercase tracking-wider text-amber-300 backdrop-blur">
+                        Lvl: {ghost.dangerLevel}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="p-4 flex-1 flex flex-col items-start gap-3 justify-between bg-[linear-gradient(160deg,#120909,#0a0505)]">
+                    <p className="text-xs leading-5 text-zinc-400 line-clamp-3">
+                      {ghost.summary}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
         )}
       </div>
 

@@ -21,13 +21,15 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
       "Catatan sekunder menyatakan Ratu Kidul merupakan sentral dari keraton dimensi gaib bawah laut.",
       "Klaim lapangan terus berulang, menelan korban yang dipercaya ditarik oleh arus pasang surut tidak logis."
     ],
-    detailedHistory: [
+    chapters: [
       {
+        chapterNumber: 1,
         title: "Ringkasan Singkat (Hook)",
         icon: "FileText",
         content: "Bukan sekadar penampakan fana, Nyi Roro Kidul merupakan manifestasi dari entitas penguasa keraton gaib Samudra Hindia. Menyebut namanya tanpa hormat atau melawan pantangan pesisir adalah undangan langsung menuju pusaran arus mematikan."
       },
       {
+        chapterNumber: 2,
         title: "Asal Usul (Origin Story)",
         icon: "BookOpen",
         content: [
@@ -37,11 +39,13 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
         ]
       },
       {
+        chapterNumber: 3,
         title: "Lokasi & Kemunculan",
         icon: "MapPin",
         content: "Parameter teritorial mencakup pesisir selatan Pulau Jawa, membentang dari Pelabuhan Ratu (Sukabumi) hingga Pantai Parangtritis (Bantul). Penyelidikan mendapati gelombang ekstrem sering tercipta tanpa pergeseran tektonik, diikuti formasi kereta kuda air yang samar terlihat memecah kabut air di garis khatulistiwa."
       },
       {
+        chapterNumber: 4,
         title: "Ciri-Ciri Penampakan",
         icon: "Eye",
         content: [
@@ -51,16 +55,19 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
         ]
       },
       {
+        chapterNumber: 5,
         title: "Perilaku & Pola",
         icon: "Activity",
         content: "Entitas setara dewa ini sangat pendendam terhadap pelanggar adat. Gelombang yang ia ciptakan mampu memutar arah orientasi dan memutus daya apung (*buoyancy*) korban. Berlawanan dengan entitas pasif, penampakan armada dayangnya acap kali disusul suara alat musik gamelan mistis yang menenggelamkan logika ruang saksi."
       },
       {
+        chapterNumber: 6,
         title: "Interpretasi / Teori",
         icon: "Brain",
         content: "Dalam lanskap teori kami, legenda ini terbentuk sebagai sistem pertahanan alam *(natural defense mechanism)* kultur Jawa untuk menjaga kelestarian laut yang memang secara pasang surut astronomis sangat ekstrim. Meski neurosain mencoba memaparkan fenomena halusinasi hipoksia, laporan saksi jamak atas kereta kencana transparan memvalidasi adanya energi kinetik berfrekuensi tinggi di pantai utara laut."
       },
       {
+        chapterNumber: 7,
         title: "Cerita Rakyat / Kasus Nyata",
         icon: "Users",
         content: "Arsip 2017: Tiga pemuda hilang di perairan Selatan. 'Mereka memakai kaos hijau neon,' ujar seorang saksi lokal. 'Ombak pertama tak besar, tapi ketika ditarik pelan, hanya mereka bertiga yang seolah kehilangan kemampuan berenang. Dua jam kemudian kami mendengar derap jejak perairan dan suara kereta kuda sebelum air surut drastis. Jasad tak pernah utuh ditemukan.' - Tim SAR Area IV."
@@ -127,49 +134,47 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
       "Kisah kuntilanak berkembang sebagai wujud teror paling banal dalam folklor, representasi psikologis penderitaan tragis seorang ibu.",
       "Arsip kejadian mencatat ia senang menjajah pohon berkanopi tinggi (beringin/kapuk) serta bangunan rumah yang usang."
     ],
-    detailedHistory: [
+    chapters: [
       {
-        title: "Ringkasan Singkat (Hook)",
+        chapterNumber: 1,
+        title: "Sejarah & Asal Mula",
+        subtitle: "KLASIFIKASI: ARSIP PRIMER",
         icon: "FileText",
-        content: "Lebih dari sekadar wujud menakutkan, Kuntilanak adalah mesin teror psikologis murni. Saat tawa melengking khasnya terdengar pelan, ia berarti sudah berdiri persis di belakang bahu Anda. Aromanya masuk mendahului wujudnya, melumpuhkan nyali saksi dalam hitungan detik."
-      },
-      {
-        title: "Asal Usul (Origin Story)",
-        icon: "BookOpen",
         content: [
-          "Episentrum tragedi Kuntilanak bermuara pada kematian tragis—baik saat melahirkan (dalam kondisi janin masih terkandung) atau menjadi korban kekerasan brutal.",
-          "Amarah dan keputusasaan ekstrem semasa hidup menolak ruhnya untuk menyatu dengan alam keabadian, membekukan auranya menjadi sebentuk dendam murni bernama 'Pontianak'.",
-          "Mitos dari area Kalimantan mengindikasikan mereka dulu menetap di pesisir dekat pertemuan sungai, hingga pengusiran modern memaksanya hijrah ke wilayah metropolitan urban."
+          "Ringkasan Singkat: Kuntilanak adalah salah satu figur hantu perempuan paling dikenal dalam folklor Nusantara dan kawasan Melayu. Dalam banyak versi cerita, ia dikaitkan dengan roh perempuan yang meninggal ketika hamil, saat melahirkan, atau sesudah mengalami kematian tragis yang tidak dipulihkan secara layak dalam tatanan sosial maupun ritual. Sosoknya hidup bukan hanya sebagai cerita seram, tetapi juga sebagai pantulan ketakutan kolektif masyarakat terhadap kematian perempuan, malam, kesepian, dan gangguan yang datang dari dunia yang tak terlihat.",
+          "Asal Usul dan Persebaran Folklor: Dalam tradisi Indonesia, nama kuntilanak sangat lekat di telinga masyarakat Jawa, Sunda, Betawi, hingga Kalimantan. Di kawasan Melayu, sosok yang sangat berdekatan dengannya dikenal dengan nama pontianak atau langsuir. Banyak versi menempatkan entitas ini sebagai arwah perempuan yang wafat sebelum proses kelahiran selesai, atau perempuan yang mati dengan kesedihan, dendam, dan pemutusan hidup yang dianggap tidak wajar.",
+          "Kemunculan dalam Kepercayaan Masyarakat: Di banyak komunitas, kuntilanak bukan sekadar 'hantu perempuan berbaju putih'. Ia dipercaya hadir sebagai tanda dari peristiwa yang tidak selesai: kematian tragis, kelalaian sosial, pelanggaran moral, atau ruang yang lama menyimpan kesunyian. Kehadirannya ditandai oleh bau bunga melati, suara tertawa melengking, tangis bayi, atau perubahan suasana malam yang mendadak terasa hampa dan menekan.",
+          "Fungsi Sosial Mitos: Sebagaimana banyak mitos lain di Nusantara, cerita tentang kuntilanak juga berfungsi sebagai alat sosial. Ia menjadi medium untuk memperingatkan anak-anak agar tidak berkeliaran malam, menertibkan perilaku di tempat sepi, serta mengajarkan bahwa kematian—terutama yang tidak wajar—harus dihormati dan ditangani dengan benar."
         ]
       },
       {
-        title: "Lokasi & Kemunculan",
-        icon: "MapPin",
-        content: "Titik koordinat favoritnya selalu berfokus pada titik buta (*blind spot*): lorong apartemen tua berlangit rendah, parkiran basemen yang mati lampu sebagian, tikungan hutan bambu, dan area dahan teratas pohon beringin atau randu. Entitas ini sering kali termanifestasi saat malam bulan separuh atau menjelang gema Maghrib."
-      },
-      {
-        title: "Ciri-Ciri Penampakan",
+        chapterNumber: 2,
+        title: "Ciri-ciri & Pola Penampakan",
         icon: "Eye",
         content: [
-          "Wujud perempuan berkulit seputih kapur mati, ditutupi daster linen kusam bercak tanah.",
-          "Miliki rambut lurus hitam legam luar biasa panjang yang umumnya dipakai menutupi lubang besar di area punggungnya.",
-          "Tatapan matanya difokuskan ke bawah saat dari jarak jauh, namun mendongak beringas saat di tahap ekskusi *jump-scare*."
+          "Penampakan Umum: Dalam representasi paling populer, kuntilanak digambarkan sebagai perempuan berambut panjang, berpakaian pucat atau putih, dengan wajah yang pada jarak jauh tampak cantik atau menenangkan, namun berubah mengerikan ketika mendekat. Dalam beberapa tradisi, matanya tampak kosong, kuku memanjang, dan ekspresinya bergeser dari sedih menjadi buas.",
+          "Tanda Kehadiran: Kesaksian populer menyebut penanda: aroma melati yang terlalu kuat di lokasi sunyi, tawa perempuan bernada tinggi, suara bayi menangis, anjing melolong gelisah, dan rasa dingin tidak wajar. Semakin dekat entitas, suara justru terdengar semakin samar, membuat korban salah menilai jarak ancaman.",
+          "Lokasi yang Sering Dikaitkan: rumah kosong atau lama ditinggalkan, loteng dan kamar belakang, pohon besar (terutama area yang jarang dilalui), jalan sepi pada malam hari, sekitar tempat yang dikaitkan dengan tragedi kematian perempuan."
         ]
       },
       {
-        title: "Perilaku & Pola",
-        icon: "Activity",
-        content: "Ini adalah entitas pemangsa rasa takut. Ia tidak serta merta muncul. Fase pertama selalu diawali lonjakan perubahan temperatur ruangan, disusul wangi menyengat melati mampat. Fase kedua adalah manipulasi ruang gema (tawa terdengar semakin pelan saat ia sebetulnya melesat mendekat). Pada puncaknya, saksi dibiarkan kaku tanpa daya saat wajahnya menghadap satu inci dari hidung."
-      },
-      {
-        title: "Interpretasi / Teori",
+        chapterNumber: 3,
+        title: "Tafsir Budaya & Historis",
         icon: "Brain",
-        content: "Ahli kejiwaan kami meyakini tawa high-pitch yang dihasilkan Kuntilanak secara langsung menyerang Frekuensi Resonansi Schumann pada indra pendengar manusia. Akibatnya, adrenalin meledak abnormal menyebabkan otot lumpuh lemas (*paralysis fear response*). Dari sudut pandang entitas, ini bukan membunuh, melainkan mengunci mangsa untuk diserap energinya."
+        content: [
+          "Simbol Ketakutan Kolektif: Kuntilanak bisa dibaca sebagai simbol dari kecemasan lama masyarakat: kematian saat persalinan, rapuhnya keselamatan perempuan, serta keyakinan bahwa emosi kuat seperti duka dan dendam dapat meninggalkan jejak setelah kematian. Ia adalah lambang dari trauma yang diwariskan.",
+          "Hubungan dengan Folklor Regional: Memiliki kemiripan dengan figur pontianak dan langsuir dalam tradisi Melayu. Ini menunjukkan bahwa mitos perempuan arwah gentayangan adalah bagian dari jaringan cerita besar di Asia Tenggara yang tumbuh dari tema serupa.",
+          "Budaya Populer: Popularitasnya bertahan karena ia terus hidup dalam adaptasi modern, membuat visualnya semakin ikonik meskipun akar folklornya tetap bertahan."
+        ]
       },
       {
-        title: "Cerita Rakyat / Kasus Nyata",
-        icon: "Users",
-        content: "Malam Jumat 2021 di area kampus tua Bandung. Seorang teknisi lift melaporkan ia berada di lantai bawah ketika mendengar dentang logam disusul tawa serak dari corong ventilasi. 'Saya hirup bau menyan basah campur melati. Begitu saya menengadah, dari lubang sela-sela rel lift menatap ke bawah sesosok wanita pucat dengan bola mata mendelik terbalik. Ia meluncur turun melewati kabel baja seperti tikus.' - Investigasi Teknis #087B."
+        chapterNumber: 4,
+        title: "Catatan Investigasi Dreadnoute",
+        icon: "Activity",
+        content: [
+          "Interpretasi Internal: Dreadnoute mengklasifikasikan Kuntilanak sebagai entitas residual-agresif dengan kemampuan memengaruhi persepsi, suasana, dan respon panik pada korban. Pola modern menunjukkan bahwa figur ini sering 'aktif' pada ruang-ruang liminal: bangunan kosong, koridor lama, kamar tidak terpakai, dan area pepohonan sunyi.",
+          "Kesimpulan: Berbeda dari entitas yang murni dibangun dari rumor urban, Kuntilanak memiliki fondasi folklor yang sangat luas dan stabil. Itu sebabnya ia terasa 'lebih nyata' di benak masyarakat: hampir semua orang mewarisi bentuk ceritanya sejak kecil."
+        ]
       }
     ],
     abilities: [
@@ -417,6 +422,35 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
       "Arsip komunitas menunjukkan laporan meningkat di zona peralihan antara perumahan padat dan kebun kosong.",
       "Sebagian kasus kontemporer menyebut korban mengaku dipanggil suara orang terdekat sebelum kehilangan arah."
     ],
+    chapters: [
+      {
+        chapterNumber: 1,
+        title: "Sejarah & Asal Mula",
+        subtitle: "KLASIFIKASI: ARSIP PRIMER",
+        icon: "FileText",
+        content: [
+          "Ringkasan Singkat: Entitas perempuan tua dalam folklore Jawa yang dikaitkan dengan hilangnya anak pada jam rawan malam. Sosok ini bukan pembunuh, melainkan penculik supernatural yang mengamankan korban akibat kelalaian orang tua.",
+          "Asal Usul Folklor: Cerita tentang Wewe Gombel melegenda di kawasan Jawa, sering digunakan sebagai instrumen pendidikan agar anak tidak berkeliaran sewaktu petang (maghrib). Mitosnya berkembang paralel sebagai wujud kontrol sosial masa lalu."
+        ]
+      },
+      {
+        chapterNumber: 2,
+        title: "Ciri-ciri & Pola Penampakan",
+        icon: "Eye",
+        content: [
+          "Penampakan Umum: Digambarkan sebagai sosok wanita yang sangat tua dengan payudara yang panjang, rambut acak-acakan dan kuku memanjang.",
+          "Pola Perilaku: Kemampuannya yang paling berbahaya adalah meniru suara familier (misalnya ibu korban) dari arah titik buta untuk memancing mangsa keluar dari jangkauan area aman."
+        ]
+      },
+      {
+        chapterNumber: 3,
+        title: "Catatan Investigasi",
+        icon: "Brain",
+        content: [
+          "Klasifikasi Ancaman: Entitas ini dikategorikan tinggi dalam risiko rasional karena taktik manipulasinya. Gangguan Wewe Gombel mendedikasikan banyak distorsi audio yang menyentuh ranah psikologis korban. Pendekatan kultural (membunyikan peralatan rumah tangga) diklaim warga mampu melerai ilusinya."
+        ]
+      }
+    ],
     abilities: [
       "Meniru intonasi suara yang dikenali target untuk memancing respons spontan.",
       "Mengacaukan orientasi arah pada koridor gelap dengan minim penanda visual.",
@@ -432,10 +466,12 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
       "Bantaran sungai Kalitaman",
       "Gang belakang kompleks sekolah lama"
     ],
-    mainImage: "/assets/images/nenek-gayung.jpg",
+    mainImage: "/images/ghost-archive/WEWE GOMBEL/Wewe Gombel - hero.jpg",
     gallery: [
-      "/assets/images/nenek-gayung.jpg",
-      "/assets/images/profile.jpg"
+      { url: "/images/ghost-archive/WEWE GOMBEL/Gallery 1.png", caption: "Ilustrasi penampakan visual Wewe Gombel di sekitar kebun kosong." },
+      { url: "/images/ghost-archive/WEWE GOMBEL/Gallery 2.jpg", caption: "Anomali terdeteksi di balik semak-semak dalam perekaman malam." },
+      { url: "/images/ghost-archive/WEWE GOMBEL/Gallery 3.jpg", caption: "Titik temu jejak asimetris korban sebelum hilang orientasi." },
+      { url: "/images/ghost-archive/WEWE GOMBEL/Gallery 4.png", caption: "Hutan pinggiran kota yang direkam menjadi zona kemunculan." }
     ],
     reports: [
       {
@@ -457,44 +493,74 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
   },
   {
     id: "GA-005",
-    slug: "genderuwo",
-    name: "Genderuwo",
-    category: "Fenomena Supranatural",
-    origin: "Hutan pinggir desa dan bangunan terbengkalai",
+    slug: "suster-ngesot",
+    name: "Suster Ngesot",
+    category: "Urban Legend",
+    origin: "Rumah sakit dan koridor gedung medis tua",
     country: "Indonesia",
-    province: "Jawa Timur",
-    city: "Malang",
-    aliases: ["Gendruwo", "Penunggu Rimbun"],
-    era: "Kuno",
-    evidenceTags: ["Siluet", "Hentakan Berat", "Gangguan Fisik"],
-    sourceType: "Tradisi Lisan",
+    province: "DKI Jakarta & Jawa Barat",
+    city: "Jakarta",
+    aliases: ["Perawat Merangkak", "Suster Lorong Malam"],
+    era: "Modern",
+    evidenceTags: ["Suara Gesekan", "Rintihan", "Jejak Darah"],
+    sourceType: "Cerita Urban",
     dangerLevel: "Tinggi",
     summary:
-      "Entitas bertubuh besar dengan tekanan fisik kuat yang dikaitkan dengan gangguan berat di area tertutup dan minim aktivitas manusia. Kemunculan sering diawali bunyi langkah berat dan perubahan atmosfer mendadak.",
+      "Arwah perawat rumah sakit yang meninggal secara tragis dan tidak wajar. Muncul dengan kondisi merangkak mengesot di koridor, sering kali disertai suara gesekan kain dan rintihan pelan di area medis sepi.",
     history: [
-      "Dalam tradisi lisan Jawa, Genderuwo diposisikan sebagai penghuni lama zona rimbun dan lembap yang jarang dilalui manusia.",
-      "Dokumen investigasi lokal mencatat korelasi antara kemunculan dengan bangunan kosong yang memiliki sirkulasi udara buruk.",
-      "Kasus modern menunjukkan pola hilang waktu singkat setelah korban melakukan kontak visual langsung."
+      "Legenda berkembang masif seiring bertambahnya bangunan rumah sakit besar kolonial yang terbengkalai.",
+      "Berawal dari mulut ke mulut tentang manifestasi perawat yang dianiaya di malam sepi."
+    ],
+    chapters: [
+      {
+        chapterNumber: 1,
+        title: "Sejarah & Asal Mula",
+        subtitle: "KLASIFIKASI: ARSIP SEKUNDER",
+        icon: "FileText",
+        content: [
+          "Ringkasan Singkat: Suster Ngesot adalah salah satu figur hantu urban terpopuler di Indonesia yang berkembang pesat sejak era 1990-an. Arwah ini berwujud perawat rumah sakit yang meninggal dibunuh dengan kejam dan tidak wajar.",
+          "Asal Usul: Terdapat banyak versi kisah, dari figur perawat di area medis peninggalan Belanda yang menjadi korban kekerasan, hingga pasien dan tenaga medis yang tewas dalam konspirasi. Kegagalannya melangkah tegak dikatribusikan pada cedera parah di kakinya sebelum kematian."
+        ]
+      },
+      {
+        chapterNumber: 2,
+        title: "Ciri-ciri & Pola Penampakan",
+        icon: "Eye",
+        content: [
+          "Penampakan Umum: Mengenakan seragam perawat putih yang usang bersimbah tetesan darah. Bergerak lamban menyusuri lantai dengan menyeret tubuh bagian bawahnya karena kakinya sudah tidak lagi fungsional.",
+          "Pola Perilaku: Kerap memfokuskan manifestasinya di lorong-lorong sepi, terkhusus di lantai terbawah, gudang obat lama, atau area dekat kamar mayat. Bunyi gesekan yang khas dan menyeramkan mendahului penampakannya."
+        ]
+      },
+      {
+        chapterNumber: 3,
+        title: "Catatan Investigasi",
+        icon: "Brain",
+        content: [
+          "Tim Dreadnoute mendeduksikan bahwa entitas ini mendapatkan tenaganya dari memori sisa-sisa trauma medis. Suasana steril dan sunyi rumah sakit memberikan isolasi akustik sempurna untuk menyalurkan gelombang bunyi seretan ektoplasmanya."
+        ]
+      }
     ],
     abilities: [
-      "Menghasilkan tekanan fisik yang mampu memindahkan objek ringan di sekitar target.",
-      "Menciptakan sensasi diawasi intens untuk melemahkan fokus dan keputusan korban.",
-      "Mengganggu persepsi arah pada ruang tertutup dengan sedikit titik referensi."
+      "Menggandakan gaung suara gesekan kain dan lantai untuk efek intimidatif.",
+      "Menyebarkan aura kedinginan dan bau sterilisasi (seperti fenol/karbol) pekat secara mendadak.",
+      "Muncul seketika dari sudut koridor tertutup (blind spot/persimpangan T)."
     ],
     weaknesses: [
-      "Gangguan berkurang pada ruang terbuka terang dengan visibilitas tinggi.",
-      "Komunikasi tim yang disiplin menekan dampak disorientasi dan panik.",
-      "Menghindari area inti kemunculan tetap menjadi mitigasi paling aman."
+      "Tidak memiliki mobilitas tinggi dalam melakukan pengerjaran instan.",
+      "Menghindari lobi utama dan bangsal perawatan intensif dengan aktivitas tinggi.",
+      "Kehadirannya diantisipasi dini melalui dengung frekuensi audio khas sebelum manifestasi penuh."
     ],
     dangerZones: [
-      "Gudang pabrik lama Singosari",
-      "Hutan bambu pinggir Tumpang",
-      "Bangunan kosong koridor Dau"
+      "Rumah Sakit peninggalan Belanda",
+      "Lorong bangsal inap tua lantai dasar",
+      "Klinik kosong mangkrak"
     ],
-    mainImage: "/assets/images/suster-ngesot.jpg",
+    mainImage: "/images/ghost-archive/SUSTER NGESOT/suster-ngesot - hero.jpg",
     gallery: [
-      "/assets/images/suster-ngesot.jpg",
-      "/assets/images/market-hero.png"
+      { url: "/images/ghost-archive/SUSTER NGESOT/Gallery 1.png", caption: "Tangkap gambar CCTV blur di selasar timur rumah sakit menunjukkan anomali tergeletak di lantai." },
+      { url: "/images/ghost-archive/SUSTER NGESOT/Gallery 2.jpg", caption: "Bercak cairan merah gelap terseret lurus dari ruang stok obat." },
+      { url: "/images/ghost-archive/SUSTER NGESOT/Gallery 3.jpg", caption: "Investigasi di kamar 2A yang menjadi pusat vibrasi aura statik." },
+      { url: "/images/ghost-archive/SUSTER NGESOT/Gallery 4.jpg", caption: "Rekaman distorsi dari lorong menuju kamar jenazah era kolonial." }
     ],
     reports: [
       {
@@ -534,13 +600,15 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
       "Penampakan legendaris di area makam Jeruk Purut yang diyakini masyarakat secara luas sejak era 1980-an.",
       "Kerap diasosiasikan dengan ritual mengelilingi makam dalam jumlah ganjil."
     ],
-    detailedHistory: [
+    chapters: [
       {
+        chapterNumber: 1,
         title: "Ringkasan Singkat (Hook)",
         icon: "FileText",
         content: "Hantu Jeruk Purut bukanlah sekadar mitos lokal belaka, melainkan fragmen sejarah kelam yang membeku di jantung megapolitan Jakarta. Bayangkan kabut tebal menyapu nisan-nisan tua diiringi lolongan anjing hitam pekat, sebelum sosok seorang pastor tanpa kepala berjalan melesat dalam senyap—menenteng kepalanya sendiri yang bersimbah darah."
       },
       {
+        chapterNumber: 2,
         title: "Asal Usul (Origin Story)",
         icon: "BookOpen",
         content: [
@@ -550,11 +618,13 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
         ]
       },
       {
+        chapterNumber: 3,
         title: "Lokasi & Kemunculan",
         icon: "MapPin",
         content: "Seluruh penampakan mengorbit presisi di sekitar blok pemakaman klastik Kristen TPU Jeruk Purut, Jakarta Selatan. Titik anomali terbesar direkam di bawah rindangnya pohon kembar berusia ratuasan tahun. Fenomena inkarnasinya dilaporkan sering aktif pada siklus malam Jumat Kliwon—dapat direkayasa jika saksi sengaja berlari ganjil (satu, tiga, lima, atau tujuh putaran) memutari makamnya."
       },
       {
+        chapterNumber: 4,
         title: "Ciri-Ciri Penampakan",
         icon: "Eye",
         content: [
@@ -564,16 +634,19 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
         ]
       },
       {
+        chapterNumber: 5,
         title: "Perilaku & Pola",
         icon: "Activity",
         content: "Pastor Buntung menapak bumi tidak seperti entitas terbang. Ia berpatroli meronda jejeran makam layaknya satpam dimensi arwah yang ketat menjaga perbatasan duniawi. Interaksinya diklasifikasikan semi-agresif. Meskipun jarang menyakiti secara fisik, resonansinya mementalkan syok bertegangan tinggi alias 'Radiasi Mual'—membuat investigator amatir memuntahkan empedu jika disorot secara langsung di garis lurus."
       },
       {
+        chapterNumber: 6,
         title: "Interpretasi / Teori",
         icon: "Brain",
         content: "Penyelidik lapangan DreadNoute membagi entitas ini dalam hipotesa 'Kombinasi Tulpa & Poltergeist residual'. Insiden tragis tersebut terekam dalam selang waktu memori material bumi, sementara ketakutan jutaan pasang mata warga pendatang metropolitan menebalkan frekuensi hantu tersebut bak monster ciptaan alam bawah sadar kolektif manusia (Thought-Form Entity)."
       },
       {
+        chapterNumber: 7,
         title: "Cerita Rakyat / Kasus Nyata",
         icon: "Users",
         content: "Satu pita rekam kaset analog FM dari ekspedisi mistis populer di awal tahun 2000-an menyita arsip militer DreadNoute (Indeks JP-09). 'Tim ganjil lari ke putaran keempat. Suara serangga mati sunyi total, berubah menjadi deru napas berat hewan. Senter menyorot siluet menjulang berjubah. Sesaat siluet itu melangkah, seonggok darah menetetes ke tanah namun bayangannya tak menyentuh pasir makam. Kamera seketika rusak permanent (IC burn).' - Memo Saksi A, Penyidik Lapan Malam."
