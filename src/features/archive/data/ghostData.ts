@@ -140,50 +140,71 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
         title: "Sejarah & Asal Mula",
         subtitle: "KLASIFIKASI: ARSIP PRIMER",
         icon: "FileText",
-        content: "Kuntilanak adalah figur hantu perempuan paling dikenal dalam folklor Nusantara dan kawasan Melayu. Lebih dari sekadar teror, ia adalah perwujudan psikologis dari duka mendalam seorang perempuan yang meninggal saat hamil atau melahirkan, serta menjadi simbol absolut dari kematian yang tidak wajar."
+        content: [
+          "Kuntilanak adalah figur hantu perempuan paling ikonik dan direkam paling masif dalam jejak historis folklor Nusantara. Asal kata ini diyakini terhubung dengan penamaan lokal '*Puan Mati Beranak*' atau arwah seorang perempuan yang tidak berhasil melewati batas persalinan, di mana jiwanya tertahan oleh komplikasi tragis atau janin yang masih bersamanya di bumi.",
+          "Lebih dari sekadar entitas penebar teror malam, keberadaannya merupakan perwujudan absolut dari duka mendalam secara psikologis. Kuntilanak berdiri sebagai kanvas yang merepresentasikan fragmen kesengsaraan wanita di era prasejarah dan kerajaan masa lalu—ketika angka kematian persalinan sangat tinggi dan bantuan medis jauh dari peradaban.",
+          "Dalam tinjauan sosiologis, arwah ini tidak mati dalam damai; ketidakadilan nasib tersebut menolak asimilasinya secara wajar ke dimensi eskatologi, membekukan energi emosionalnya menjadi siluet residual yang mengutuk hidup dan mencemari tatanan ruang kosong manusia modern."
+        ]
       },
       {
         chapterNumber: 2,
         title: "Evolusi Mitos & Latar Folklor",
         icon: "BookOpen",
         content: [
-          "Dalam tradisi Indonesia (Jawa, Sunda, Betawi) nama ini merajai hierarki entitas astral. Di ranah Melayu, ia sering disebut Pontianak.",
-          "Mitosnya bermula dari ketakutan purba terhadap keselamatan ibu dan bayi saat persalinan. Kuntilanak dipercaya sebagai roh ibu yang wafat, menuntut balas atau sekadar meronta mencari anaknya yang hilang di kegelapan malam."
+          "Di sepanjang perairan Melayu hingga pelosok hutan Jawa, Sunda, dan Betawi, leksikon tentang entitas ini mengerucut kuat pada nama Kuntilanak, Pontianak, hingga Langsuir. Sejarah peninggalan lisan merujuk pada mitos pendiri kota Pontianak di Kalimantan Barat, Sultan Syarif Abdurrahman Alkadrie, yang konon terpaksa menembakkan meriam artileri ke langit pada malam hari untuk mengusir koloni hantu ini yang berdiam di rawa-rawa hutan saat ia hendak membangun pusat kerajaan pada abad ke-18.",
+          "Mitos tersebut memvalidasi bahwa Kuntilanak bukanlah fenomena yang terpusat di kawasan pedesaan murni, melainkan penghuni asli perbatasan liminal di mana rakitan permukiman manusia baru saja menyentuh belantara atau kawasan basah tak tersentuh.",
+          "Seiring berkembangnya zaman, legenda arwah melayang ini berbaur di tengah demografi kota urban. Transformasi ini sangat mengakar; dari yang awalnya dipandang mendiami pohon randu dan beringin angker peninggalan klenik, kini ia bertransisi mendiami lorong-lorong asrama kos kosong, ruang kelas mangkrak, dan proyek infrastruktur apartemen yang terbengkalai secara finansial."
         ]
       },
       {
         chapterNumber: 3,
         title: "Lokasi & Pola Kemunculan",
         icon: "MapPin",
-        content: "Entitas ini merajai batas liminal antara alam dan manusia. Area kanopi yang tinggi seperti pohon beringin atau randu alas menjadi langganan tempatnya singgah. Di era modern, kemunculannya meluas ke bangunan terbengkalai, koridor buntu apartemen, hingga loteng rumah tangga yang dibiarkan kosong bertahun-tahun."
+        content: [
+          "Pemetaan geografis penampakan Kuntilanak terfokus di sekitar lokasi-lokasi dengan frekuensi getaran aktivitas manusia yang rendah, mati, atau terputus secara mendadak. Pohon beringin besar berakar gantung atau pohon kapuk (randu alas) bertindak bak sauh (*anchor*) natural yang mengundang pemusatan energinya di alam terbuka.",
+          "Di ruang arsitektural urban, ia kerap bersarang pada kamar mandi tertutup lembap, loteng langit-langit berdebu, dan balkon rumah peninggalan yang dibiarkan gulita. Lokasi ini dikenal sebagai *ruang liminal*, transisi tak bertuan di mana hukum alam logis seringkali menipis.",
+          "Kemunculannya bersifat musiman dan periodik. Ia amat aktif memecah pembatas dimensi utamanya kala pergantian surup (Senja menuju Maghrib) dan paruh sepertiga malam (01:00 - 03:00 pagi). Pola kemunculannya jarang berpapasan langsung dengan keramaian; ia secara agresif mengisolasi *mangsa* secara individu di sudut buta (*blind spot*)."
+        ]
       },
       {
         chapterNumber: 4,
         title: "Ciri-Ciri & Tanda Kehadiran",
         icon: "Eye",
         content: [
-          "Wujud perempuan berkulit seputih kapur mati, mengenakan gaun putih atau daster kusam yang menjuntai.",
-          "Memiliki rambut legam luar biasa panjang yang umumnya menutupi lubang bolong di punggungnya.",
-          "Tanda kehadirannya diawali dengan lonjakan bau kamboja atau melati menyengat, disusul udara yang tiba-tiba beku dan lolongan anjing liar."
+          "Aspek visual entitas ini dicirikan dengan profil wanita tinggi melayang, dibalut daster linen putih kusam pudar berkain sarung yang terjuntai melawan arah gravitasi. Kulitnya pucat tembus pandang menyerupai kapur mati, merefleksikan penghentian sirkulasi darah biologis secara total.",
+          "Mesin intimidasi utamanya terpancar dari mahkota kepalanya: ia memiliki gulungan rambut ikal legam tanpa ujung menutupi punggung belakang—yang menurut peninggalan manuskrip diyakini menyembunyikan luka koyak (*bolong*) mengerikan akibat intervensi magis atau kematian fatal organ dalam.",
+          "Transisinya didahului secara gradual: penurunan temperatur oksigen secara lokal, diikuti meledaknya aroma floral pemakaman (kamboja atau melati pekat bercampur kemenyan) pada koridor tak berangin, untuk kemudian disusul oleh suara gonggongan dan lolongan hewan teritorial liar yang panik."
         ]
       },
       {
         chapterNumber: 5,
         title: "Perilaku & Metode Serangan",
         icon: "Activity",
-        content: "Kuntilanak bersifat pasif-agresif. Ia menggunakan jebakan gaung akustik—tawa melengking yang terdengar pelan justru menandakannya berada tepat di balik punggung Anda, sementara tawa kencang berarti ia masih jauh. Serangannya tidak melukai fisik secara langsung, melainkan menyerang frekuensi resonansi otak hingga korban menderita lumpuh otot (*paralysis fear response*)."
+        content: [
+          "Kuntilanak menggunakan manipulasi psikologis tingkat tinggi sebagai taring utamanya, bukan agresi kinetik atau kontak fisik telanjang. Ia mengendalikan mangsa melalui proyektil jebakan akustik termodifikasi yang familiar kita kenal dengan 'efek Doppler Supernatural'.",
+          "Tawa melengking menyerupai gesekan pelat baja miliknya dirancang untuk menipu jarak (*Distance Illusion*). Saat tawa terdengar lirih di telinga, entitas tersebut sejatinya telah bermanifestasi dan berdiri persis di balik tengkuk sang saksi. Sebaliknya, tawa histeris melengking menyiratkan posisi sang astral masih tertahan jauh di titik asalnya.",
+          "Fase serangan pamungkas tidak meneteskan darah; Kuntilanak memicu gelombang frekuensi syok ekstrem hingga target memasuki fase *sleep paralysis* mematikan, meledakkan pompa adrenalin yang merusak detak jantung seketika (*fear-induced cardiac failure*)."
+        ]
       },
       {
         chapterNumber: 6,
         title: "Tafsir Budaya & Teori",
         icon: "Brain",
-        content: "Para ilmuwan dan antropolog melihat Kuntilanak sebagai alat kontrol sosial kuno agar perempuan tidak keluar malam sendirian dan agar masyarakat menghormati tata cara pemakaman trauma persalinan. Secara saintifik, suara tawa *high-pitch*-nya diyakini memanipulasi Frekuensi Schumann pada telinga, membekukan nyali tanpa sentuhan fisik."
+        content: [
+          "Melalui kacamata antropologi sosial, pergerakan masif kisah sang Kuntilanak diciptakan sebagai perangkat pertahanan psikologis kuno (*defense mechanism logic*). Di masyarakat patriarkis tradisional, mitos mengerikan ini dirawat secara fungsional untuk menahan laju wanita (terutama yang sedang mengandung) keluyuran menjelang malam sendirian menuju mara bahaya agresi manusia fana.",
+          "Perspektif feminisme akademis lebih lanjut mengkaji bahwa *Pontianak* merupakan wujud pemberontakan pasca-kematian dari perempuan yang selama hidup ditekan oleh tradisi; kemarahannya pada keabadian adalah sebuah gugatan karena kegagalan masyarakat merawat jiwa kemanusiaannya saat mereka melahirkan nyawa baru.",
+          "Dalam jurnal bio-akustik Dreadnoute, *high-pitch resonansi* milik Kuntilanak diamplifikasi sedemikian rupa untuk berpadu menembus Frekuensi Schumann telinga dalam (7,83 Hz), terbukti mencerai-beraikan fokus dan menghasilkan muntah empedu (mual vertigo) apabila saksi terpapar sorakan ultrasoniknya terlalu lama."
+        ]
       },
       {
         chapterNumber: 7,
         title: "Kasus Nyata & Kesaksian Lapangan",
         icon: "Users",
-        content: "Malam Jumat 2021 di area kampus tua Bandung. Seorang teknisi lift melaporkan ia berada di basemen ketika mendengar dentang logam disusul tawa serak dari corong ventilasi. 'Saya hirup bau menyan basah campur melati. Begitu menengadah, dari sela rel lift menatap sesosok wanita pucat dengan bola mata mendelik terbalik.' - Arsip Investigasi Teknis #087B."
+        content: [
+          "Malam Jumat bulan Suro 2021 di area belakang pelataran kampus tua Institut Teknologi, Bandung: Seorang teknisi listrik koridor melaporkan sedang bertugas merestorasi panel lift bawah tanah saat atmosfer anjlok hingga napasnya mengeluarkan asap tipis seakan berada di iklim subtropis.",
+          "Sang saksi mendengar dentang patahan kabel baja logam disusul tawa serak memantul lambat dari celah corong ventilasi udara atas. Seketika sensor alat ukurnya (Multimeter) mendistorsi mati tersapu sinyal elektromagnetik kacau.",
+          "'Saya menghirup bau menyan basah dan melati segar yang memblokade jalur pernapasan,' tukas teknisi tersebut dalam wawancara lapangan paska trauma. 'Begitu saya perlahan nekat menengadah, persis dari lubang ventilasi di atap lift, wajah wanita bersinar pucat kebiruan menatap melotot terbalik dengan leher tergulung masuk.' Rekaman CCTV di basemen B2 berakhiran sebagai panel statis rusak di rentang jam tersebut."
+        ]
       }
     ],
     abilities: [
@@ -437,50 +458,70 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
         title: "Sejarah & Asal Mula",
         subtitle: "KLASIFIKASI: ARSIP PRIMER",
         icon: "FileText",
-        content: "Entitas perempuan renta dalam hierarki folklore sentral Jawa kuno. Tidak diciptakan sebagai arwah pembunuh bermotif dendam, Wewe Gombel justru eksis sebagai 'ibu asuh supranatural'. Target utilitas utamanya adalah menculik dan mengambil alih peran membesarkan anak akibat kelalaian atau kekerasan dari orang tua kandung."
+        content: [
+          "Di sepanjang dataran mistikus Pulau Jawa, eksistensi Wewe Gombel bukanlah sebatas hantu pencekik, melainkan perwujudan purba dari '*ibu asuh supranatural*'. Secara etimologis dan historis, istilah ini bertaut dengan sub-wilayah perbukitan 'Bukit Gombel' di bentang alam wilayah Semarang, tempat mula legenda ini pertama kali membentur ranah catatan urban abadi masyarakat pada periode peralihan kerajaan menuju modernitas.",
+          "Berbeda halnya dengan roh penasaran bertipe dendam berdarah, entitas Wewe Gombel terlahir akibat tragedi keputusasaan absolut seorang wanita di kehidupannya yang lalu. Manifestasi astral ini menarget porsi kehidupan anak-anak kecil—menyelamatkan (atau menawan) entri kehidupan polos tersebut akibat adanya unsur penyia-nyiaan, kealpaan absolut, maupun kekerasan fisik langsung dari pihak orang tua asalnya."
+        ]
       },
       {
         chapterNumber: 2,
         title: "Evolusi Mitos & Latar Folklor",
         icon: "BookOpen",
         content: [
-          "Mitos Wewe Gombel melegenda pesat di kawasan sub-urban Jawa. Kisah paling dominan menyatakan roh ini berasal dari seorang nenek atau janda tua malang bernama Mbah Gombel yang dikucilkan masyarakat karena tidak bisa memberikan keturunan.",
-          "Secara masif, folklor ini terinstitusionalisasi sebagai pedoman pengasuhan (*parenting control*) agar keluarga tidak membiarkan anak berkeliaran menjelang waktu transisi dimensi (maghrib)."
+          "Catatan folklor yang disepakati menceritakan lakon getir sosok 'Nenek Gombel', seorang janda (atau istri malang) yang harus menanggung seumur hidup tuduhan mandul dalam cemoohan komunal desanya hingga berujung pada depresi, gila gantung diri, lalu dikutuk terbelenggu di pohon lebat di Bukit Gombel.",
+          "Trauma akibat kegagalan naluri membesarkan anak tersebut berevolusi mengubah frekuensi arwahnya menjadi sebuah anomali obsesif. Alih-alih melupakan kehidupan fana, Wewe Gombel berkelana menyisir relung-relung dimensi untuk 'menculik' subjek di bawah umur, mendudukkan perannya secara fungsional untuk menghentikan tangis para malaikat kecil yang kesepian.",
+          "Pada tataran sosio-historis masyarakat Mataram tempo dulu, mitos Nenek Wewe diekstrak paksa ke dalam sistem *parenting control* komunal gawat darurat. Ceritanya didoktrinkan untuk menjaga anak-anak dari ancaman predator hutan buas—memaksa ritme biologis mereka agar menyudahi aktivitas eksplorasi luar ruang jelang batas peralihan dimensi langit (Surup/Maghrib)."
         ]
       },
       {
         chapterNumber: 3,
         title: "Lokasi & Pola Kemunculan",
         icon: "MapPin",
-        content: "Menempati zonasi peralihan antara habitat manusia dan alam liar. Habitat aslinya adalah perkebunan rimbun, rumpun bambu apus lebat, bantaran sungai yang membangkai, pohon beringin angker, hingga reruntuhan bangunan sekolah atau rumah di pelosok desa."
+        content: [
+          "Distribusi zonasi entitas ini bersifat sangat spasial. Wewe Gombel amat jarang menampakkan diri menyusuri jantung urban padat. Ekosistem murninya bersandar kuat pada batas transisi asimetris, yakni di perbatasan peralihan ekoton antara pemukiman pedesaan nan kumuh dengan liarnya kawasan hutan basah rawa.",
+          "Tengara utamanya adalah rumpun rumpun pohon bambu apus yang merapat kanopinya, cekungan rimbun pohon kapuk, sisa bantaran galian sungai mati, hingga relung gelap di pekarangan kosong penuh semak belukar.",
+          "Momen eskalasi kebangkitannya menaungi periode *Sandikala* (petang berdarah). Dalam sekejap, saat partikel spektrum surya redup termakan bayang dan ufuk merona ungu maghrib, Wewe mulai memproyeksikan daya deteksinya, mendengarkan rengekan anak-anak yang diisolasi mandiri dari pangkuan indukan aslinya."
+        ]
       },
       {
         chapterNumber: 4,
         title: "Ciri-Ciri & Tanda Kehadiran",
         icon: "Eye",
         content: [
-          "Berwujud wanita senja yang luar biasa tua, berwajah keriput kaku, dengan ciri identitas payudara luar biasa panjang menggelantung.",
-          "Sering berbalut kain jarik kumal, rambut putih uban acak-acakan persis akar serabut, dengan kuku hitam meruncing.",
-          "Emanasinya sering didahului aroma busuk lembap, udara yang menyekat tenggorokan, dan lolongan samar hewan malam."
+          "Penggambaran anatomis makhluk ini amat mengerikan namun beraura duka. Wujudnya meniru rupa sosok lansia super renta, dengan jaringan parut keriput yang berwajah nanar seolah ia terus berkabung di alam kematian panjangnya.",
+          "Atribut fisiknya yang paling mahsyur ialah sepasang payudara yang mengeras layap, teramat menjuntai mencapai pangkal panggul, sebuah anomali simbolis tentang ironi hasrat ibu untuk menyusui yang tak pernah tersalurkan di masa hidupan fananya. Rambutnya lurus menggarpu dipenuhi percampuran uban serabut tanah, berkuku paruh garuda dengan sehelai kain jarik jawa koyak sebagai tudungnya.",
+          "Secara penciuman atmosfirik (*Olfactory signs*), aroma busuk dedaunan lembap dan napas tanah basah usai hujan kencang (*petrichor* yang abnormal) selalu membanjiri paru-paru sang saksi jika ia berhasil keluar masuk wilayah kekuasaannya tanpa disadari."
         ]
       },
       {
         chapterNumber: 5,
         title: "Perilaku & Metode Serangan",
         icon: "Activity",
-        content: "Serangannya sepenuhnya bersifat manipulasif. Wewe Gombel lihai meniru frekuensi suara familier—mulai dari panggilan dari ibu korban hingga godaan teman sepermainan. Korban (khususnya anak kecil) dituntun hingga keluar batas aman tanpa paksaan sadar. Selama diasingkan, korban disugesti ilusi bahwa daun mati adalah permen atau cacing sebagai mi lezat."
+        content: [
+          "Wewe Gombel adalah pakar eksekusi modus Halusinasi-Audio (*Psychic Decoy*). Senjata terornya bukan sayatan pisau melainkan replikasi suara. Ia merekam frekuensi pita suara ibunda sang anak yang menjadi target, membentuk ilusi panggilan menenangkan untuk memandu si korban keluar dari pekarangan terang, melenceng menuju labirin lebat secara hipnotis ringan.",
+          "Manakala sang anak tersesat dan mulai meratap kalut, barulah entitas ini menyergap diam, menenangkannya dengan dekapan erat gaib, merotasi titik ordinat logika si bocah. Area itu diasingkan seketika dengan jubah kabut pelenyap; dari sudut pencarian warga, posisi anak tersebut tertelan bumi padahal mereka belum bergeser jauh dari desa.",
+          "Fase penyanderaan paling krusial terjadi manakala anak disugesti ilusi 'tamu khusus pangeran/putri', di mana kotoran hewan atau lumpur cacing disulap dalam mata anak menjadi nasi goreng mewah nan lezat. Trauma amnesia parsial dipastikan menyertai anak pasca pelepasan, kehilangan jam kronometris berhari-hari dalam otaknya."
+        ]
       },
       {
         chapterNumber: 6,
         title: "Tafsir Budaya & Teori",
         icon: "Brain",
-        content: "Secara fungsionalitas antropologis, wujud entitas ini menggarisbawahi urgensi pengawasan anak kecil dan hukuman kosmis atas pelantaran anak. Solusi kultur lokal terbilang reaktif: apabila figur diculik, warga satu kampung diinstruksikan membunyikan instrumen dapur (tampah dan panci) tanpa ritme mutlak ('Udik-udikan') demi memecah gelombang gendam milik makhluk tersebut."
+        content: [
+          "Melalui lensa teolog antropologis, mitologi Nenek Wewe memayungi parameter kritik moral tajam yang menghakimi derajat keperdulian sosial keluarga atas generasi belianya. Fenomena entitas penyamar ini mendesak orang tua untuk berhenti mengukur nilai anak dengan pelalaian tak sadar di jam transisi vital (di mana predasi logis lebih fatal daripada predasi astral).",
+          "Mekanisme purba meredam eksistensinya pun bersifat anarkis. Para pelacak menjustifikasi praktek ritus 'Udik-udikan', yakni orkestra gaduh memukul bertebangan berbagai perangkat panci, wajan, tong kaleng, dan tampah beras tanpa irama sama sekali. Bunyi destruktif acak mendengung diyakini ahli bio-mistis mampu menembus selubung (*jamming frequency*) perlindungan kognitif sang hantu.",
+          "Begitu gelombang akustiknya saling bertabrakan dan hancur, mata tak kasat Wewe akan silau perih dan melengos pergi, membuang anak tersebut dari kungkungannya kembali berkedip terlempar ke matriks koordinat manusia pada umumnya."
+        ]
       },
       {
         chapterNumber: 7,
         title: "Kasus Nyata & Kesaksian Lapangan",
         icon: "Users",
-        content: "Dokumen Desa Sidorejo 1999: Seorang balita hilang dari pekarangan maghrib. Tim penyisir desa selama empat jam tidak mendapat titik terang, hingga tetua menyelenggarakan arak-arakan tambur dandang panci. Tepat di rerimbun serabut bambu seberang kali, korban ditemukan duduk memeluk nisan tua tanpa luka seinci pun—mengaku disuapi 'nasi goreng' oleh seorang nenek saat udara mendadak dingin pelik."
+        content: [
+          "Pada sebuah dokumen kepolisian regional Salatiga tahun 1999 (Arsip Tragedi Sidorejo), seorang putra balita kepala dusun, Dika (5 tahun), menguap diculik bayang persis ketika azan sore dilantang pudar di sela adukan lauk ibunya di dapur kayu lapuk.",
+          "Pasukan penyisir warga lokal menyusuri parit sedalam bahu selama lima jam tanpa titik terang purnah. Dalam putaran keputusasaan dan anjuran kiai lokal, massa beralih memukul-mukul serentak tiang listrik dan jerigen plastik ke area tepi rumpun bambu pelatar sungai gersang.",
+          "Tepat di titik selokan yang konon telah disisir berulang tanpa hasil tiga jam sebelumnya, Dika tiba-tiba muncul memeluk erat nisan kuno bercat lumut. Tidak ada luka sobek sejengkal pun pada kulit mudanya. Dalam trans rekaman interogasi, balita itu lugu menyimpulkan ia telah asyik ditemani seorang Oma-Oma penyayang berambut putih, merajut senyum sambil menyuapinya 'bubur lezat' di sebuah panggung mewah... di mana kelopak bibirnya saat ditemukan masih menyisakan residu cacing tanah basah dan daun krokot busuk."
+        ]
       }
     ],
     abilities: [
@@ -549,50 +590,68 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
         title: "Sejarah & Asal Mula",
         subtitle: "KLASIFIKASI: ARSIP SEKUNDER",
         icon: "FileText",
-        content: "Suster Ngesot adalah salah satu figur hantu urban terpopuler di Indonesia yang berkembang pesat sejak era 1990-an. Arwah ini berwujud figur medis (perawat rumah sakit) yang meninggal melalui tindak kekerasan nan keji, dibunuh dan dimutilasi di lingkungan yang seharusnya menyembuhkan."
+        content: [
+          "Suster Ngesot adalah anomali hantu urban pasca-kemerdekaan yang meledak popularitasnya sejak pertengahan era 1990-an. Arwah ini berwujud staf medis rumah sakit—khususnya pilar perawat kebidanan atau bangsal umum—yang meninggal lewat insiden kekerasan fisik yang menarget tubuh dan martabat utamanya, merenggut secara paksa kehormatannya di wilayah netral perobatan.",
+          "Dalam ranah esoterik, roh tersebut gagal mewariskan ampunan. Sifat profesi medis yang mengedepankan empati merawat kehidupan justru memicu polaritas teror; perawat tewas itu bangkit membenci koridor-koridor sunyi tempat ia dahulu mengabdi karena takdir kelamnya membengkak menjadi luapan trauma agresif pada siapapun yang mendengarnya melintas."
+        ]
       },
       {
         chapterNumber: 2,
         title: "Evolusi Mitos & Latar Folklor",
         icon: "BookOpen",
         content: [
-          "Akar legenda ini sering dihubungkan dengan insiden kelam di rumah sakit peninggalan era kolonial Belanda atau klinik bersalin di kota-kota besar (Jakarta, Bandung).",
-          "Kisah paling umum menyatakan perawat tersebut dianiaya dan kakinya dihancurkan untuk mencegahnya melarikan diri, yang menjelaskan mengapa ia dikutuk untuk terus merangkak dan mengesot di sisa keabadiannya."
+          "Mitos sang Suster paling jamak ditarik pusarannya dari bangunan tua *Sanatorium* warisan birokrasi kolonial Belanda dan RSUP klasik megah berbata lawas di pelataran Cipto Mangunkusumo Jakarta maupun Hasan Sadikin Bandung.",
+          "Eksistensi serpihan saksinya mengisahkan bahwa sang perawat dibungkam fatal dan kakinya dilumpuhkan (dipatahkan balok kayu tebal atau hancur dilindas logistik berat) demi mencegah pelarian, lalu dieksekusi brutal hingga mayatnya dibuang mencemari lorong rahasia pembuangan linen biologis jenazah.",
+          "Inilah kausalitas pamungkas yang menyebabkannya cacat total; ia tidak mampu beranjak melayang, memaksanya menyusuri dimensi antara lewat medium gesekan pinggul menyeret lantainya perlahan, menjadi entitas horor yang secara harfiah terus-menerus menodai keramik steril medis dengan cairan amis penderitaan lamanya."
         ]
       },
       {
         chapterNumber: 3,
         title: "Lokasi & Pola Kemunculan",
         icon: "MapPin",
-        content: "Entitas ini terikat mutlak pada lingkungan arsitektur medis. Ia memfokuskan manifestasinya di lorong-lorong rumah sakit sepi, terkhusus di lantai terbawah dekat area kamar mayat, bangsal isolasi tua, atau gudang farmasi yang sudah tidak lagi dipakai."
+        content: [
+          "Cakupan radius orbit entitas ini absolut berkonjugasi dengan batas perimeter dunia klinis. Pusat vibrasi favorit panggung hantunya menyatu di koridor asrama medis sepi, koridor akses bongkar-muat ranjang jenazah (*Basement morgue*), selasar unit isolasi era lawas, rak-rak apotek terbengkalai, hingga tangga darurat bangunan gedung paramedis pudar.",
+          "Dalam rekaman patroli sekuriti malam, waktu kemunculan emas sosok ini amat berkiblat pada sepertiga malam kelam (mulai derik jam 1 pagi), tatkala arus jam besuk keluarga pasien benar-benar steril dan detak nadi perobatan mulai terlelap."
+        ]
       },
       {
         chapterNumber: 4,
         title: "Ciri-Ciri & Tanda Kehadiran",
         icon: "Eye",
         content: [
-          "Mengenakan seragam perawat putih atau era lampau yang kusam, kumal, dan bersimbah noda darah kehitaman.",
-          "Bergerak dengan cara menyeret separuh tubuh bagian bawahnya secara agresif di sepanjang selasar.",
-          "Tanda dominan eksistensinya adalah aura kedinginan ekstrem serta bau sterilisasi obat-obatan (seperti fenol atau karbol) yang mendadak pekat menyengat hidung."
+          "Aksentuasi kemunculan fisiknya mengenakan *apron* gaun keperawatan putih khas seragam paramedik kuno, koyakan sisa kemeja seragam pudar bernoda bercak merah arteri kronis bercampur basah cairan kehitaman bangkai busuk.",
+          "Mata batinnya menatap nanar menghantam dasar lantai sembari menggunakan sepasang lengannya sebagai tumpuan derek, mendengkur menyusur keramik panjang memecah kebisuan dengan tarikan otot-otot ekstremitas atasnya yang terlampau kekar secara gaib akibat diseret bertahun-kali waktu gaib.",
+          "Peringatan tanda kedatangannya selalu diawali polusi hidung bertegangan tinggi; tergelontor kuat aroma zat sterilisasi kimia (seperti uap asam Karbol murni pekat menembus batas Fenol) sebelum suhu beku turun menyelimuti sudut lantai."
         ]
       },
       {
         chapterNumber: 5,
         title: "Perilaku & Metode Serangan",
         icon: "Activity",
-        content: "Serangan konfrontatif murni. Suster Ngesot menggunakan kepanikan spasial sebagai senjatanya. Bunyi gesekan kain ke lantai linoleum sengaja disiarkan sebagai teror psikologis. Ia kerap muncul secara tiba-tiba dari sudut lorong gelap (*blind spot*) dan mementalkan syok visual langsung kepada penyintas."
+        content: [
+          "Strategi pembunuhan presisi yang dianut sang Suster menyasar kehancuran *Spasial-Psikologis* lewat manuver audio repetitif. Gema khas tarikan daging berpadu kain seragam yang digesek perlahan di lantai linoleum ('Sreek… Sreek… Sreek…') bertindak layaknya penyiksaan pelan (water dropping torture) terhadap kelaparan mental mangsa pendengarnya.",
+          "Berlawanan tajam dengan entitas terburu-buru kencang, ia melumuri mangsanya dalam keputusasaan yang melamban. Suster Ngesot akan menunggu hingga sasaran berdiri lemas terkunci pandangan menyusur lurus lorong koridor, mengizinkan bayangannya muncul di persimpangan *T-junction* perlahan.",
+          "Serangan fatal puncaknya berupa perjumpaan muka mendadak. Tatkala sang korban menjatuhkan senter atau berbalik melarikan diri, ia dapat mem-bypass batasan logika ruang untuk seketika memelintir sendi kakinya memblokade jalur pelarian depan dari lantai ke kornea mata mangsa sambil mengatup melotot ganas."
+        ]
       },
       {
         chapterNumber: 6,
         title: "Tafsir Budaya & Teori",
         icon: "Brain",
-        content: "Hipotesis internal Dreadnoute mendeduksikan bahwa Suster Ngesot merupakan perwujudan residu ektoplasma dari trauma massal dan ketakutan absolut rumah sakit. Ruang ICU atau koridor malam yang steril memberikan isolasi akustik sempurna untuk memantulkan gema tragisnya secara berulang melintasi masa."
+        content: [
+          "Investigator gaib meyakini manifestasi si Suster dipupuk kuat oleh ketakutan kolektif manusia akan kerentanan malam dan isolasi ekstrim dari kematian di bilik institusi rumah sakit; sebuah pusaran cemas tentang membusuk sendirian dalam penyesalan medis perawat gagal tanpa dikelilingi tabir keluarga tercinta.",
+          "Rumah sakit kuno berlimpah emosi, depresi gawat darurat, dan gelombang tangis kematian. Dinding bangunan tebal era kolonial mampu 'merekam' (*Stone Tape Theory*) sisa getaran trauma penderitaannya, kemudian mengkalibrasi ulang proyeksi arwah perawat tersebut dengan baterai cadangan ketakutan abadi manusia di koridor lengang malam."
+        ]
       },
       {
         chapterNumber: 7,
         title: "Kasus Nyata & Kesaksian Lapangan",
         icon: "Users",
-        content: "Rekam jejak 2012 di salah satu puskesmas rawat inap kosong di Jakarta Timur: Seorang penjaga malam ronde menemukan bercak basah menyeret sepanjang lantai lorong lantai satu. Kamera ponsel genggamnya mendistorsi suara denging rintihan pilu bercampur geseran seragam kaku bedah sebelum baterainya meleleh secara seketika. - Laporan Log Medis #SN-44."
+        content: [
+          "Berdasarkan Berkas Tragedi Malam #SN-44 tahun 2012 di eks-Puskesmas rawat inap kosong Jakarta Timur; seorang perawat piket senior dan satpam ronde mendengar erangan ganjil berat disertai dentuman kain basah yang terseret beriak di selasar jalur lantai bawah.",
+          "Dari jejak layar CCTV lorong timur yang mulai pudar gambarnya akibat *Magnetic Interference*, lensa merekam jejak cairan kental panjang merah menghitam digores tebal menutupi ubin putih sejauh sepuluh meter membelah bangsal mayat, sementara sesosok bayangan cacat besar merayap terseret putus-putus ke area sudut gelap (*blindspot*).",
+          "Keesokan harinya, ketika satpam berupaya menyambungkan aliran senter, cairan basah di sepanjang lantai sepenuhnya menguap menjadi serakan noda kerak kering tak terbasuh zat pembersih rumah sakit yang menusuk memusingkan."
+        ]
       }
     ],
     abilities: [
