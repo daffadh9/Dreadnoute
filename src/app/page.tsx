@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Bell, 
@@ -65,13 +65,82 @@ const SEARCH_FILTERS = [
   { label: "Baru", icon: Activity },
 ];
 
-const FEATURE_CARDS = [
-  { title: "Podcast",    icon: Mic2,        href: "/podcast",    meta: "EVP Signals",     image: "/assets/images/PODCAST BANNER DASHBOARD.jpg" },
-  { title: "Ghost Archive", icon: Ghost,    href: "/ghost-archive", meta: "Encyclopedia", image: "/assets/images/GHOST WIKI DASHBOARD.jpg" },
-  { title: "Games",      icon: Gamepad2,    href: "/games",      meta: "The Crypt",       image: "/assets/images/GAME BANNER DASHBOARD.jpg" },
-  { title: "Market",     icon: ShoppingCart,href: "/marketplace",meta: "Ancient Goods",   image: "/assets/images/MARKET DASHBOARD.jpg" },
-  { title: "Trailers",   icon: Clapperboard,href: "/trailers",   meta: "Forbidden Media", image: "/assets/images/TRAILER DASHBOARD.jpg" },
-  { title: "Komunitas",  icon: Users2,      href: "/community",  meta: "Deep Discussion", image: "/assets/images/KOMUNITAS BANNER DASHBOARD.jpg" },
+const CATEGORIES = [
+  {
+    id: "explore",
+    title: "Explore",
+    subtitle: "PELAJARI & EKSPLOR DUNIA",
+    icon: Ghost,
+    image: "/assets/images/GHOST WIKI DASHBOARD.jpg",
+    features: [
+      { name: "Ghost Archive", href: "/ghost-archive", meta: "Official Encyclopedia", image: "/assets/images/GHOST WIKI DASHBOARD.jpg" },
+      { name: "Laboratorium", href: "/lab", meta: "Experimental Research", image: "/assets/images/LABORATORIUM DASHBOARD.png" },
+      { name: "Blog", href: "/blog", meta: "Occult Articles", image: "/assets/images/BLOG DASHBOARD.png" }
+    ]
+  },
+  {
+    id: "experience",
+    title: "Experience",
+    subtitle: "MERASAKAN HORROR",
+    icon: Play,
+    image: "/assets/images/PODCAST BANNER DASHBOARD.jpg",
+    features: [
+      { name: "Podcast", href: "/podcast", meta: "EVP Signals", image: "/assets/images/PODCAST BANNER DASHBOARD.jpg" },
+      { name: "Trailer Film", href: "/trailers", meta: "Immersive Visuals", image: "/assets/images/TRAILER DASHBOARD.jpg" },
+      { name: "Games", href: "/games", meta: "Interactive Terror", image: "/assets/images/GAME BANNER DASHBOARD.jpg" }
+    ]
+  },
+  {
+    id: "stories",
+    title: "Stories",
+    subtitle: "CONSUME & CREATE",
+    icon: Clapperboard,
+    image: "/assets/images/NOVEL DASHBOARD.png",
+    features: [
+      { name: "Novel", href: "/novels", meta: "Long-form Shadows", image: "/assets/images/NOVEL DASHBOARD.png" },
+      { name: "Komik", href: "/comics", meta: "Visual Narrative", image: "/assets/images/KOMIK DASHBOARD.jpg" },
+      { name: "Cerpen", href: "/short-stories", meta: "Quick Shivers", image: "/assets/images/CERPEN DASHBOARD.png" }
+    ]
+  },
+  {
+    id: "community",
+    title: "Community",
+    subtitle: "INTERAKSI PERSONAL",
+    icon: Users2,
+    image: "/assets/images/KOMUNITAS BANNER DASHBOARD.jpg",
+    features: [
+      { name: "Komunitas", href: "/community", meta: "Deep Discussions", image: "/assets/images/KOMUNITAS BANNER DASHBOARD.jpg" },
+      { name: "Diary", href: "/diary", meta: "Personal Accounts", image: "/assets/images/DIARY DASHBOARD.png" }
+    ]
+  },
+  {
+    id: "collection",
+    title: "Collection",
+    subtitle: "PROGRESSION & ARTIFACTS",
+    icon: Trophy,
+    image: "/assets/images/G-COLLECTOR DASHBOARD.png",
+    features: [
+      { name: "G-Collector", href: "/collector", meta: "Archive Progression", image: "/assets/images/G-COLLECTOR DASHBOARD.png" }
+    ]
+  },
+  {
+    id: "market",
+    title: "Market",
+    subtitle: "COMMERCE & ASSETS",
+    icon: ShoppingCart,
+    image: "/assets/images/MARKET DASHBOARD.jpg",
+    features: [
+      { name: "Marketplace", href: "/marketplace", meta: "Black Market Assets", image: "/assets/images/MARKET DASHBOARD.jpg" }
+    ]
+  }
+];
+
+const LATEST_SIGNALS = [
+  { id: "sig-1", type: "ENTITY", title: "Wewe Gombel", meta: "Arsip Diperbarui 3j Lalu", image: "/images/ghost-archive/WEWE_GOMBEL_V2/hero.png", href: "/ghost-archive/wewe-gombel", color: "text-red-500" },
+  { id: "sig-2", type: "PODCAST", title: "Jeruk Purut: Lorong Tak Kembali", meta: "Durasi 21 Menit", image: "/assets/images/EXCLUSIVE PODCAST KONTEN.jpg", href: "/podcast/1", color: "text-orange-500" },
+  { id: "sig-3", type: "DIARY", title: "“Suara itu manggil nama saya...”", meta: "oleh @anon_surabaya", image: "/assets/images/DIARY DASHBOARD.png", href: "/diary/1", color: "text-purple-500" },
+  { id: "sig-4", type: "NOVEL", title: "Malam Saat Rumah Itu Menjawab", meta: "Bab 1 Tersedia", image: "/assets/images/NOVEL DASHBOARD.png", href: "/novels/1", color: "text-amber-500" },
+  { id: "sig-5", type: "COLLECTOR", title: "Fragmen Cermin Kutukan", meta: "Artefak Langka Ditemukan", image: "/assets/images/G-COLLECTOR DASHBOARD.png", href: "/collector/1", color: "text-emerald-500" },
 ];
 
 export default function DashboardPage() {
@@ -109,6 +178,16 @@ export default function DashboardPage() {
       return () => clearTimeout(t);
     }
   }, []);
+
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollSignals = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollAmount = direction === 'left' ? -400 : 400;
+      scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -387,9 +466,53 @@ export default function DashboardPage() {
                </button>
             </div>
          </section>
+         {/* ── 2. LATEST SIGNALS (Highlight Strip) ── */}
+         <section className="mt-8 px-4 lg:px-0">
+            <div className="flex items-end justify-between mb-8 border-b border-white/5 pb-4">
+               <div>
+                  <h2 className="text-[10px] font-black text-red-500 uppercase tracking-[0.5em] mb-2 flex items-center gap-3">
+                     <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_10px_red]" />
+                     LATEST SIGNALS
+                  </h2>
+                  <p className="text-zinc-500 text-[11px] font-medium tracking-wider uppercase opacity-60">Arsip, siaran, dan temuan terbaru dari ekosistem Dreadnoute.</p>
+               </div>
+               <div className="flex gap-3">
+                  <button onClick={() => scrollSignals('left')} className="p-3 bg-white/[0.03] border border-white/10 rounded-xl hover:bg-white/10 transition-all text-zinc-400"><ChevronLeft size={16} /></button>
+                  <button onClick={() => scrollSignals('right')} className="p-3 bg-white/[0.03] border border-white/10 rounded-xl hover:bg-white/10 transition-all text-zinc-400"><ChevronRight size={16} /></button>
+               </div>
+            </div>
 
-         {/* 2. OMNISEARCH BAR - CENTERED & OPTIMIZED */}
-         <section className="flex flex-col items-center gap-12 -mt-10 px-4">
+            <div 
+              ref={scrollRef}
+              className="flex gap-6 overflow-x-auto no-scrollbar snap-x pb-4"
+            >
+               {LATEST_SIGNALS.map((sig) => (
+                  <Link key={sig.id} href={sig.href} className="group min-w-[320px] snap-start">
+                     <div className="relative aspect-video rounded-3xl overflow-hidden border border-white/5 bg-zinc-900 shadow-2xl transition-all duration-500 group-hover:border-red-500/30 group-hover:shadow-[0_20px_40px_rgba(255,0,0,0.15)] group-hover:-translate-y-1">
+                        <Image src={sig.image} alt={sig.title} fill className="object-cover transition-transform duration-700 group-hover:scale-110 group-hover:brightness-110" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
+                        
+                        <div className="absolute top-4 left-4">
+                           <span className={cn("text-[9px] font-black tracking-[0.3em] uppercase bg-black/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10", sig.color)}>
+                              {sig.type}
+                           </span>
+                        </div>
+
+                        <div className="absolute bottom-5 left-5 right-5">
+                           <h3 className="text-white text-base font-black uppercase tracking-tight line-clamp-1 mb-1">{sig.title}</h3>
+                           <p className="text-zinc-400 text-[10px] font-bold uppercase tracking-wider opacity-60 group-hover:opacity-100 transition-opacity">{sig.meta}</p>
+                        </div>
+
+                        {/* Hover Overlay Line */}
+                        <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-red-500 transition-all duration-500 group-hover:w-full shadow-[0_0_15px_red]" />
+                     </div>
+                  </Link>
+               ))}
+            </div>
+         </section>
+
+         {/* ── 3. OMNISEARCH BAR & FILTERS ── */}
+         <section className="flex flex-col items-center gap-12 mt-4 px-4">
             <div className="w-full max-w-[700px] group relative">
                <div className={cn(
                   "absolute inset-0 bg-accent/20 blur-[100px] rounded-full opacity-0 transition-opacity duration-1000",
@@ -397,7 +520,7 @@ export default function DashboardPage() {
                )} />
                
                <div className={cn(
-                  "relative bg-black/40 backdrop-blur-3xl border border-white/10 rounded-full flex items-center p-3 transition-all duration-700",
+                  "relative bg-black/40 backdrop-blur-3xl border border-white/10 rounded-full flex items-center p-3 transition-all duration-700 shadow-2xl",
                   searchFocused ? "border-accent/60 shadow-[0_0_60px_rgba(255,0,0,0.4)]" : "hover:border-white/20"
                )}>
                   <div className="pl-8 pr-4 text-zinc-600 transition-colors group-hover:text-gold">
@@ -418,14 +541,13 @@ export default function DashboardPage() {
                </div>
             </div>
 
-            {/* 3. Filter Categories - CENTERED */}
             <div className="relative w-full flex flex-wrap justify-center items-center gap-6">
                {SEARCH_FILTERS.map((filter) => (
                   <button
                      key={filter.label}
                      onClick={() => setActiveFilter(filter.label)}
                      className={cn(
-                        "flex items-center gap-4 px-10 py-5 rounded-2xl text-[10px] font-bold uppercase tracking-[0.4em] transition-all border group/f",
+                        "flex items-center gap-4 px-10 py-5 rounded-2xl text-[10px] font-bold uppercase tracking-[0.4em] transition-all border group/f backdrop-blur-xl",
                         activeFilter === filter.label 
                            ? "bg-accent border-accent text-white shadow-[0_15px_40px_rgba(255,0,0,0.4)]" 
                            : "bg-white/[0.02] border-white/5 text-zinc-600 hover:text-white hover:bg-white/[0.05]"
@@ -438,50 +560,136 @@ export default function DashboardPage() {
             </div>
          </section>
 
-         {/* 4. Feature Cards Grid - FULLY RESPONSIVE 3-COLUMN */}
-           <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
-              {FEATURE_CARDS.map((card, i) => (
-                 <Link key={i} href={card.href}>
-                    <motion.div 
-                       whileHover={{ y: -15, scale: 1.02 }}
-                       className="group relative h-[360px] rounded-[2.5rem] overflow-hidden border border-white/10 bg-[#080808] transition-all duration-700"
-                    >
-                       {/* Background Image */}
-                       <Image src={card.image} alt={card.title} fill className="object-cover opacity-20 grayscale group-hover:grayscale-0 group-hover:opacity-80 transition-all duration-1000 group-hover:scale-110" />
-                       <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/40 to-transparent" />
-                       
-                       {/* Icon Position Top-Left */}
-                       <div className="absolute top-8 left-8 w-14 h-14 rounded-2xl bg-black/60 backdrop-blur-xl border border-white/10 flex items-center justify-center text-accent group-hover:border-accent group-hover:shadow-[0_0_30px_rgba(255,0,0,0.3)] transition-all z-20">
-                          <card.icon size={26} />
-                       </div>
+         {/* ── 4. CATEGORY NAVIGATION (6 CATEGORIES) ── */}
+         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full border-t border-white/5 pt-16">
+            {CATEGORIES.map((cat, i) => (
+               <div key={i} className="flex flex-col gap-6">
+                  {/* Category Header Card */}
+                  <div 
+                    onClick={() => setActiveCategory(activeCategory === cat.id ? null : cat.id)}
+                    className="group relative h-[220px] rounded-[2.5rem] overflow-hidden border border-white/10 bg-[#080808] transition-all duration-700 cursor-pointer hover:border-accent/40 hover:-translate-y-2 shadow-2xl"
+                  >
+                     <Image src={cat.image} alt={cat.title} fill className="object-cover opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-80 transition-all duration-1000 group-hover:scale-110" />
+                     <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/40 to-transparent" />
+                     
+                     <div className="absolute top-8 left-8 w-14 h-14 rounded-2xl bg-black/60 backdrop-blur-xl border border-white/10 flex items-center justify-center text-accent group-hover:border-accent group-hover:shadow-[0_0_30px_rgba(255,0,0,0.3)] transition-all z-20">
+                        <cat.icon size={26} />
+                     </div>
 
-                       <div className="absolute top-8 right-8 flex items-center gap-3 px-4 py-2 bg-black/80 backdrop-blur-lg rounded-full border border-accent/20 opacity-0 group-hover:opacity-100 transition-all translate-x-4 group-hover:translate-x-0 z-20">
-                          <Activity size={10} className="text-accent animate-pulse" />
-                          <span className="text-[7px] font-bold tracking-[0.3em] text-white uppercase whitespace-nowrap">LINK ESTABLISHED</span>
-                       </div>
+                     <div className="relative z-10 p-10 h-full flex flex-col justify-end">
+                        <h3 className="text-3xl font-black text-white uppercase tracking-tighter mb-1">{cat.title}</h3>
+                        <p className="text-[10px] font-bold text-gold uppercase tracking-[0.4em] opacity-60">{cat.subtitle}</p>
+                     </div>
 
-                       {/* Content Overlay */}
-                       <div className="relative z-10 p-8 h-full flex flex-col justify-end">
-                          <div className="mb-2">
-                             <h3 className="text-2xl font-black text-white uppercase tracking-wider">{card.title}</h3>
-                             <p className="text-[10px] font-bold text-gold uppercase tracking-[0.4em] mt-3 opacity-60 group-hover:opacity-100 transition-opacity">{card.meta}</p>
-                          </div>
-                          
-                          <div className="mt-6 transition-all duration-700 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0">
-                             <div className="flex items-center gap-6 text-accent text-[9px] font-bold tracking-[0.4em] uppercase hover:gap-8 transition-all">
-                                Initiate Access <ChevronRight size={14} />
-                             </div>
-                          </div>
-                       </div>
+                     {/* Spectral Glow Line */}
+                     <div className="absolute bottom-0 left-0 h-1 bg-accent w-0 group-hover:w-full transition-all duration-1000 shadow-[0_0_20px_red]" />
+                  </div>
 
-                       {/* Spectral Glow Line */}
-                       <div className="absolute bottom-0 left-0 h-1 bg-accent w-0 group-hover:w-full transition-all duration-1000 shadow-[0_0_20px_red]" />
-                    </motion.div>
-                 </Link>
-              ))}
-           </section>
-        </main>
-      </div>
-    </div>
+                  {/* Sub-Features List (Always visible but grouped by category) */}
+                  <div className="flex flex-col gap-3 px-2">
+                     {cat.features.map((feat, j) => (
+                        <Link key={j} href={feat.href} className="group flex items-center gap-4 p-4 rounded-3xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.06] hover:border-white/10 transition-all">
+                           <div className="relative w-16 h-12 rounded-xl overflow-hidden border border-white/5 shrink-0">
+                              <Image src={feat.image} alt={feat.name} fill className="object-cover grayscale group-hover:grayscale-0 transition-all" />
+                           </div>
+                           <div className="flex-1 overflow-hidden">
+                              <h4 className="text-[14px] font-black text-white uppercase tracking-tight group-hover:text-accent transition-colors truncate">{feat.name}</h4>
+                              <p className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest truncate">{feat.meta}</p>
+                           </div>
+                           <ChevronRight size={14} className="text-zinc-700 group-hover:text-accent group-hover:translate-x-1 transition-all" />
+                        </Link>
+                     ))}
+                  </div>
+               </div>
+            ))}
+         </section>
+
+         {/* ── 5. FEATURED ENTITY SPOTLIGHT ── */}
+         <section className="relative w-full py-20 border-t border-white/5 mt-10">
+            <div className="absolute inset-0 bg-accent/5 blur-[120px] rounded-full opacity-30" />
+            <div className="relative flex flex-col lg:flex-row items-center gap-16">
+               <div className="flex-1 space-y-8">
+                  <div className="space-y-4">
+                     <span className="text-accent font-black uppercase tracking-[0.6em] text-[10px] flex items-center gap-4">
+                        <div className="w-10 h-1px bg-accent/40" /> FEATURED ENTITY
+                     </span>
+                     <h2 className="text-6xl font-black text-white uppercase tracking-tighter leading-none">Wewe Gombel</h2>
+                     <p className="text-zinc-500 text-lg font-cinzel italic leading-relaxed max-w-xl">
+                        &ldquo;Ibu asuh supranatural yang mendiami wilayah abu-abu antara ancaman dan perlindungan. Pelajari arsip rahasia untuk memahami tanda kehadirannya.&rdquo;
+                     </p>
+                  </div>
+                  <Link href="/ghost-archive/wewe-gombel">
+                     <button className="px-10 py-5 bg-white/5 border border-white/10 text-white font-black uppercase tracking-[0.4em] text-[10px] rounded-2xl hover:bg-white/10 hover:border-accent transition-all shadow-xl group">
+                        Lihat Arsip Lengkap <ChevronRight size={14} className="inline ml-3 group-hover:translate-x-1 transition-all" />
+                     </button>
+                  </Link>
+               </div>
+               <div className="relative w-full lg:w-[45%] aspect-[4/3] rounded-[3rem] overflow-hidden border border-white/10 shadow-3xl">
+                  <Image src="/images/ghost-archive/WEWE_GOMBEL_V2/hero.png" alt="Featured Ghost" fill className="object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
+               </div>
+            </div>
+         </section>
+
+         {/* ── 6. G-COLLECTOR PREVIEW (Dopamine Hook) ── */}
+         <section className="w-full p-12 rounded-[3.5rem] bg-[linear-gradient(145deg,rgba(10,5,5,0.8),rgba(0,0,0,1))] border border-white/5 relative overflow-hidden shadow-2xl">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 blur-[100px] -mr-32 -mt-32" />
+            <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-10">
+               <div className="space-y-6">
+                  <div className="flex items-center gap-4">
+                     <div className="w-12 h-12 rounded-2xl bg-gold/10 border border-gold/20 flex items-center justify-center text-gold shadow-[0_0_20px_rgba(197,160,89,0.3)]">
+                        <Trophy size={20} />
+                     </div>
+                     <div>
+                        <h3 className="text-2xl font-black text-white uppercase tracking-tight">Koleksi Terdeteksi</h3>
+                        <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mt-1">G-Collector Progression System</p>
+                     </div>
+                  </div>
+                  <div className="space-y-3">
+                     <div className="flex justify-between text-[11px] font-black text-white uppercase tracking-wider">
+                        <span>Capture Progress</span>
+                        <span className="text-accent">12 / 87 Entitas</span>
+                     </div>
+                     <div className="w-[300px] h-2 bg-white/5 rounded-full overflow-hidden border border-white/5">
+                        <div className="w-[15%] h-full bg-accent shadow-[0_0_10px_red]" />
+                     </div>
+                  </div>
+               </div>
+               <div className="flex gap-4">
+                  {[1,2,3,4].map(idx => (
+                     <div key={idx} className="w-20 h-28 rounded-2xl bg-white/[0.03] border border-white/5 p-1 relative group cursor-pointer hover:border-accent/40 transition-all overflow-hidden">
+                        <div className="w-full h-full bg-zinc-900 rounded-xl overflow-hidden opacity-40 group-hover:opacity-100 transition-all">
+                           <Image src={`/assets/images/nyi-roro-kidul.jpg`} alt="Artifact" fill className="object-cover grayscale group-hover:grayscale-0 transition-all" />
+                        </div>
+                        <div className="absolute inset-0 bg-black/60 opacity-60 group-hover:opacity-0 transition-opacity" />
+                     </div>
+                  ))}
+               </div>
+               <Link href="/collector">
+                  <button className="px-8 py-4 bg-gold text-black font-black uppercase tracking-[0.4em] text-[9px] rounded-xl active:scale-95 transition-all shadow-[0_15px_30px_rgba(197,160,89,0.3)]">
+                     Buka Koleksi
+                  </button>
+               </Link>
+            </div>
+         </section>
+
+         {/* ── 7. FOOTER (Atmospheric) ── */}
+         <footer className="w-full py-20 border-t border-white/5 text-center flex flex-col items-center gap-10">
+            <div className="space-y-4">
+               <h2 className="text-zinc-100 text-3xl font-horror tracking-[0.5em] opacity-40">DREADNOUTE</h2>
+               <p className="text-zinc-600 text-[10px] font-black uppercase tracking-[0.6em] max-w-md italic">
+                  &ldquo;Beberapa pintu sebaiknya tidak pernah terbuka. Beberapa rahasia sebaiknya tidak pernah diceritakan.&rdquo;
+               </p>
+            </div>
+            <div className="flex gap-10 text-[10px] font-black text-zinc-500 uppercase tracking-widest">
+               <Link href="/term" className="hover:text-accent transition-colors">V.O.I.D Term</Link>
+               <Link href="/privacy" className="hover:text-accent transition-colors">Transmission Privacy</Link>
+               <Link href="/status" className="hover:text-accent transition-colors">Signal Status</Link>
+            </div>
+            <p className="text-[9px] font-bold text-zinc-800 uppercase tracking-widest">© 2024 DREADNOUTE ECOSYSTEM // BUILT BY ARCHIVISTS</p>
+         </footer>
+      </main>
+   </div>
+</div>
   );
 }
