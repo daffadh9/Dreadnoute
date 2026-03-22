@@ -545,10 +545,11 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
       "Jika mendengar suara panggilan dari arah semak/pohon besar yang terdengar seperti suara Ibu, jangan menoleh. Teruslah berjalan ke arah tempat ramai.",
       "Selalu pantau posisi anak kecil di bawah usia 7 tahun dalam radius pandang langsung saat berada di dekat area vegetasi lebat."
     ],
-    mainImage: "/images/ghost-archive/WEWE_GOMBEL_V2/hero.png",
+    mainImage: "/images/ghost-archive/WEWE GOMBEL/Wewe Gombel - hero.jpg",
     gallery: [
       { url: "/images/ghost-archive/WEWE_GOMBEL_V2/gallery_1.png", caption: "Siluet Nenek Gombel di antara rumpun bambu yang tertangkap kamera thermal." },
       { url: "/images/ghost-archive/WEWE_GOMBEL_V2/gallery_2.png", caption: "Detail tangan gnarled yang ditemukan di sela-sela jendela rumah warga pasca laporan anak hilang." },
+      { url: "/images/ghost-archive/WEWE GOMBEL/Gallery 6.png", caption: "Rekaman entitas yang muncul dari bayangan pepohonan di pinggiran desa." },
       { url: "/images/ghost-archive/WEWE GOMBEL/Gallery 4.png", caption: "Area vegetasi lebat di Bukit Gombel yang diyakini sebagai titik transisi dimensi." }
     ],
     reports: [
