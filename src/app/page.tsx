@@ -388,9 +388,9 @@ export default function DashboardPage() {
           </div>
         </header>
 
-        <main className="w-full pt-10 flex flex-col gap-20">
+        <main className="w-full pt-10 flex flex-col">
            
-           {/* 1. Main Banner (Hero) - SAFE ALIGNMENT */}
+           {/* 1. HERO */}
            <section className="relative w-full h-[600px] rounded-[3rem] border border-white/5 group shadow-2xl overflow-hidden">
             <div className="absolute inset-0 rounded-[4rem] overflow-hidden border border-white/10 bg-black/40">
               <AnimatePresence mode="wait">
@@ -466,230 +466,179 @@ export default function DashboardPage() {
                </button>
             </div>
          </section>
-         {/* ── 2. LATEST SIGNALS (Highlight Strip) ── */}
-         <section className="mt-8 px-4 lg:px-0">
-            <div className="flex items-end justify-between mb-8 border-b border-white/5 pb-4">
+
+         {/* ── 2. LATEST SIGNALS ── Breathing: mt-16 */}
+         <section className="mt-16 pt-12 border-t border-white/[0.04]">
+            <div className="flex items-end justify-between mb-8">
                <div>
                   <h2 className="text-[10px] font-black text-red-500 uppercase tracking-[0.5em] mb-2 flex items-center gap-3">
                      <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_10px_red]" />
                      LATEST SIGNALS
                   </h2>
-                  <p className="text-zinc-500 text-[11px] font-medium tracking-wider uppercase opacity-60">Arsip, siaran, dan temuan terbaru dari ekosistem Dreadnoute.</p>
+                  <p className="text-zinc-600 text-[11px] font-medium tracking-wider uppercase">Arsip, siaran, dan temuan terbaru dari ekosistem Dreadnoute.</p>
                </div>
                <div className="flex gap-3">
-                  <button onClick={() => scrollSignals('left')} className="p-3 bg-white/[0.03] border border-white/10 rounded-xl hover:bg-white/10 transition-all text-zinc-400"><ChevronLeft size={16} /></button>
-                  <button onClick={() => scrollSignals('right')} className="p-3 bg-white/[0.03] border border-white/10 rounded-xl hover:bg-white/10 transition-all text-zinc-400"><ChevronRight size={16} /></button>
+                  <button onClick={() => scrollSignals('left')} className="p-3 bg-white/[0.03] border border-white/10 rounded-xl hover:bg-white/10 transition-all text-zinc-500 hover:text-white"><ChevronLeft size={16} /></button>
+                  <button onClick={() => scrollSignals('right')} className="p-3 bg-white/[0.03] border border-white/10 rounded-xl hover:bg-white/10 transition-all text-zinc-500 hover:text-white"><ChevronRight size={16} /></button>
                </div>
             </div>
 
-            <div 
-              ref={scrollRef}
-              className="flex gap-6 overflow-x-auto no-scrollbar snap-x pb-4"
-            >
+            <div ref={scrollRef} className="flex gap-5 overflow-x-auto no-scrollbar snap-x pb-2">
                {LATEST_SIGNALS.map((sig) => (
-                  <Link key={sig.id} href={sig.href} className="group min-w-[320px] snap-start">
-                     <div className="relative aspect-video rounded-3xl overflow-hidden border border-white/5 bg-zinc-900 shadow-2xl transition-all duration-500 group-hover:border-red-500/30 group-hover:shadow-[0_20px_40px_rgba(255,0,0,0.15)] group-hover:-translate-y-1">
-                        <Image src={sig.image} alt={sig.title} fill className="object-cover transition-transform duration-700 group-hover:scale-110 group-hover:brightness-110" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
-                        
-                        <div className="absolute top-4 left-4">
-                           <span className={cn("text-[9px] font-black tracking-[0.3em] uppercase bg-black/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10", sig.color)}>
+                  <Link key={sig.id} href={sig.href} className="group min-w-[300px] max-w-[300px] snap-start shrink-0">
+                     <div className="relative h-[170px] rounded-2xl overflow-hidden border border-white/5 bg-zinc-950 transition-all duration-500 group-hover:border-red-500/30 group-hover:shadow-[0_16px_32px_rgba(255,0,0,0.12)] group-hover:-translate-y-1">
+                        <Image src={sig.image} alt={sig.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105 brightness-75 group-hover:brightness-95" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent" />
+                        <div className="absolute top-3 left-3">
+                           <span className={cn("text-[8px] font-black tracking-[0.3em] uppercase bg-black/80 backdrop-blur-md px-2.5 py-1 rounded-md border border-white/10", sig.color)}>
                               {sig.type}
                            </span>
                         </div>
-
-                        <div className="absolute bottom-5 left-5 right-5">
-                           <h3 className="text-white text-base font-black uppercase tracking-tight line-clamp-1 mb-1">{sig.title}</h3>
-                           <p className="text-zinc-400 text-[10px] font-bold uppercase tracking-wider opacity-60 group-hover:opacity-100 transition-opacity">{sig.meta}</p>
+                        <div className="absolute bottom-4 left-4 right-4">
+                           <h3 className="text-white text-[13px] font-black uppercase tracking-tight line-clamp-1 mb-0.5">{sig.title}</h3>
+                           <p className="text-zinc-500 text-[9px] font-bold uppercase tracking-wider group-hover:text-zinc-300 transition-colors">{sig.meta}</p>
                         </div>
-
-                        {/* Hover Overlay Line */}
-                        <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-red-500 transition-all duration-500 group-hover:w-full shadow-[0_0_15px_red]" />
+                        <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-red-500 transition-all duration-500 group-hover:w-full shadow-[0_0_10px_red]" />
                      </div>
                   </Link>
                ))}
             </div>
          </section>
 
-         {/* ── 3. OMNISEARCH BAR & FILTERS ── */}
-         <section className="flex flex-col items-center gap-12 mt-4 px-4">
-            <div className="w-full max-w-[700px] group relative">
-               <div className={cn(
-                  "absolute inset-0 bg-accent/20 blur-[100px] rounded-full opacity-0 transition-opacity duration-1000",
-                  searchFocused && "opacity-40"
-               )} />
-               
-               <div className={cn(
-                  "relative bg-black/40 backdrop-blur-3xl border border-white/10 rounded-full flex items-center p-3 transition-all duration-700 shadow-2xl",
-                  searchFocused ? "border-accent/60 shadow-[0_0_60px_rgba(255,0,0,0.4)]" : "hover:border-white/20"
-               )}>
-                  <div className="pl-8 pr-4 text-zinc-600 transition-colors group-hover:text-gold">
-                     <Search size={20} className={cn("transition-all", searchFocused && "text-accent scale-110")} />
-                  </div>
-                  <input 
-                    type="text" 
-                    placeholder="CARILAH FREKUENSI YANG HILANG..." 
-                    onFocus={() => setSearchFocused(true)}
-                    onBlur={() => setSearchFocused(false)}
-                    className="w-full bg-transparent border-none py-5 text-[12px] text-white focus:outline-none font-bold tracking-[0.4em] placeholder:text-zinc-800 uppercase"
-                  />
-                  <div className="pr-3">
-                     <button className="px-10 py-4 bg-white/[0.03] border border-white/10 text-gold font-bold uppercase tracking-[0.6em] text-[9px] rounded-full hover:bg-gold hover:text-black transition-all active:scale-95 shadow-lg">
-                        LOCATE
-                     </button>
-                  </div>
-               </div>
-            </div>
-
-            <div className="relative w-full flex flex-wrap justify-center items-center gap-6">
-               {SEARCH_FILTERS.map((filter) => (
-                  <button
-                     key={filter.label}
-                     onClick={() => setActiveFilter(filter.label)}
-                     className={cn(
-                        "flex items-center gap-4 px-10 py-5 rounded-2xl text-[10px] font-bold uppercase tracking-[0.4em] transition-all border group/f backdrop-blur-xl",
-                        activeFilter === filter.label 
-                           ? "bg-accent border-accent text-white shadow-[0_15px_40px_rgba(255,0,0,0.4)]" 
-                           : "bg-white/[0.02] border-white/5 text-zinc-600 hover:text-white hover:bg-white/[0.05]"
-                     )}
-                  >
-                     <filter.icon size={16} className={cn(activeFilter === filter.label ? "animate-pulse" : "opacity-30 group-hover/f:opacity-100 transition-opacity")} />
-                     {filter.label}
-                  </button>
-               ))}
-            </div>
-         </section>
-
-         {/* ── 4. CATEGORY NAVIGATION (6 CATEGORIES) ── */}
-         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full border-t border-white/5 pt-16">
-            {CATEGORIES.map((cat, i) => (
-               <div key={i} className="flex flex-col gap-6">
-                  {/* Category Header Card */}
-                  <div 
-                    onClick={() => setActiveCategory(activeCategory === cat.id ? null : cat.id)}
-                    className="group relative h-[220px] rounded-[2.5rem] overflow-hidden border border-white/10 bg-[#080808] transition-all duration-700 cursor-pointer hover:border-accent/40 hover:-translate-y-2 shadow-2xl"
-                  >
-                     <Image src={cat.image} alt={cat.title} fill className="object-cover opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-80 transition-all duration-1000 group-hover:scale-110" />
-                     <div className="absolute inset-0 bg-gradient-to-t from-[#020202] via-[#020202]/40 to-transparent" />
-                     
-                     <div className="absolute top-8 left-8 w-14 h-14 rounded-2xl bg-black/60 backdrop-blur-xl border border-white/10 flex items-center justify-center text-accent group-hover:border-accent group-hover:shadow-[0_0_30px_rgba(255,0,0,0.3)] transition-all z-20">
-                        <cat.icon size={26} />
-                     </div>
-
-                     <div className="relative z-10 p-10 h-full flex flex-col justify-end">
-                        <h3 className="text-3xl font-black text-white uppercase tracking-tighter mb-1">{cat.title}</h3>
-                        <p className="text-[10px] font-bold text-gold uppercase tracking-[0.4em] opacity-60">{cat.subtitle}</p>
-                     </div>
-
-                     {/* Spectral Glow Line */}
-                     <div className="absolute bottom-0 left-0 h-1 bg-accent w-0 group-hover:w-full transition-all duration-1000 shadow-[0_0_20px_red]" />
-                  </div>
-
-                  {/* Sub-Features List (Always visible but grouped by category) */}
-                  <div className="flex flex-col gap-3 px-2">
-                     {cat.features.map((feat, j) => (
-                        <Link key={j} href={feat.href} className="group flex items-center gap-4 p-4 rounded-3xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.06] hover:border-white/10 transition-all">
-                           <div className="relative w-16 h-12 rounded-xl overflow-hidden border border-white/5 shrink-0">
-                              <Image src={feat.image} alt={feat.name} fill className="object-cover grayscale group-hover:grayscale-0 transition-all" />
-                           </div>
-                           <div className="flex-1 overflow-hidden">
-                              <h4 className="text-[14px] font-black text-white uppercase tracking-tight group-hover:text-accent transition-colors truncate">{feat.name}</h4>
-                              <p className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest truncate">{feat.meta}</p>
-                           </div>
-                           <ChevronRight size={14} className="text-zinc-700 group-hover:text-accent group-hover:translate-x-1 transition-all" />
-                        </Link>
-                     ))}
-                  </div>
-               </div>
-            ))}
-         </section>
-
-         {/* ── 5. FEATURED ENTITY SPOTLIGHT ── */}
-         <section className="relative w-full py-20 border-t border-white/5 mt-10">
-            <div className="absolute inset-0 bg-accent/5 blur-[120px] rounded-full opacity-30" />
-            <div className="relative flex flex-col lg:flex-row items-center gap-16">
-               <div className="flex-1 space-y-8">
-                  <div className="space-y-4">
-                     <span className="text-accent font-black uppercase tracking-[0.6em] text-[10px] flex items-center gap-4">
-                        <div className="w-10 h-1px bg-accent/40" /> FEATURED ENTITY
+         {/* ── 3. FEATURED ENTITY — mt-24: emotional anchor, above categories */}
+         <section className="relative mt-24 py-16 px-12 rounded-[3rem] overflow-hidden border border-white/[0.05] bg-[linear-gradient(135deg,rgba(30,4,4,0.55),rgba(5,5,10,0.95))]">
+            <div className="absolute -left-20 top-1/2 -translate-y-1/2 w-80 h-80 bg-red-900/20 blur-[100px] rounded-full pointer-events-none" />
+            <div className="absolute right-0 bottom-0 w-96 h-96 bg-purple-900/10 blur-[120px] rounded-full pointer-events-none" />
+            <div className="relative z-10 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+               <div className="flex-1 space-y-6">
+                  <div className="space-y-3">
+                     <span className="text-red-500 font-black uppercase tracking-[0.6em] text-[9px] flex items-center gap-3">
+                        <div className="h-px w-8 bg-red-500/50" /> FEATURED ENTITY
                      </span>
-                     <h2 className="text-6xl font-black text-white uppercase tracking-tighter leading-none">Wewe Gombel</h2>
-                     <p className="text-zinc-500 text-lg font-cinzel italic leading-relaxed max-w-xl">
-                        &ldquo;Ibu asuh supranatural yang mendiami wilayah abu-abu antara ancaman dan perlindungan. Pelajari arsip rahasia untuk memahami tanda kehadirannya.&rdquo;
+                     <h2 className="text-5xl lg:text-7xl font-black text-white uppercase tracking-tighter leading-none">Wewe<br />Gombel</h2>
+                     <p className="text-zinc-500 text-[15px] font-cinzel italic leading-relaxed max-w-lg">
+                        &ldquo;Entitas pengasuh supranatural yang mendiami perbatasan antara perlindungan dan ancaman. Selama berabad-abad, ia menjadi penjaga moral masyarakat Jawa.&rdquo;
                      </p>
                   </div>
-                  <Link href="/ghost-archive/wewe-gombel">
-                     <button className="px-10 py-5 bg-white/5 border border-white/10 text-white font-black uppercase tracking-[0.4em] text-[10px] rounded-2xl hover:bg-white/10 hover:border-accent transition-all shadow-xl group">
-                        Lihat Arsip Lengkap <ChevronRight size={14} className="inline ml-3 group-hover:translate-x-1 transition-all" />
-                     </button>
-                  </Link>
+                  <div className="flex items-center gap-5 pt-2">
+                     <Link href="/ghost-archive/wewe-gombel">
+                        <button className="px-8 py-4 bg-accent text-white font-black uppercase tracking-[0.4em] text-[10px] rounded-2xl hover:bg-red-700 transition-all shadow-[0_10px_30px_rgba(255,0,0,0.25)] active:scale-95">Buka Arsip</button>
+                     </Link>
+                     <Link href="/ghost-archive">
+                        <button className="px-8 py-4 bg-white/[0.03] border border-white/10 text-zinc-400 font-black uppercase tracking-[0.4em] text-[10px] rounded-2xl hover:bg-white/[0.07] hover:border-white/20 transition-all">Semua Entitas</button>
+                     </Link>
+                  </div>
                </div>
-               <div className="relative w-full lg:w-[45%] aspect-[4/3] rounded-[3rem] overflow-hidden border border-white/10 shadow-3xl">
-                  <Image src="/images/ghost-archive/WEWE_GOMBEL_V2/hero.png" alt="Featured Ghost" fill className="object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
+               <div className="relative w-full lg:w-[36%] aspect-[3/4] max-h-[460px] rounded-3xl overflow-hidden border border-white/10 shadow-2xl shrink-0">
+                  <Image src="/images/ghost-archive/WEWE GOMBEL/Wewe Gombel - hero.jpg" alt="Wewe Gombel" fill className="object-cover object-top" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                  <div className="absolute bottom-5 left-5">
+                     <div className="flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                        <span className="text-[8px] font-black text-red-400 uppercase tracking-[0.4em]">Aktif // Bahaya Tinggi</span>
+                     </div>
+                  </div>
                </div>
             </div>
          </section>
 
-         {/* ── 6. G-COLLECTOR PREVIEW (Dopamine Hook) ── */}
-         <section className="w-full p-12 rounded-[3.5rem] bg-[linear-gradient(145deg,rgba(10,5,5,0.8),rgba(0,0,0,1))] border border-white/5 relative overflow-hidden shadow-2xl">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 blur-[100px] -mr-32 -mt-32" />
+         {/* ── 4. CATEGORY NAVIGATION — mt-24 */}
+         <section className="mt-24">
+            <div className="mb-10">
+               <p className="text-[9px] font-black text-zinc-600 uppercase tracking-[0.5em] mb-2">Navigasi Utama</p>
+               <h2 className="text-3xl font-black text-white uppercase tracking-tight">Jelajahi Ekosistem</h2>
+               <div className="mt-3 h-px w-20 bg-gradient-to-r from-accent to-transparent" />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+               {CATEGORIES.map((cat, i) => (
+                  <div key={i} className="flex flex-col gap-3">
+                     <div className="group relative h-[160px] rounded-3xl overflow-hidden border border-white/[0.07] bg-zinc-950 cursor-pointer hover:border-accent/30 hover:-translate-y-1 transition-all duration-500 shadow-xl">
+                        <Image src={cat.image} alt={cat.title} fill className="object-cover opacity-25 grayscale group-hover:grayscale-0 group-hover:opacity-65 transition-all duration-700 group-hover:scale-105" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+                        <div className="absolute top-5 left-5 w-10 h-10 rounded-xl bg-black/60 backdrop-blur-xl border border-white/10 flex items-center justify-center text-accent group-hover:border-accent/50 transition-all z-10">
+                           <cat.icon size={18} />
+                        </div>
+                        <div className="relative z-10 p-5 h-full flex flex-col justify-end">
+                           <h3 className="text-lg font-black text-white uppercase tracking-tight mb-0.5">{cat.title}</h3>
+                           <p className="text-[8px] font-bold text-zinc-500 uppercase tracking-[0.3em] group-hover:text-gold/70 transition-colors">{cat.subtitle}</p>
+                        </div>
+                        <div className="absolute bottom-0 left-0 h-[2px] bg-accent w-0 group-hover:w-full transition-all duration-700 shadow-[0_0_10px_red]" />
+                     </div>
+                     <div className="flex flex-col gap-1.5 px-1">
+                        {cat.features.map((feat, j) => (
+                           <Link key={j} href={feat.href} className="group flex items-center gap-3 px-3 py-2.5 rounded-2xl bg-white/[0.015] border border-white/[0.05] hover:bg-white/[0.05] hover:border-white/10 transition-all">
+                              <div className="relative w-10 h-8 rounded-lg overflow-hidden border border-white/5 shrink-0">
+                                 <Image src={feat.image} alt={feat.name} fill className="object-cover" />
+                              </div>
+                              <div className="flex-1 overflow-hidden">
+                                 <h4 className="text-[11px] font-black text-zinc-300 uppercase tracking-tight group-hover:text-white transition-colors truncate">{feat.name}</h4>
+                                 <p className="text-[7px] font-bold text-zinc-700 uppercase tracking-widest truncate">{feat.meta}</p>
+                              </div>
+                              <ChevronRight size={11} className="text-zinc-700 group-hover:text-accent group-hover:translate-x-0.5 transition-all shrink-0" />
+                           </Link>
+                        ))}
+                     </div>
+                  </div>
+               ))}
+            </div>
+         </section>
+
+         {/* ── 5. G-COLLECTOR PREVIEW — mt-20 */}
+         <section className="mt-20 p-10 lg:p-14 rounded-[3rem] bg-[linear-gradient(145deg,rgba(12,6,3,0.9),rgba(0,0,0,1))] border border-white/[0.06] relative overflow-hidden shadow-2xl">
+            <div className="absolute top-0 right-0 w-80 h-80 bg-accent/8 blur-[100px] -mr-20 -mt-20 pointer-events-none" />
             <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-10">
-               <div className="space-y-6">
+               <div className="space-y-5">
                   <div className="flex items-center gap-4">
-                     <div className="w-12 h-12 rounded-2xl bg-gold/10 border border-gold/20 flex items-center justify-center text-gold shadow-[0_0_20px_rgba(197,160,89,0.3)]">
+                     <div className="w-12 h-12 rounded-2xl bg-gold/10 border border-gold/20 flex items-center justify-center text-gold shadow-[0_0_20px_rgba(197,160,89,0.25)]">
                         <Trophy size={20} />
                      </div>
                      <div>
-                        <h3 className="text-2xl font-black text-white uppercase tracking-tight">Koleksi Terdeteksi</h3>
-                        <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mt-1">G-Collector Progression System</p>
+                        <h3 className="text-xl font-black text-white uppercase tracking-tight">Koleksi Terdeteksi</h3>
+                        <p className="text-[9px] font-bold text-zinc-600 uppercase tracking-widest mt-0.5">G-Collector Progression System</p>
                      </div>
                   </div>
-                  <div className="space-y-3">
-                     <div className="flex justify-between text-[11px] font-black text-white uppercase tracking-wider">
-                        <span>Capture Progress</span>
-                        <span className="text-accent">12 / 87 Entitas</span>
+                  <div className="space-y-2">
+                     <div className="flex justify-between text-[10px] font-black text-zinc-400 uppercase tracking-wider">
+                        <span>Capture Progress</span><span className="text-accent">12 / 87 Entitas</span>
                      </div>
-                     <div className="w-[300px] h-2 bg-white/5 rounded-full overflow-hidden border border-white/5">
-                        <div className="w-[15%] h-full bg-accent shadow-[0_0_10px_red]" />
+                     <div className="w-[260px] h-1.5 bg-white/5 rounded-full overflow-hidden">
+                        <div className="w-[14%] h-full bg-accent rounded-full shadow-[0_0_8px_red]" />
                      </div>
                   </div>
                </div>
-               <div className="flex gap-4">
-                  {[1,2,3,4].map(idx => (
-                     <div key={idx} className="w-20 h-28 rounded-2xl bg-white/[0.03] border border-white/5 p-1 relative group cursor-pointer hover:border-accent/40 transition-all overflow-hidden">
-                        <div className="w-full h-full bg-zinc-900 rounded-xl overflow-hidden opacity-40 group-hover:opacity-100 transition-all">
-                           <Image src={`/assets/images/nyi-roro-kidul.jpg`} alt="Artifact" fill className="object-cover grayscale group-hover:grayscale-0 transition-all" />
-                        </div>
-                        <div className="absolute inset-0 bg-black/60 opacity-60 group-hover:opacity-0 transition-opacity" />
+               <div className="flex gap-3">
+                  {["/assets/images/nyi-roro-kidul.jpg", "/assets/images/kuntilanak-peek.png", "/assets/images/suster-ngesot.jpg", "/assets/images/nenek-gayung.jpg"].map((src, idx) => (
+                     <div key={idx} className="w-16 h-24 rounded-xl bg-zinc-950 border border-white/5 relative group cursor-pointer hover:border-accent/30 transition-all overflow-hidden">
+                        <Image src={src} alt="Artifact" fill className="object-cover grayscale group-hover:grayscale-0 opacity-50 group-hover:opacity-100 transition-all" />
+                        <div className="absolute inset-0 bg-black/50 group-hover:bg-black/10 transition-all" />
                      </div>
                   ))}
                </div>
                <Link href="/collector">
-                  <button className="px-8 py-4 bg-gold text-black font-black uppercase tracking-[0.4em] text-[9px] rounded-xl active:scale-95 transition-all shadow-[0_15px_30px_rgba(197,160,89,0.3)]">
+                  <button className="px-8 py-4 bg-gold text-black font-black uppercase tracking-[0.4em] text-[9px] rounded-xl active:scale-95 transition-all shadow-[0_10px_25px_rgba(197,160,89,0.25)] hover:brightness-110 shrink-0">
                      Buka Koleksi
                   </button>
                </Link>
             </div>
          </section>
 
-         {/* ── 7. FOOTER (Atmospheric) ── */}
-         <footer className="w-full py-20 border-t border-white/5 text-center flex flex-col items-center gap-10">
-            <div className="space-y-4">
-               <h2 className="text-zinc-100 text-3xl font-horror tracking-[0.5em] opacity-40">DREADNOUTE</h2>
-               <p className="text-zinc-600 text-[10px] font-black uppercase tracking-[0.6em] max-w-md italic">
+         {/* ── FOOTER — mt-24 */}
+         <footer className="mt-24 pt-16 w-full border-t border-white/[0.04] text-center flex flex-col items-center gap-8 pb-10">
+            <div className="space-y-3">
+               <h2 className="text-zinc-100 text-2xl font-horror tracking-[0.5em] opacity-20">DREADNOUTE</h2>
+               <p className="text-zinc-700 text-[10px] font-black uppercase tracking-[0.5em] max-w-md italic">
                   &ldquo;Beberapa pintu sebaiknya tidak pernah terbuka. Beberapa rahasia sebaiknya tidak pernah diceritakan.&rdquo;
                </p>
             </div>
-            <div className="flex gap-10 text-[10px] font-black text-zinc-500 uppercase tracking-widest">
-               <Link href="/term" className="hover:text-accent transition-colors">V.O.I.D Term</Link>
-               <Link href="/privacy" className="hover:text-accent transition-colors">Transmission Privacy</Link>
-               <Link href="/status" className="hover:text-accent transition-colors">Signal Status</Link>
+            <div className="flex gap-10 text-[9px] font-black text-zinc-700 uppercase tracking-widest">
+               <Link href="/term" className="hover:text-zinc-400 transition-colors">V.O.I.D Term</Link>
+               <Link href="/privacy" className="hover:text-zinc-400 transition-colors">Transmission Privacy</Link>
+               <Link href="/status" className="hover:text-zinc-400 transition-colors">Signal Status</Link>
             </div>
-            <p className="text-[9px] font-bold text-zinc-800 uppercase tracking-widest">© 2024 DREADNOUTE ECOSYSTEM // BUILT BY ARCHIVISTS</p>
+            <p className="text-[8px] font-bold text-zinc-800 uppercase tracking-widest">© 2024 DREADNOUTE ECOSYSTEM // BUILT BY ARCHIVISTS</p>
          </footer>
       </main>
-   </div>
-</div>
+    </div>
+ </div>
   );
 }
