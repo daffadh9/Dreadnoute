@@ -459,8 +459,9 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
         subtitle: "KLASIFIKASI: ARSIP PRIMER",
         icon: "FileText",
         content: [
-          "Di sepanjang dataran mistikus Pulau Jawa, eksistensi Wewe Gombel bukanlah sebatas hantu pencekik, melainkan perwujudan purba dari '*ibu asuh supranatural*'. Secara etimologis dan historis, istilah ini bertaut dengan sub-wilayah perbukitan 'Bukit Gombel' di bentang alam wilayah Semarang, tempat mula legenda ini pertama kali membentur ranah catatan urban abadi masyarakat pada periode peralihan kerajaan menuju modernitas.",
-          "Berbeda halnya dengan roh penasaran bertipe dendam berdarah, entitas Wewe Gombel terlahir akibat tragedi keputusasaan absolut seorang wanita di kehidupannya yang lalu. Manifestasi astral ini menarget porsi kehidupan anak-anak kecil—menyelamatkan (atau menawan) entri kehidupan polos tersebut akibat adanya unsur penyia-nyiaan, kealpaan absolut, maupun kekerasan fisik langsung dari pihak orang tua asalnya."
+          "Dalam tradisi lisan masyarakat Jawa, **Wewe Gombel** atau juga dikenal sebagai *Nenek Gombel* adalah sosok feminin gaib yang secara intrinsik terikat pada perlindungan dan penculikan anak-anak di waktu senja. Berbeda dari entitas pemangsa murni, ia memanifestasikan dirinya sebagai penyeimbang moral atas kelalaian orang tua, mendiami wilayah abu-abu antara ancaman dan 'induk semang' supranatural.",
+          "Asal-usul namanya secara geografis merujuk pada kawasan perbukitan **Gombel** di Semarang, Jawa Tengah. Menurut riwayat sosiokultural lokal, legenda ini bermula dari kisah tragis seorang wanita yang bunuh diri (atau meninggal dalam depresi berat) setelah dituduh mandul dan dikhianati oleh suaminya. Penderitaan akibat ketiadaan keturunan ini membekukan jiwanya menjadi arwah penasaran yang terobsesi 'menyelamatkan' anak-anak yang ia anggap terlantar.",
+          "Secara historis, dokumen kolonial dan catatan keraton mengidentifikasi *Wewe* sebagai instrumen kontrol sosial. Ia adalah personifikasi dari ketakutan akan kehilangan generasi penerus, memaksa tatanan masyarakat untuk lebih perduli pada keselamatan anak kecil di masa transisi hari (Maghrib)."
         ]
       },
       {
@@ -468,9 +469,9 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
         title: "Evolusi Mitos & Latar Folklor",
         icon: "BookOpen",
         content: [
-          "Catatan folklor yang disepakati menceritakan lakon getir sosok 'Nenek Gombel', seorang janda (atau istri malang) yang harus menanggung seumur hidup tuduhan mandul dalam cemoohan komunal desanya hingga berujung pada depresi, gila gantung diri, lalu dikutuk terbelenggu di pohon lebat di Bukit Gombel.",
-          "Trauma akibat kegagalan naluri membesarkan anak tersebut berevolusi mengubah frekuensi arwahnya menjadi sebuah anomali obsesif. Alih-alih melupakan kehidupan fana, Wewe Gombel berkelana menyisir relung-relung dimensi untuk 'menculik' subjek di bawah umur, mendudukkan perannya secara fungsional untuk menghentikan tangis para malaikat kecil yang kesepian.",
-          "Pada tataran sosio-historis masyarakat Mataram tempo dulu, mitos Nenek Wewe diekstrak paksa ke dalam sistem *parenting control* komunal gawat darurat. Ceritanya didoktrinkan untuk menjaga anak-anak dari ancaman predator hutan buas—memaksa ritme biologis mereka agar menyudahi aktivitas eksplorasi luar ruang jelang batas peralihan dimensi langit (Surup/Maghrib)."
+          "Sepanjang abad ke-19 hingga era modern, narasi Wewe Gombel berevolusi dari sekadar hantu pedesaan menjadi fenomena urban yang masif. Di wilayah urban seperti Jakarta atau Bandung, ceritanya beradaptasi mengikuti hilangnya area kebun rimbun; ia kini dilaporkan menghuni area proyek yang terbengkalai atau bangunan tua yang masih menyisakan pepohonan besar.",
+          "Keunikan terminologi '*Wewe*' sendiri membedakannya dari kuntilanak. Jika kuntilanak adalah representasi trauma persalinan (roh ibu yang gagal melahirkan), maka Wewe Gombel adalah representasi trauma pengasuhan (roh ibu yang gagal memiliki subjek asuh). Ini menciptakan pola perilaku yang lebih protektif namun distorsi secara kognitif.",
+          "Masyarakat tradisional meyakini bahwa Wewe Gombel bertindak sebagai 'alarm' supranatural. Anak-anak diperingatkan bahwa jika mereka berada di luar rumah saat langit memerah (*sandikala*), Nenek Gombel akan membawanya ke dunianya—sebuah dimensi yang tersembunyi namun berdampingan dengan realitas fisik."
         ]
       },
       {
@@ -478,9 +479,9 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
         title: "Lokasi & Pola Kemunculan",
         icon: "MapPin",
         content: [
-          "Distribusi zonasi entitas ini bersifat sangat spasial. Wewe Gombel amat jarang menampakkan diri menyusuri jantung urban padat. Ekosistem murninya bersandar kuat pada batas transisi asimetris, yakni di perbatasan peralihan ekoton antara pemukiman pedesaan nan kumuh dengan liarnya kawasan hutan basah rawa.",
-          "Tengara utamanya adalah rumpun rumpun pohon bambu apus yang merapat kanopinya, cekungan rimbun pohon kapuk, sisa bantaran galian sungai mati, hingga relung gelap di pekarangan kosong penuh semak belukar.",
-          "Momen eskalasi kebangkitannya menaungi periode *Sandikala* (petang berdarah). Dalam sekejap, saat partikel spektrum surya redup termakan bayang dan ufuk merona ungu maghrib, Wewe mulai memproyeksikan daya deteksinya, mendengarkan rengekan anak-anak yang diisolasi mandiri dari pangkuan indukan aslinya."
+          "Habitat utama Wewe Gombel bersifat ekoton—yakni wilayah perbatasan antara dua ekosistem yang berbeda. Lokasi paling rawan mencakup pinggiran hutan bambu, bantaran sungai yang masih asri, hingga rerimbun pohon beringin atau randu yang jarang dijamah manusia di malam hari.",
+          "Pola kemunculannya sangat terikat pada sistem jam biologis dan ritual. Waktu puncaknya adalah 15-30 menit sebelum dan sesudah matahari terbenam. Pada momen ini, ia mengeksploitasi 'celah' dimensi untuk mencari subjek yang secara emosional atau fisik sedang tidak terawasi.",
+          "Investigasi Dreadnoute mengkonfirmasi adanya anomali suhu dan tekanan udara di sekitar area yang diyakini sebagai 'kerajaan' Wewe Gombel. Area tersebut seringkali terlihat seperti pepohonan biasa dari luar, namun bagi korban di dalamnya, ia bertransformasi menjadi ruang hunian yang nyaman melalui metode gendam."
         ]
       },
       {
@@ -488,9 +489,9 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
         title: "Ciri-Ciri & Tanda Kehadiran",
         icon: "Eye",
         content: [
-          "Penggambaran anatomis makhluk ini amat mengerikan namun beraura duka. Wujudnya meniru rupa sosok lansia super renta, dengan jaringan parut keriput yang berwajah nanar seolah ia terus berkabung di alam kematian panjangnya.",
-          "Atribut fisiknya yang paling mahsyur ialah sepasang payudara yang mengeras layap, teramat menjuntai mencapai pangkal panggul, sebuah anomali simbolis tentang ironi hasrat ibu untuk menyusui yang tak pernah tersalurkan di masa hidupan fananya. Rambutnya lurus menggarpu dipenuhi percampuran uban serabut tanah, berkuku paruh garuda dengan sehelai kain jarik jawa koyak sebagai tudungnya.",
-          "Secara penciuman atmosfirik (*Olfactory signs*), aroma busuk dedaunan lembap dan napas tanah basah usai hujan kencang (*petrichor* yang abnormal) selalu membanjiri paru-paru sang saksi jika ia berhasil keluar masuk wilayah kekuasaannya tanpa disadari."
+          "Deskripsi visual yang konsisten selama berabad-abad menggambarkan sosok wanita tua dengan payudara yang sangat panjang dan menjuntai hingga ke perut—sebuah simbol ironis dari hasrat menyusui yang tak pernah tersampaikan. Wajahnya digambarkan keriput, namun dengan tatapan yang kadang terlihat sendu sebelum berubah menjadi buas saat terpojok.",
+          "Pakaiannya biasanya berupa kain jarik atau daster kusam yang sudah menyatu dengan lumut dan tanah. Tanda kehadirannya yang paling spesifik adalah aroma '*petrichor*' atau tanah basah yang muncul mendadak tanpa adanya hujan, disertai dengan hilangnya suara serangga malam di radius 5-10 meter terdekat.",
+          "Anjing lokal seringkali merespon dengan kaingan ketakutan daripada gonggongan agresif, menandakan adanya predator puncak dalam rantai makanan astral di area tersebut."
         ]
       },
       {
@@ -498,9 +499,9 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
         title: "Perilaku & Metode Serangan",
         icon: "Activity",
         content: [
-          "Wewe Gombel adalah pakar eksekusi modus Halusinasi-Audio (*Psychic Decoy*). Senjata terornya bukan sayatan pisau melainkan replikasi suara. Ia merekam frekuensi pita suara ibunda sang anak yang menjadi target, membentuk ilusi panggilan menenangkan untuk memandu si korban keluar dari pekarangan terang, melenceng menuju labirin lebat secara hipnotis ringan.",
-          "Manakala sang anak tersesat dan mulai meratap kalut, barulah entitas ini menyergap diam, menenangkannya dengan dekapan erat gaib, merotasi titik ordinat logika si bocah. Area itu diasingkan seketika dengan jubah kabut pelenyap; dari sudut pencarian warga, posisi anak tersebut tertelan bumi padahal mereka belum bergeser jauh dari desa.",
-          "Fase penyanderaan paling krusial terjadi manakala anak disugesti ilusi 'tamu khusus pangeran/putri', di mana kotoran hewan atau lumpur cacing disulap dalam mata anak menjadi nasi goreng mewah nan lezat. Trauma amnesia parsial dipastikan menyertai anak pasca pelepasan, kehilangan jam kronometris berhari-hari dalam otaknya."
+          "Wewe Gombel tidak menggunakan kekerasan fisik sebagai taktik pembuka. Ia adalah pakar **Gendam Suara**. Ia mampu meniru frekuensi vokal ibu atau nenek korban dengan akurasi 99%, memanggil nama subjek dari arah kegelapan rimbun untuk memancing mereka masuk lebih dalam ke wilayahnya.",
+          "Setelah korban berada dalam jangkauannya, ia akan menyembunyikan mereka di balik payudaranya yang besar atau di bawah kerimbunan semak yang sudah dipengaruhi ilusi. Bagi korban, mereka merasa sedang berada di kamar yang hangat dan disuapi makanan lezat (nasi goreng atau kue), namun bagi saksi mata, korban terlihat memakan kotoran ternak atau cacing tanah.",
+          "Tujuan akhirnya bukanlah kematian, melainkan isolasi. Korban akan dipulangkan hanya jika orang tua menunjukkan penyesalan atau melalui ritual pencarian yang gaduh, seringkali dalam keadaan linglung dan mengalami amnesia jangka pendek."
         ]
       },
       {
@@ -508,9 +509,9 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
         title: "Tafsir Budaya & Teori",
         icon: "Brain",
         content: [
-          "Melalui lensa teolog antropologis, mitologi Nenek Wewe memayungi parameter kritik moral tajam yang menghakimi derajat keperdulian sosial keluarga atas generasi belianya. Fenomena entitas penyamar ini mendesak orang tua untuk berhenti mengukur nilai anak dengan pelalaian tak sadar di jam transisi vital (di mana predasi logis lebih fatal daripada predasi astral).",
-          "Mekanisme purba meredam eksistensinya pun bersifat anarkis. Para pelacak menjustifikasi praktek ritus 'Udik-udikan', yakni orkestra gaduh memukul bertebangan berbagai perangkat panci, wajan, tong kaleng, dan tampah beras tanpa irama sama sekali. Bunyi destruktif acak mendengung diyakini ahli bio-mistis mampu menembus selubung (*jamming frequency*) perlindungan kognitif sang hantu.",
-          "Begitu gelombang akustiknya saling bertabrakan dan hancur, mata tak kasat Wewe akan silau perih dan melengos pergi, membuang anak tersebut dari kungkungannya kembali berkedip terlempar ke matriks koordinat manusia pada umumnya."
+          "Secara akademis, Wewe Gombel dipandang sebagai *pogeyman* atau personifikasi dari bahaya asli yang mengancam anak-anak di alam liar (binatang buas, lubang tanah, atau penculikan manusia). Melalui mitos ini, masyarakat menyandikan aturan keselamatan dalam bentuk narasi horor agar lebih efektif dipatuhi oleh anak-anak.",
+          "Teori metafisik Dreadnoute menduga bahwa Wewe Gombel adalah **Residual Grief Entity** yang memiliki kemampuan memanipulasi persepsi waktu (*Time Dilation*). Inilah alasan mengapa korban merasa hanya pergi selama satu jam, sementara di dunia nyata mereka telah hilang selama tiga hari.",
+          "Keberadaannya menggarisbawahi pentingnya 'kehadiran' dalam keluarga. Ia hanya menyerang celah yang diciptakan oleh ketidakhadiran kasih sayang atau pengawasan, menjadikannya hantu yang muncul dari kegelapan hati nurani manusia."
         ]
       },
       {
@@ -518,9 +519,9 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
         title: "Kasus Nyata & Kesaksian Lapangan",
         icon: "Users",
         content: [
-          "Pada sebuah dokumen kepolisian regional Salatiga tahun 1999 (Arsip Tragedi Sidorejo), seorang putra balita kepala dusun, Dika (5 tahun), menguap diculik bayang persis ketika azan sore dilantang pudar di sela adukan lauk ibunya di dapur kayu lapuk.",
-          "Pasukan penyisir warga lokal menyusuri parit sedalam bahu selama lima jam tanpa titik terang purnah. Dalam putaran keputusasaan dan anjuran kiai lokal, massa beralih memukul-mukul serentak tiang listrik dan jerigen plastik ke area tepi rumpun bambu pelatar sungai gersang.",
-          "Tepat di titik selokan yang konon telah disisir berulang tanpa hasil tiga jam sebelumnya, Dika tiba-tiba muncul memeluk erat nisan kuno bercat lumut. Tidak ada luka sobek sejengkal pun pada kulit mudanya. Dalam trans rekaman interogasi, balita itu lugu menyimpulkan ia telah asyik ditemani seorang Oma-Oma penyayang berambut putih, merajut senyum sambil menyuapinya 'bubur lezat' di sebuah panggung mewah... di mana kelopak bibirnya saat ditemukan masih menyisakan residu cacing tanah basah dan daun krokot busuk."
+          "**Laporan Kasus Sidorejo (1999):** Seorang anak berinisial D (5th) dilaporkan hilang di dekat lereng Bukit Gombel saat bermain petak umpet menjelang Maghrib. Tim SAR dan warga melakukan pencarian selama 48 jam di area yang relatif sempit namun tidak menemukan jejak apa pun.",
+          "Pada malam kedua, warga berinisiatif melakukan ritual *Udik-udikan* (orkestra perabot dapur). Tak lama kemudian, si anak ditemukan duduk tertidur di celah akar pohon beringin yang sebelumnya sudah diperiksa berkali-kali. Anak tersebut mengaku 'Oma' berambut putih menjaganya dan memberinya makan di rumah besar yang indah.",
+          "Pemeriksaan medis menunjukkan anak tersebut sehat secara fisik, namun lambungnya berisi sisa-sisa daun jati dan tanah liat. Kasus ini tetap menjadi salah satu bukti terkuat tentang anomali spasial yang diciptakan oleh entitas ini. - *Arsip Investigasi Lokal #WG-99*"
         ]
       }
     ],
@@ -539,12 +540,16 @@ export const GHOST_ARCHIVE_ENTRIES: GhostArchiveEntry[] = [
       "Bantaran sungai Kalitaman",
       "Gang belakang kompleks sekolah lama"
     ],
-    mainImage: "/images/ghost-archive/WEWE GOMBEL/Wewe Gombel - hero.jpg",
+    survivalGuide: [
+      "Segera hentikan seluruh aktivitas luar ruang saat matahari mulai terbenam (surup).",
+      "Jika mendengar suara panggilan dari arah semak/pohon besar yang terdengar seperti suara Ibu, jangan menoleh. Teruslah berjalan ke arah tempat ramai.",
+      "Selalu pantau posisi anak kecil di bawah usia 7 tahun dalam radius pandang langsung saat berada di dekat area vegetasi lebat."
+    ],
+    mainImage: "/images/ghost-archive/WEWE_GOMBEL_V2/hero.png",
     gallery: [
-      { url: "/images/ghost-archive/WEWE GOMBEL/Gallery 1.png", caption: "Ilustrasi penampakan visual Wewe Gombel di sekitar kebun kosong." },
-      { url: "/images/ghost-archive/WEWE GOMBEL/Gallery 2.jpg", caption: "Anomali terdeteksi di balik semak-semak dalam perekaman malam." },
-      { url: "/images/ghost-archive/WEWE GOMBEL/Gallery 3.jpg", caption: "Titik temu jejak asimetris korban sebelum hilang orientasi." },
-      { url: "/images/ghost-archive/WEWE GOMBEL/Gallery 4.png", caption: "Hutan pinggiran kota yang direkam menjadi zona kemunculan." }
+      { url: "/images/ghost-archive/WEWE_GOMBEL_V2/gallery_1.png", caption: "Siluet Nenek Gombel di antara rumpun bambu yang tertangkap kamera thermal." },
+      { url: "/images/ghost-archive/WEWE_GOMBEL_V2/gallery_2.png", caption: "Detail tangan gnarled yang ditemukan di sela-sela jendela rumah warga pasca laporan anak hilang." },
+      { url: "/images/ghost-archive/WEWE GOMBEL/Gallery 4.png", caption: "Area vegetasi lebat di Bukit Gombel yang diyakini sebagai titik transisi dimensi." }
     ],
     reports: [
       {
