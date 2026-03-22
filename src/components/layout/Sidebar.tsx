@@ -179,7 +179,7 @@ export const Sidebar = () => {
                     "group relative flex items-center h-12 rounded-xl transition-all duration-300 cursor-pointer mb-2",
                     active
                       ? "bg-accent/15 border border-accent/30 shadow-[0_0_20px_rgba(255,0,0,0.15)]"
-                      : "border border-transparent hover:bg-white/[0.04] hover:border-white/[0.08]"
+                      : "border border-transparent hover:bg-accent/15 hover:border-accent/25"
                   )}
                 >
                   <div className={cn(
@@ -214,8 +214,8 @@ export const Sidebar = () => {
                 className={cn(
                   "group relative flex items-center h-12 rounded-xl transition-all duration-300 cursor-pointer",
                   active
-                    ? "bg-accent/10 border border-accent/20"
-                    : "border border-transparent hover:bg-white/[0.04] hover:border-white/[0.08]"
+                    ? "bg-accent/15 border border-accent/30"
+                    : "border border-transparent hover:bg-accent/15 hover:border-accent/25"
                 )}
               >
                 <div className={cn(
@@ -233,7 +233,7 @@ export const Sidebar = () => {
                       exit={{ opacity: 0 }}
                       className="flex-1 flex items-center justify-between pr-3"
                     >
-                      <span className={cn("text-[10px] font-black tracking-[0.3em] whitespace-nowrap", active ? "text-white" : "text-zinc-500 group-hover:text-zinc-200")}>
+                      <span className={cn("text-[10px] font-black tracking-[0.3em] whitespace-nowrap", active ? "text-white" : "text-zinc-500 group-hover:text-white")}>
                         {group.label}
                       </span>
                       <motion.div
@@ -259,19 +259,19 @@ export const Sidebar = () => {
                     transition={{ duration: 0.25, ease: "easeInOut" }}
                     className="overflow-hidden"
                   >
-                    <div className="ml-5 pl-4 border-l border-white/[0.06] py-1 space-y-0.5">
+                    <div className="ml-5 pl-4 border-l border-white/[0.06] py-1.5 space-y-1">
                       {group.features.map((feat) => {
                         const featActive = isFeatureActive(feat.href);
                         return (
                           <Link key={feat.href} href={feat.href}>
                             <div className={cn(
-                              "group/feat flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200",
+                              "group/feat flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200",
                               featActive
-                                ? "bg-accent/10 text-white"
-                                : "text-zinc-600 hover:text-zinc-200 hover:bg-white/[0.03]"
+                                ? "bg-accent/20 text-white border border-accent/20"
+                                : "text-zinc-500 hover:text-white hover:bg-accent/15 border border-transparent hover:border-accent/20"
                             )}>
-                              <feat.icon size={14} className={cn("transition-all shrink-0", featActive ? "text-accent" : "group-hover/feat:text-accent")} />
-                              <span className={cn("text-[9px] font-bold tracking-[0.2em] uppercase whitespace-nowrap", featActive && "text-white")}>{feat.name}</span>
+                              <feat.icon size={16} className={cn("transition-all shrink-0", featActive ? "text-accent" : "group-hover/feat:text-white")} />
+                              <span className={cn("text-[11px] font-bold tracking-[0.15em] uppercase whitespace-nowrap", featActive ? "text-white" : "group-hover/feat:text-white")}>{feat.name}</span>
                               {featActive && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_6px_red]" />}
                             </div>
                           </Link>

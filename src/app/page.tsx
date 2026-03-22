@@ -102,9 +102,9 @@ const CATEGORIES = [
     subtitle: "PELAJARI & EKSPLOR DUNIA MISTIS",
     icon: Ghost,
     features: [
-      { name: "Ghost Archive", href: "/ghost-archive", meta: "Ensiklopedia Resmi", icon: Ghost },
-      { name: "Laboratorium", href: "/lab", meta: "Riset Eksperimental", icon: FlaskConical },
-      { name: "Blog", href: "/blog", meta: "Artikel Okultisme", icon: Newspaper },
+      { name: "Ghost Archive", href: "/ghost-archive", meta: "Ensiklopedia Resmi", icon: Ghost, image: "/assets/images/GHOST WIKI DASHBOARD.jpg" },
+      { name: "Laboratorium", href: "/lab", meta: "Riset Eksperimental", icon: FlaskConical, image: "/assets/images/LABORATORIUM DASHBOARD.png" },
+      { name: "Blog", href: "/blog", meta: "Artikel Okultisme", icon: Newspaper, image: "/assets/images/BLOG DASHBOARD.png" },
     ]
   },
   {
@@ -113,9 +113,9 @@ const CATEGORIES = [
     subtitle: "MERASAKAN PENGALAMAN HORROR",
     icon: Play,
     features: [
-      { name: "Podcast", href: "/podcast", meta: "Sinyal EVP", icon: Mic2 },
-      { name: "Trailer Film", href: "/trailers", meta: "Visual Imersif", icon: Film },
-      { name: "Games", href: "/games", meta: "Teror Interaktif", icon: Gamepad2 },
+      { name: "Podcast", href: "/podcast", meta: "Sinyal EVP", icon: Mic2, image: "/assets/images/PODCAST BANNER DASHBOARD.jpg" },
+      { name: "Trailer Film", href: "/trailers", meta: "Visual Imersif", icon: Film, image: "/assets/images/TRAILER DASHBOARD.jpg" },
+      { name: "Games", href: "/games", meta: "Teror Interaktif", icon: Gamepad2, image: "/assets/images/GAME BANNER DASHBOARD.jpg" },
     ]
   },
   {
@@ -124,9 +124,9 @@ const CATEGORIES = [
     subtitle: "KONSUMSI & CIPTAKAN CERITA",
     icon: Clapperboard,
     features: [
-      { name: "Novel", href: "/novels", meta: "Narasi Panjang", icon: BookOpen },
-      { name: "Komik", href: "/comics", meta: "Narasi Visual", icon: BookMarked },
-      { name: "Cerpen", href: "/short-stories", meta: "Cerita Singkat", icon: PenTool },
+      { name: "Novel", href: "/novels", meta: "Narasi Panjang", icon: BookOpen, image: "/assets/images/NOVEL DASHBOARD.png" },
+      { name: "Komik", href: "/comics", meta: "Narasi Visual", icon: BookMarked, image: "/assets/images/KOMIK DASHBOARD.jpg" },
+      { name: "Cerpen", href: "/short-stories", meta: "Cerita Singkat", icon: PenTool, image: "/assets/images/CERPEN DASHBOARD.png" },
     ]
   },
   {
@@ -135,8 +135,8 @@ const CATEGORIES = [
     subtitle: "INTERAKSI & KONEKSI PERSONAL",
     icon: Users2,
     features: [
-      { name: "Komunitas", href: "/community", meta: "Diskusi Mendalam", icon: MessageCircle },
-      { name: "Diary", href: "/diary", meta: "Catatan Pribadi", icon: BookHeart },
+      { name: "Komunitas", href: "/community", meta: "Diskusi Mendalam", icon: MessageCircle, image: "/assets/images/KOMUNITAS BANNER DASHBOARD.jpg" },
+      { name: "Diary", href: "/diary", meta: "Catatan Pribadi", icon: BookHeart, image: "/assets/images/DIARY DASHBOARD.png" },
     ]
   },
   {
@@ -145,7 +145,7 @@ const CATEGORIES = [
     subtitle: "PROGRES & ARTEFAK DIGITAL",
     icon: Trophy,
     features: [
-      { name: "G-Collector", href: "/collector", meta: "Sistem Progres", icon: Gem },
+      { name: "G-Collector", href: "/collector", meta: "Sistem Progres", icon: Gem, image: "/assets/images/G-COLLECTOR DASHBOARD.png" },
     ]
   },
   {
@@ -154,7 +154,7 @@ const CATEGORIES = [
     subtitle: "PERDAGANGAN ASET DIGITAL",
     icon: ShoppingCart,
     features: [
-      { name: "Marketplace", href: "/marketplace", meta: "Aset Black Market", icon: Store },
+      { name: "Marketplace", href: "/marketplace", meta: "Aset Black Market", icon: Store, image: "/assets/images/MARKET DASHBOARD.jpg" },
     ]
   }
 ];
@@ -278,28 +278,22 @@ export default function DashboardPage() {
             <div className="relative">
               <div
                 onClick={() => setShowDossier(!showDossier)}
-                className="flex items-center gap-4 p-2 px-5 bg-white/[0.04] border border-white/10 rounded-2xl hover:border-accent/50 transition-all cursor-pointer group shadow-2xl"
+                className="relative cursor-pointer group"
               >
-                <div className="flex flex-col items-end">
-                  <span className="text-[13px] font-black text-white uppercase tracking-wider">{userProfile?.name || 'Loading...'}</span>
-                  <span className="text-[11px] font-black text-yellow-400 tracking-widest uppercase drop-shadow-[0_0_8px_rgba(234,179,8,0.8)]">Archivist Lv.{userProfile?.level || 1}</span>
+                <div className="w-[52px] h-[52px] rounded-full border-2 border-accent/60 p-0.5 shadow-[0_0_25px_rgba(255,0,0,0.4)] overflow-hidden group-hover:scale-110 group-hover:shadow-[0_0_40px_rgba(255,0,0,0.8)] group-hover:border-accent transition-all duration-300 bg-zinc-900">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={userProfile?.avatar || "/assets/images/profile.jpg"}
+                    alt="User Profile"
+                    className="w-full h-full rounded-full object-cover brightness-110 contrast-105"
+                    onError={(e) => {
+                      const fallbackName = userProfile?.name || 'Archivist';
+                      (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${fallbackName}&background=8b0000&color=fff`;
+                    }}
+                  />
                 </div>
-                <div className="relative">
-                  <div className="w-14 h-14 rounded-full border-2 border-accent p-0.5 shadow-[0_0_25px_rgba(255,0,0,0.6)] overflow-hidden relative group-hover:scale-105 group-hover:shadow-[0_0_40px_rgba(255,0,0,0.9)] transition-all duration-300 bg-zinc-900">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={userProfile?.avatar || "/assets/images/profile.jpg"}
-                      alt="User Profile"
-                      className="w-full h-full object-cover brightness-110 contrast-105"
-                      onError={(e) => {
-                        const fallbackName = userProfile?.name || 'Archivist';
-                        (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${fallbackName}&background=8b0000&color=fff`;
-                      }}
-                    />
-                  </div>
-                  <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-black rounded-full flex items-center justify-center z-20">
-                    <div className="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse shadow-[0_0_12px_#34d399]" />
-                  </div>
+                <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-black rounded-full flex items-center justify-center z-20">
+                  <div className="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse shadow-[0_0_12px_#34d399]" />
                 </div>
               </div>
 
@@ -382,8 +376,8 @@ export default function DashboardPage() {
           {/* ══════════════════════════════════════════════════
               1. HERO CAROUSEL
           ══════════════════════════════════════════════════ */}
-          <section className="relative w-full aspect-[16/9] max-h-[560px] rounded-[2rem] border border-white/5 group shadow-2xl overflow-hidden">
-            <div className="absolute inset-0 rounded-[2rem] overflow-hidden border border-white/10 bg-black/40">
+          <section className="relative w-full h-[600px] rounded-[3rem] border border-white/5 group shadow-2xl overflow-hidden">
+            <div className="absolute inset-0 rounded-[4rem] overflow-hidden border border-white/10 bg-black/40">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentHero}
@@ -395,18 +389,19 @@ export default function DashboardPage() {
                 >
                   <Image src={HERO_SLIDES[currentHero].image} alt="Hero" fill className="object-cover brightness-[0.4] grayscale-[0.2]" />
                   <div className="absolute inset-0 bg-gradient-to-r from-black via-black/30 to-transparent" />
-                  <div className="absolute inset-y-0 left-0 p-10 md:p-14 flex flex-col justify-center items-start text-left max-w-2xl relative z-10">
-                    <motion.span initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} className="text-gold font-bold uppercase tracking-[0.8em] text-[10px] mb-6 flex items-center gap-6">
-                      <div className="h-px w-10 bg-gold/40" /> {HERO_SLIDES[currentHero].subtitle}
+                  <div className="absolute inset-y-0 left-0 p-12 md:p-14 md:pl-16 flex flex-col justify-center items-start text-left max-w-3xl relative z-10 scale-95 origin-left">
+                    <motion.span initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} className="text-gold font-bold uppercase tracking-[0.8em] text-[10px] mb-8 flex items-center gap-6">
+                      <div className="h-px w-12 bg-gold/40" /> {HERO_SLIDES[currentHero].subtitle}
                     </motion.span>
-                    <motion.h1 initial={{ x: -30, opacity: 0 }} animate={{ x: 0, opacity: 1 }} className="text-4xl lg:text-5xl font-black text-white uppercase tracking-tighter mb-8 leading-[0.9] drop-shadow-[0_20px_40px_rgba(0,0,0,1)]">
+                    <motion.h1 initial={{ x: -30, opacity: 0 }} animate={{ x: 0, opacity: 1 }} className="text-6xl font-black text-white uppercase tracking-tighter mb-10 leading-[0.9] drop-shadow-[0_20px_40px_rgba(0,0,0,1)]">
                       {HERO_SLIDES[currentHero].title}
                     </motion.h1>
-                    <motion.p initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 0.5 }} transition={{ delay: 0.2 }} className="text-zinc-400 text-sm lg:text-base mb-10 font-cinzel italic leading-relaxed tracking-wide">
+                    <motion.p initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 0.5 }} transition={{ delay: 0.2 }} className="text-zinc-400 text-lg mb-14 font-cinzel italic leading-relaxed tracking-wide">
                       &ldquo;{HERO_SLIDES[currentHero].description}&rdquo;
                     </motion.p>
-                    <button className="group relative px-10 py-5 bg-accent text-white font-bold uppercase tracking-[0.5em] text-[10px] rounded-2xl hover-glow flex items-center gap-5 transition-all active:scale-95 shadow-[0_20px_40px_rgba(255,0,0,0.3)] border border-white/10">
-                      <Play size={18} fill="currentColor" /> {HERO_SLIDES[currentHero].cta}
+                    <button className="group relative px-14 py-6 bg-accent text-white font-bold uppercase tracking-[0.5em] text-[11px] rounded-2xl hover-glow flex items-center gap-6 transition-all active:scale-95 shadow-[0_20px_40px_rgba(255,0,0,0.3)] border border-white/10">
+                      <Play size={20} fill="currentColor" /> {HERO_SLIDES[currentHero].cta}
+                      <div className="absolute inset-0 rounded-2xl border border-white/20 scale-100 group-hover:scale-110 opacity-0 group-hover:opacity-100 transition-all" />
                     </button>
                   </div>
                   <div className="absolute -right-20 -bottom-20 w-[300px] h-[300px] pointer-events-none group-hover:translate-x-10 group-hover:-translate-y-10 transition-transform duration-[5s] opacity-15 filter blur-2xl">
@@ -417,17 +412,17 @@ export default function DashboardPage() {
             </div>
 
             {/* Slide Controls */}
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-8 z-30">
-              <button onClick={prevSlide} className="w-12 h-12 rounded-full bg-black/80 backdrop-blur-md border border-white/10 flex items-center justify-center text-zinc-500 hover:text-white hover:border-accent transition-all">
-                <ChevronLeft size={22} />
+            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-12 z-30">
+              <button onClick={prevSlide} className="w-16 h-16 rounded-full bg-black border border-white/10 flex items-center justify-center text-zinc-500 hover:text-white hover:border-accent transition-all shadow-2xl">
+                <ChevronLeft size={28} />
               </button>
-              <div className="flex gap-3">
+              <div className="flex gap-4">
                 {HERO_SLIDES.map((_, i) => (
-                  <div key={i} className={cn("h-1.5 transition-all rounded-full", currentHero === i ? "w-10 bg-accent shadow-[0_0_12px_red]" : "w-3 bg-white/15")} />
+                  <div key={i} className={cn("h-1.5 transition-all rounded-full", currentHero === i ? "w-12 bg-accent shadow-[0_0_15px_red]" : "w-4 bg-white/10")} />
                 ))}
               </div>
-              <button onClick={nextSlide} className="w-12 h-12 rounded-full bg-black/80 backdrop-blur-md border border-white/10 flex items-center justify-center text-zinc-500 hover:text-white hover:border-accent transition-all">
-                <ChevronRight size={22} />
+              <button onClick={nextSlide} className="w-16 h-16 rounded-full bg-black border border-white/10 flex items-center justify-center text-zinc-500 hover:text-white hover:border-accent transition-all shadow-2xl">
+                <ChevronRight size={28} />
               </button>
             </div>
           </section>
@@ -435,7 +430,7 @@ export default function DashboardPage() {
           {/* ══════════════════════════════════════════════════
               2. LATEST SIGNALS — Square cards, swipeable
           ══════════════════════════════════════════════════ */}
-          <AnimatedSection className="mt-20">
+          <AnimatedSection className="mt-16">
             <AnimatedTitle>
               <div className="flex items-end justify-between mb-8">
                 <div>
@@ -482,7 +477,7 @@ export default function DashboardPage() {
           {/* ══════════════════════════════════════════════════
               3. FEATURED ENTITY — Bigger ghost, animated
           ══════════════════════════════════════════════════ */}
-          <AnimatedSection className="mt-24">
+          <AnimatedSection className="mt-16">
             <section className="relative py-16 lg:py-20 px-10 lg:px-14 rounded-[2.5rem] overflow-hidden border border-white/[0.06] bg-[linear-gradient(135deg,rgba(30,4,4,0.6),rgba(5,5,10,0.95))]">
               <div className="absolute -left-20 top-1/2 -translate-y-1/2 w-96 h-96 bg-red-900/25 blur-[120px] rounded-full pointer-events-none" />
               <div className="absolute right-0 bottom-0 w-[500px] h-[500px] bg-purple-900/10 blur-[150px] rounded-full pointer-events-none" />
@@ -527,12 +522,6 @@ export default function DashboardPage() {
                   </motion.div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
                   <div className="absolute inset-0 bg-gradient-to-l from-transparent to-red-950/20" />
-                  <div className="absolute bottom-6 left-6">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_8px_red]" />
-                      <span className="text-[9px] font-black text-red-400 uppercase tracking-[0.4em]">Aktif // Bahaya Tinggi</span>
-                    </div>
-                  </div>
                 </motion.div>
               </div>
             </section>
@@ -541,10 +530,10 @@ export default function DashboardPage() {
           {/* ══════════════════════════════════════════════════
               4. CATEGORY SECTIONS — Each section separate, big cards, no header images
           ══════════════════════════════════════════════════ */}
-          <div className="mt-28 space-y-24">
+          <div className="mt-20 space-y-20">
             {CATEGORIES.map((cat, catIdx) => (
               <AnimatedSection key={cat.id} delay={catIdx * 0.05}>
-                {/* Section Title — text only, with icon */}
+                {/* Section Title — text + icon, no image */}
                 <AnimatedTitle className="mb-8">
                   <div className="flex items-center gap-5 mb-3">
                     <div className="w-12 h-12 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent shadow-[0_0_20px_rgba(255,0,0,0.15)]">
@@ -558,10 +547,10 @@ export default function DashboardPage() {
                   <div className="h-px w-full bg-gradient-to-r from-accent/30 via-white/[0.04] to-transparent" />
                 </AnimatedTitle>
 
-                {/* Feature Cards — big, responsive */}
+                {/* Feature Cards — IMAGE GRID, big & visual */}
                 <div className={cn(
                   "grid gap-5",
-                  cat.features.length === 1 ? "grid-cols-1 max-w-lg" :
+                  cat.features.length === 1 ? "grid-cols-1 md:grid-cols-2" :
                   cat.features.length === 2 ? "grid-cols-1 md:grid-cols-2" :
                   "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
                 )}>
@@ -574,17 +563,20 @@ export default function DashboardPage() {
                       transition={{ delay: featIdx * 0.1, duration: 0.5 }}
                     >
                       <Link href={feat.href} className="group block">
-                        <div className="relative rounded-2xl overflow-hidden border border-white/[0.06] bg-zinc-950/80 transition-all duration-500 group-hover:border-accent/30 group-hover:-translate-y-1 group-hover:shadow-[0_20px_50px_rgba(255,0,0,0.1)]">
-                          {/* Card content */}
-                          <div className="p-6 lg:p-8 flex items-center gap-5">
-                            <div className="w-14 h-14 rounded-2xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-zinc-500 group-hover:text-accent group-hover:border-accent/30 group-hover:bg-accent/10 transition-all duration-500 shrink-0 shadow-lg">
-                              <feat.icon size={24} />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <h3 className="text-lg font-black text-white uppercase tracking-tight group-hover:text-accent transition-colors duration-300">{feat.name}</h3>
-                              <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.2em] mt-1 group-hover:text-zinc-400 transition-colors">{feat.meta}</p>
-                            </div>
-                            <ChevronRight size={18} className="text-zinc-800 group-hover:text-accent group-hover:translate-x-1 transition-all duration-300 shrink-0" />
+                        <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-white/[0.06] bg-zinc-950 transition-all duration-500 group-hover:border-accent/30 group-hover:-translate-y-2 group-hover:shadow-[0_24px_50px_rgba(255,0,0,0.15)]">
+                          {/* Background Image */}
+                          <Image src={feat.image} alt={feat.name} fill className="object-cover opacity-30 grayscale group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-700 group-hover:scale-105" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+
+                          {/* Icon */}
+                          <div className="absolute top-5 left-5 w-12 h-12 rounded-xl bg-black/60 backdrop-blur-xl border border-white/10 flex items-center justify-center text-accent group-hover:border-accent/40 group-hover:bg-accent/20 transition-all z-10">
+                            <feat.icon size={22} />
+                          </div>
+
+                          {/* Text */}
+                          <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
+                            <h3 className="text-xl font-black text-white uppercase tracking-tight mb-1 group-hover:text-accent transition-colors duration-300">{feat.name}</h3>
+                            <p className="text-[11px] font-bold text-zinc-500 uppercase tracking-[0.2em] group-hover:text-zinc-300 transition-colors">{feat.meta}</p>
                           </div>
 
                           {/* Bottom accent line */}
