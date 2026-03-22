@@ -63,7 +63,7 @@ export default function ClientWrapper({
   return (
     <div className="flex min-h-screen">
       <Sidebar />
-      <div className="flex-1 pl-[100px] transition-all duration-500">
+      <div className="flex-1 pl-[80px] transition-all duration-500">
         {children}
       </div>
       <PodcastPlayer />
