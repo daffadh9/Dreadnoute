@@ -893,17 +893,9 @@ export function ArchiveDetail({ entry }: ArchiveDetailProps) {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80" />
                     
                     <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3">
-                      <div>
-                        <h3 className="text-xl font-bold tracking-wide text-zinc-100 group-hover:text-red-400 transition-colors drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                          {ghost.name}
-                        </h3>
-                        <p className="mt-1 text-[10px] uppercase tracking-widest text-[#E5E5E5] font-semibold drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
-                          {getArchiveMeta(ghost).regionLabel}
-                        </p>
-                      </div>
-                      <span className="shrink-0 rounded-full border border-amber-600/50 bg-black/60 px-2 py-1 text-[9px] uppercase tracking-wider text-amber-300 backdrop-blur">
-                        Lvl: {ghost.dangerLevel}
-                      </span>
+                      <h3 className="text-xl font-bold tracking-wide text-zinc-100 group-hover:text-red-400 transition-colors drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                        {ghost.name}
+                      </h3>
                     </div>
                   </div>
 
