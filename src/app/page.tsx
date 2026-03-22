@@ -3,25 +3,18 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
-  Bell, 
-  Gamepad2, 
-  ShoppingCart, 
-  Users2, 
+  Bell,
+  ShoppingCart,
+  Users2,
   Clapperboard,
   Play,
-  Search,
   Ghost,
   Trophy,
-  Flame,
-  Activity,
-  Mic2,
   ChevronLeft,
   ChevronRight,
-  Eye,
   User,
   Briefcase,
   Wallet,
-  Skull,
   QrCode,
   Settings,
   LogOut,
@@ -57,13 +50,6 @@ const HERO_SLIDES = [
   }
 ];
 
-const SEARCH_FILTERS = [
-  { label: "Trending", icon: Flame },
-  { label: "Terlangka", icon: Skull },
-  { label: "Paling Dicari", icon: Eye },
-  { label: "Eksklusif", icon: Trophy },
-  { label: "Baru", icon: Activity },
-];
 
 const CATEGORIES = [
   {
@@ -146,8 +132,6 @@ const LATEST_SIGNALS = [
 export default function DashboardPage() {
   const router = useRouter();
   const [currentHero, setCurrentHero] = useState(0);
-  const [activeFilter, setActiveFilter] = useState("Trending");
-  const [searchFocused, setSearchFocused] = useState(false);
   const [showDossier, setShowDossier] = useState(false);
   const [showTutorial, setShowTutorial] = useState(false);
   const [userProfile, setUserProfile] = useState<{name: string, avatar: string, level: number} | null>(null);
@@ -179,7 +163,6 @@ export default function DashboardPage() {
     }
   }, []);
 
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scrollSignals = (direction: 'left' | 'right') => {
@@ -467,8 +450,8 @@ export default function DashboardPage() {
             </div>
          </section>
 
-         {/* ── 2. LATEST SIGNALS ── Breathing: mt-16 */}
-         <section className="mt-16 pt-12 border-t border-white/[0.04]">
+         {/* ── 2. LATEST SIGNALS ── Breathing: 48px */}
+         <section className="mt-12 pt-10 border-t border-white/[0.04]">
             <div className="flex items-end justify-between mb-8">
                <div>
                   <h2 className="text-[10px] font-black text-red-500 uppercase tracking-[0.5em] mb-2 flex items-center gap-3">
@@ -505,8 +488,8 @@ export default function DashboardPage() {
             </div>
          </section>
 
-         {/* ── 3. FEATURED ENTITY — mt-24: emotional anchor, above categories */}
-         <section className="relative mt-24 py-16 px-12 rounded-[3rem] overflow-hidden border border-white/[0.05] bg-[linear-gradient(135deg,rgba(30,4,4,0.55),rgba(5,5,10,0.95))]">
+         {/* ── 3. FEATURED ENTITY — 64px breathing from signals */}
+         <section className="relative mt-16 py-16 px-12 rounded-[3rem] overflow-hidden border border-white/[0.05] bg-[linear-gradient(135deg,rgba(30,4,4,0.55),rgba(5,5,10,0.95))]">
             <div className="absolute -left-20 top-1/2 -translate-y-1/2 w-80 h-80 bg-red-900/20 blur-[100px] rounded-full pointer-events-none" />
             <div className="absolute right-0 bottom-0 w-96 h-96 bg-purple-900/10 blur-[120px] rounded-full pointer-events-none" />
             <div className="relative z-10 flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
@@ -542,8 +525,8 @@ export default function DashboardPage() {
             </div>
          </section>
 
-         {/* ── 4. CATEGORY NAVIGATION — mt-24 */}
-         <section className="mt-24">
+         {/* ── 4. CATEGORY NAVIGATION — 72px breathing from featured */}
+         <section className="mt-[72px]">
             <div className="mb-10">
                <p className="text-[9px] font-black text-zinc-600 uppercase tracking-[0.5em] mb-2">Navigasi Utama</p>
                <h2 className="text-3xl font-black text-white uppercase tracking-tight">Jelajahi Ekosistem</h2>
@@ -552,8 +535,8 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                {CATEGORIES.map((cat, i) => (
                   <div key={i} className="flex flex-col gap-3">
-                     <div className="group relative h-[160px] rounded-3xl overflow-hidden border border-white/[0.07] bg-zinc-950 cursor-pointer hover:border-accent/30 hover:-translate-y-1 transition-all duration-500 shadow-xl">
-                        <Image src={cat.image} alt={cat.title} fill className="object-cover opacity-25 grayscale group-hover:grayscale-0 group-hover:opacity-65 transition-all duration-700 group-hover:scale-105" />
+                     <div className="group relative h-[140px] rounded-3xl overflow-hidden border border-white/[0.07] bg-zinc-950 cursor-pointer hover:border-accent/30 hover:-translate-y-1 transition-all duration-500 shadow-lg">
+                        <Image src={cat.image} alt={cat.title} fill className="object-cover opacity-20 grayscale group-hover:grayscale-0 group-hover:opacity-55 transition-all duration-700 group-hover:scale-105" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
                         <div className="absolute top-5 left-5 w-10 h-10 rounded-xl bg-black/60 backdrop-blur-xl border border-white/10 flex items-center justify-center text-accent group-hover:border-accent/50 transition-all z-10">
                            <cat.icon size={18} />
@@ -583,8 +566,8 @@ export default function DashboardPage() {
             </div>
          </section>
 
-         {/* ── 5. G-COLLECTOR PREVIEW — mt-20 */}
-         <section className="mt-20 p-10 lg:p-14 rounded-[3rem] bg-[linear-gradient(145deg,rgba(12,6,3,0.9),rgba(0,0,0,1))] border border-white/[0.06] relative overflow-hidden shadow-2xl">
+         {/* ── 5. G-COLLECTOR PREVIEW — 64px breathing from category */}
+         <section className="mt-16 p-10 lg:p-14 rounded-[3rem] bg-[linear-gradient(145deg,rgba(12,6,3,0.9),rgba(0,0,0,1))] border border-white/[0.06] relative overflow-hidden shadow-2xl">
             <div className="absolute top-0 right-0 w-80 h-80 bg-accent/8 blur-[100px] -mr-20 -mt-20 pointer-events-none" />
             <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-10">
                <div className="space-y-5">
