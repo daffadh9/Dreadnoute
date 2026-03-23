@@ -95,68 +95,23 @@ const HERO_SLIDES = [
   }
 ];
 
-const CATEGORIES = [
-  {
-    id: "explore",
-    title: "Explore",
-    subtitle: "PELAJARI & EKSPLOR DUNIA MISTIS",
-    icon: Ghost,
-    features: [
-      { name: "Ghost Archive", href: "/ghost-archive", meta: "Ensiklopedia Resmi", icon: Ghost, image: "/assets/images/GHOST WIKI DASHBOARD.jpg" },
-      { name: "Laboratorium", href: "/lab", meta: "Riset Eksperimental", icon: FlaskConical, image: "/assets/images/LABORATORIUM DASHBOARD.png" },
-      { name: "Blog", href: "/blog", meta: "Artikel Okultisme", icon: Newspaper, image: "/assets/images/BLOG DASHBOARD.png" },
-    ]
-  },
-  {
-    id: "experience",
-    title: "Experience",
-    subtitle: "MERASAKAN PENGALAMAN HORROR",
-    icon: Play,
-    features: [
-      { name: "Podcast", href: "/podcast", meta: "Sinyal EVP", icon: Mic2, image: "/assets/images/PODCAST BANNER DASHBOARD.jpg" },
-      { name: "Trailer Film", href: "/trailers", meta: "Visual Imersif", icon: Film, image: "/assets/images/TRAILER DASHBOARD.jpg" },
-      { name: "Games", href: "/games", meta: "Teror Interaktif", icon: Gamepad2, image: "/assets/images/GAME BANNER DASHBOARD.jpg" },
-    ]
-  },
-  {
-    id: "stories",
-    title: "Stories",
-    subtitle: "KONSUMSI & CIPTAKAN CERITA",
-    icon: Clapperboard,
-    features: [
-      { name: "Novel", href: "/novels", meta: "Narasi Panjang", icon: BookOpen, image: "/assets/images/NOVEL DASHBOARD.png" },
-      { name: "Komik", href: "/comics", meta: "Narasi Visual", icon: BookMarked, image: "/assets/images/KOMIK DASHBOARD.jpg" },
-      { name: "Cerpen", href: "/short-stories", meta: "Cerita Singkat", icon: PenTool, image: "/assets/images/CERPEN DASHBOARD.png" },
-    ]
-  },
-  {
-    id: "community",
-    title: "Community",
-    subtitle: "INTERAKSI & KONEKSI PERSONAL",
-    icon: Users2,
-    features: [
-      { name: "Komunitas", href: "/community", meta: "Diskusi Mendalam", icon: MessageCircle, image: "/assets/images/KOMUNITAS BANNER DASHBOARD.jpg" },
-      { name: "Diary", href: "/diary", meta: "Catatan Pribadi", icon: BookHeart, image: "/assets/images/DIARY DASHBOARD.png" },
-    ]
-  },
-  {
-    id: "collection",
-    title: "Collection",
-    subtitle: "PROGRES & ARTEFAK DIGITAL",
-    icon: Trophy,
-    features: [
-      { name: "G-Collector", href: "/collector", meta: "Sistem Progres", icon: Gem, image: "/assets/images/G-COLLECTOR DASHBOARD.png" },
-    ]
-  },
-  {
-    id: "market",
-    title: "Market",
-    subtitle: "PERDAGANGAN ASET DIGITAL",
-    icon: ShoppingCart,
-    features: [
-      { name: "Marketplace", href: "/marketplace", meta: "Aset Black Market", icon: Store, image: "/assets/images/MARKET DASHBOARD.jpg" },
-    ]
-  }
+const PORTAL_FEATURES = [
+  { name: "Ghost Archive",  href: "/ghost-archive",   meta: "Ensiklopedia resmi",    icon: Ghost,          iconColor: "#ef4444", tier: 1 as const },
+  { name: "Podcast",        href: "/podcast",          meta: "Siaran EVP",            icon: Mic2,           iconColor: "#f97316", tier: 1 as const },
+  { name: "Trailer Film",   href: "/trailers",         meta: "Visual imersif",        icon: Film,           iconColor: "#dc2626", tier: 2 as const },
+  { name: "Games",          href: "/games",            meta: "Teror interaktif",      icon: Gamepad2,       iconColor: "#7c3aed", tier: 2 as const },
+  { name: "Marketplace",    href: "/marketplace",      meta: "Aset black market",     icon: Store,          iconColor: "#ea580c", tier: 1 as const },
+  { name: "G-Collector",    href: "/collector",        meta: "Koleksi kartu",         icon: Gem,            iconColor: "#c5a059", tier: 1 as const },
+  { name: "Novel",          href: "/novels",           meta: "Narasi panjang",        icon: BookOpen,       iconColor: "#b45309", tier: 2 as const },
+  { name: "Komik",          href: "/comics",           meta: "Narasi visual",         icon: BookMarked,     iconColor: "#be185d", tier: 2 as const },
+  { name: "Cerpen",         href: "/short-stories",    meta: "Cerita singkat",        icon: PenTool,        iconColor: "#a16207", tier: 2 as const },
+  { name: "Blog",           href: "/blog",             meta: "Artikel mendalam",      icon: Newspaper,      iconColor: "#d97706", tier: 2 as const },
+  { name: "Laboratorium",   href: "/lab",              meta: "Eksperimen okultum",    icon: FlaskConical,   iconColor: "#059669", tier: 2 as const },
+  { name: "Diary",          href: "/diary",            meta: "Catatan personal",      icon: BookHeart,      iconColor: "#7c3aed", tier: 2 as const },
+  { name: "Komunitas",      href: "/community",        meta: "Forum komunitas",       icon: MessageCircle,  iconColor: "#dc2626", tier: 2 as const },
+  // 2 placeholder cards to complete 5×3 grid (15 total)
+  { name: "Segera Hadir",   href: "#",                 meta: "Fitur mendatang",       icon: null,           iconColor: "#333333", tier: 0 as const, isPlaceholder: true },
+  { name: "Segera Hadir",   href: "#",                 meta: "Fitur mendatang",       icon: null,           iconColor: "#333333", tier: 0 as const, isPlaceholder: true },
 ];
 
 const LATEST_SIGNALS = [
@@ -509,7 +464,7 @@ export default function DashboardPage() {
 
                 {/* Ghost image — 50% width, with zoom animation */}
                 <motion.div
-                  className="relative w-full lg:w-[50%] aspect-[3/4] max-h-[520px] rounded-3xl overflow-hidden border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.8)] shrink-0"
+                  className="relative w-full lg:w-[42%] aspect-[3/4] max-h-[480px] rounded-3xl overflow-hidden border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.8)] shrink-0"
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.8, ease: "easeOut" }}
                 >
@@ -528,72 +483,123 @@ export default function DashboardPage() {
           </AnimatedSection>
 
           {/* ══════════════════════════════════════════════════
-              4. CATEGORY SECTIONS — Each section separate, big cards, no header images
+              4. PORTAL MISTERI — Unified feature grid, premium cards
           ══════════════════════════════════════════════════ */}
-          <div className="mt-20 space-y-20">
-            {CATEGORIES.map((cat, catIdx) => (
-              <AnimatedSection key={cat.id} delay={catIdx * 0.05}>
-                {/* Section Title — text + icon, no image */}
-                <AnimatedTitle className="mb-8">
-                  <div className="flex items-center gap-5 mb-3">
-                    <div className="w-12 h-12 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent shadow-[0_0_20px_rgba(255,0,0,0.15)]">
-                      <cat.icon size={22} />
-                    </div>
-                    <div>
-                      <h2 className="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight">{cat.title}</h2>
-                      <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.3em] mt-1">{cat.subtitle}</p>
-                    </div>
-                  </div>
-                  <div className="h-px w-full bg-gradient-to-r from-accent/30 via-white/[0.04] to-transparent" />
-                </AnimatedTitle>
-
-                {/* Feature Cards — IMAGE GRID, big & visual */}
-                <div className={cn(
-                  "grid gap-5",
-                  cat.features.length === 1 ? "grid-cols-1 md:grid-cols-2" :
-                  cat.features.length === 2 ? "grid-cols-1 md:grid-cols-2" :
-                  "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-                )}>
-                  {cat.features.map((feat, featIdx) => (
-                    <motion.div
-                      key={feat.href}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-50px" }}
-                      transition={{ delay: featIdx * 0.1, duration: 0.5 }}
-                    >
-                      <Link href={feat.href} className="group block">
-                        <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-white/[0.06] bg-zinc-950 transition-all duration-500 group-hover:border-accent/30 group-hover:-translate-y-2 group-hover:shadow-[0_24px_50px_rgba(255,0,0,0.15)]">
-                          {/* Background Image */}
-                          <Image src={feat.image} alt={feat.name} fill className="object-cover opacity-30 grayscale group-hover:grayscale-0 group-hover:opacity-60 transition-all duration-700 group-hover:scale-105" />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
-
-                          {/* Icon */}
-                          <div className="absolute top-5 left-5 w-12 h-12 rounded-xl bg-black/60 backdrop-blur-xl border border-white/10 flex items-center justify-center text-accent group-hover:border-accent/40 group-hover:bg-accent/20 transition-all z-10">
-                            <feat.icon size={22} />
-                          </div>
-
-                          {/* Text */}
-                          <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
-                            <h3 className="text-xl font-black text-white uppercase tracking-tight mb-1 group-hover:text-accent transition-colors duration-300">{feat.name}</h3>
-                            <p className="text-[11px] font-bold text-zinc-500 uppercase tracking-[0.2em] group-hover:text-zinc-300 transition-colors">{feat.meta}</p>
-                          </div>
-
-                          {/* Bottom accent line */}
-                          <div className="absolute bottom-0 left-0 h-[2px] bg-accent w-0 group-hover:w-full transition-all duration-700 shadow-[0_0_10px_red]" />
-                        </div>
-                      </Link>
-                    </motion.div>
-                  ))}
+          <AnimatedSection className="mt-[72px]">
+            {/* Section Heading */}
+            <AnimatedTitle className="mb-10">
+              <div className="flex items-start gap-5">
+                <div className="w-1 h-16 bg-accent rounded-full shadow-[0_0_20px_rgba(255,0,0,0.6)] mt-1 shrink-0" />
+                <div>
+                  <p className="text-[10px] font-black text-accent uppercase tracking-[0.7em] mb-2 flex items-center gap-3">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse shadow-[0_0_8px_red] inline-block" />
+                    Akses Portal Misteri
+                  </p>
+                  <h2 className="text-4xl lg:text-5xl font-black text-white uppercase tracking-tighter leading-none drop-shadow-[0_0_40px_rgba(255,0,0,0.15)]">
+                    Portal Misteri
+                  </h2>
+                  <p className="text-sm text-zinc-500 font-medium mt-3 tracking-[0.2em] uppercase">
+                    Gerbang Ekosistem Dreadnoute
+                  </p>
                 </div>
-              </AnimatedSection>
-            ))}
-          </div>
+              </div>
+            </AnimatedTitle>
+
+            {/* Feature Grid — 3 columns, premium minimal cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-[18px]">
+              {PORTAL_FEATURES.map((feat, idx) => (
+                <motion.div
+                  key={feat.href + idx}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-30px" }}
+                  transition={{ delay: idx * 0.04, duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
+                >
+                  {feat.isPlaceholder ? (
+                    /* Placeholder card */
+                    <div className="flex items-center gap-4 h-[92px] rounded-[20px] border border-dashed border-white/[0.04] bg-white/[0.01] px-[18px] py-4 opacity-25 cursor-default select-none">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-xl border border-white/[0.06] bg-white/[0.01] flex items-center justify-center">
+                        <div className="w-3 h-3 rounded-full border border-white/20 border-dashed" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[13px] font-semibold text-white/30">Segera Hadir</p>
+                        <p className="text-[11px] text-white/15 uppercase tracking-[0.14em] mt-0.5">Fitur mendatang</p>
+                      </div>
+                    </div>
+                  ) : (
+                    /* Real feature card */
+                    <Link href={feat.href} className="group block">
+                      <motion.div
+                        className={cn(
+                          "relative flex items-center gap-4 h-[92px] rounded-[20px] px-[18px] py-4 cursor-pointer overflow-hidden",
+                          "border border-white/[0.07] bg-[rgba(10,10,14,0.80)] backdrop-blur-sm",
+                          "transition-colors duration-[250ms] ease-out",
+                          feat.tier === 1
+                            ? "shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] hover:border-red-500/40 hover:bg-white/[0.04] hover:shadow-[0_14px_40px_rgba(120,0,0,0.2)]"
+                            : "hover:border-red-600/25 hover:bg-white/[0.03] hover:shadow-[0_12px_32px_rgba(80,0,0,0.15)]"
+                        )}
+                        whileHover={{ y: -3 }}
+                        transition={{ duration: 0.22, ease: "easeOut" }}
+                      >
+                        {/* Subtle gradient background */}
+                        <div
+                          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                          style={{ background: `radial-gradient(ellipse at left center, ${feat.iconColor}08 0%, transparent 70%)` }}
+                        />
+
+                        {/* Tier 1 indicator — subtle left glow bar */}
+                        {feat.tier === 1 && (
+                          <div
+                            className="absolute left-0 top-1/2 -translate-y-1/2 w-[2px] h-8 rounded-r-full opacity-40 group-hover:opacity-80 transition-opacity"
+                            style={{ background: feat.iconColor }}
+                          />
+                        )}
+
+                        {/* Icon wrapper */}
+                        <div
+                          className="flex-shrink-0 w-10 h-10 rounded-xl border border-white/[0.08] bg-white/[0.03] flex items-center justify-center transition-all duration-[250ms] group-hover:border-opacity-40 group-hover:scale-105"
+                          style={{ color: feat.iconColor }}
+                        >
+                          {feat.icon && <feat.icon size={19} strokeWidth={1.8} />}
+                        </div>
+
+                        {/* Text block */}
+                        <div className="flex-1 min-w-0">
+                          <p className={cn(
+                            "text-[15px] font-semibold text-white/85 transition-colors duration-[250ms] group-hover:text-white leading-tight",
+                            feat.tier === 1 && "text-white/95"
+                          )}>
+                            {feat.name}
+                          </p>
+                          <p className="text-[11px] text-white/30 uppercase tracking-[0.14em] mt-0.5 transition-colors duration-[250ms] group-hover:text-white/50 truncate">
+                            {feat.meta}
+                          </p>
+                        </div>
+
+                        {/* Right chevron */}
+                        <motion.div
+                          className="flex-shrink-0 text-white/25 group-hover:text-white/60 transition-colors duration-[250ms]"
+                          initial={false}
+                          animate={{ x: 0 }}
+                          whileHover={{ x: 3 }}
+                        >
+                          <ChevronRight size={16} strokeWidth={2} />
+                        </motion.div>
+
+                        {/* Bottom shine line on hover */}
+                        <div className="absolute bottom-0 left-0 h-[1.5px] w-0 group-hover:w-full transition-all duration-500 rounded-full" style={{ background: `linear-gradient(to right, transparent, ${feat.iconColor}60, transparent)` }} />
+                      </motion.div>
+                    </Link>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          </AnimatedSection>
 
           {/* ══════════════════════════════════════════════════
               5. G-COLLECTOR PREVIEW — Bigger, more prominent
           ══════════════════════════════════════════════════ */}
-          <AnimatedSection className="mt-28">
+          <AnimatedSection className="mt-[72px]">
             <section className="p-10 lg:p-16 rounded-[2.5rem] bg-[linear-gradient(145deg,rgba(12,6,3,0.9),rgba(0,0,0,1))] border border-white/[0.06] relative overflow-hidden shadow-2xl">
               <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 blur-[120px] -mr-20 -mt-20 pointer-events-none" />
               <div className="absolute bottom-0 left-0 w-60 h-60 bg-gold/5 blur-[80px] pointer-events-none" />
@@ -657,7 +663,7 @@ export default function DashboardPage() {
           {/* ══════════════════════════════════════════════════
               6. FOOTER — Bigger, more spacious
           ══════════════════════════════════════════════════ */}
-          <footer className="mt-28 pt-20 w-full border-t border-white/[0.04] text-center flex flex-col items-center gap-10 pb-16">
+          <footer className="mt-[88px] pt-20 w-full border-t border-white/[0.04] text-center flex flex-col items-center gap-10 pb-16">
             <AnimatedSection>
               <div className="space-y-5">
                 <h2 className="text-zinc-100 text-3xl font-horror tracking-[0.5em] opacity-20">DREADNOUTE</h2>
