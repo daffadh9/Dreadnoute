@@ -820,23 +820,23 @@ export default function DashboardPage() {
           <AnimatedSection>
             <div className="space-y-4">
               <motion.h2
-                className="font-horror tracking-[0.6em] text-2xl text-white/40 select-none"
-                animate={{ opacity: [0.35, 0.5, 0.35] }}
+                className="font-horror tracking-[0.6em] text-5xl text-white/60 select-none drop-shadow-[0_0_30px_rgba(255,80,80,0.2)]"
+                animate={{ opacity: [0.5, 0.7, 0.5] }}
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
               >
                 DREADNOUTE
               </motion.h2>
-              <p className="text-zinc-600 text-[10px] font-medium tracking-[0.35em] uppercase max-w-md mx-auto italic leading-loose opacity-60">
+              <p className="text-zinc-500 text-[11px] font-medium tracking-[0.3em] uppercase max-w-md mx-auto italic leading-loose">
                 &ldquo;Beberapa pintu sebaiknya tidak pernah terbuka. Beberapa rahasia sebaiknya tidak pernah diceritakan.&rdquo;
               </p>
             </div>
           </AnimatedSection>
-          <div className="flex gap-10 text-[9px] font-bold text-zinc-700 uppercase tracking-[0.3em]">
-            <Link href="/term" className="hover:text-zinc-500 transition-colors duration-200">V.O.I.D Term</Link>
-            <Link href="/privacy" className="hover:text-zinc-500 transition-colors duration-200">Transmission Privacy</Link>
-            <Link href="/status" className="hover:text-zinc-500 transition-colors duration-200">Signal Status</Link>
+          <div className="flex gap-10 text-[10px] font-bold text-zinc-600 uppercase tracking-[0.3em]">
+            <Link href="/term" className="hover:text-zinc-400 transition-colors duration-200">V.O.I.D Term</Link>
+            <Link href="/privacy" className="hover:text-zinc-400 transition-colors duration-200">Transmission Privacy</Link>
+            <Link href="/status" className="hover:text-zinc-400 transition-colors duration-200">Signal Status</Link>
           </div>
-          <p className="text-[8px] font-medium text-zinc-800 uppercase tracking-[0.4em] opacity-60">© 2026 Dreadnoute Ecosystem · Built by Team</p>
+          <p className="text-[9px] font-medium text-zinc-600 uppercase tracking-[0.4em]">© 2026 Dreadnoute Ecosystem · Built by Team</p>
         </footer>
 
       </div>
