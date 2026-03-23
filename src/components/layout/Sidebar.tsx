@@ -82,7 +82,7 @@ const SIDEBAR_GROUPS = [
     label: "COLLECTION",
     icon: Trophy,
     features: [
-      { name: "G-Collector", href: "/collector", icon: Gem },
+      { name: "G-Collector", href: "/g-collector", icon: Gem },
     ],
   },
   {
