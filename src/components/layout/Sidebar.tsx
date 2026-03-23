@@ -7,8 +7,6 @@ import {
   Gamepad2,
   Mic2,
   ShoppingCart,
-  Settings,
-  LogOut,
   ChevronRight,
   ChevronDown,
   Clapperboard,
@@ -23,16 +21,14 @@ import {
   BookMarked,
   MessageCircle,
   BookHeart,
-  Bell,
   Gem,
   Store,
 } from "lucide-react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { supabase } from "@/lib/supabase";
 
 const SIDEBAR_GROUPS = [
   {
@@ -103,12 +99,6 @@ export const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [expandedGroups, setExpandedGroups] = useState<string[]>([]);
   const pathname = usePathname();
-  const router = useRouter();
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.push("/auth");
-  };
 
   const toggleGroup = (id: string) => {
     setExpandedGroups((prev) =>
@@ -286,41 +276,22 @@ export const Sidebar = () => {
         })}
       </div>
 
-      {/* Bottom Actions */}
-      <div className="p-3 space-y-1 border-t border-white/[0.04]">
-        <Link href="/settings">
-          <div className={cn(
-            "flex items-center h-11 rounded-xl group cursor-pointer transition-all",
-            isCollapsed ? "justify-center" : "px-3",
-            pathname === "/settings" ? "bg-accent/10 border border-accent/20" : "hover:bg-white/[0.03] border border-transparent"
-          )}>
-            <Settings size={18} className={cn("transition-all min-w-[36px]", pathname === "/settings" ? "text-accent" : "text-zinc-600 group-hover:text-accent")} />
-            {!isCollapsed && <span className={cn("text-[9px] font-bold tracking-[0.3em] ml-2", pathname === "/settings" ? "text-white" : "text-zinc-500 group-hover:text-zinc-200")}>SETTINGS</span>}
-          </div>
-        </Link>
-
-        <Link href="/notifications">
-          <div className={cn(
-            "flex items-center h-11 rounded-xl group cursor-pointer transition-all relative",
-            isCollapsed ? "justify-center" : "px-3",
-            pathname === "/notifications" ? "bg-accent/10 border border-accent/20" : "hover:bg-white/[0.03] border border-transparent"
-          )}>
-            <Bell size={18} className={cn("transition-all min-w-[36px]", pathname === "/notifications" ? "text-accent" : "text-zinc-600 group-hover:text-accent")} />
-            {!isCollapsed && <span className={cn("text-[9px] font-bold tracking-[0.3em] ml-2", pathname === "/notifications" ? "text-white" : "text-zinc-500 group-hover:text-zinc-200")}>NOTIFIKASI</span>}
-            <div className="absolute top-2 right-2 w-2 h-2 bg-accent rounded-full animate-pulse shadow-[0_0_6px_red]" />
-          </div>
-        </Link>
-
-        <div
-          onClick={handleLogout}
-          className={cn(
-            "flex items-center h-11 rounded-xl group cursor-pointer hover:bg-red-950/20 border border-transparent hover:border-red-900/20 transition-all",
-            isCollapsed ? "justify-center" : "px-3"
+      {/* Bottom: Version tag only */}
+      <div className="p-4 border-t border-white/[0.04] flex items-center justify-center">
+        <AnimatePresence>
+          {!isCollapsed ? (
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="text-[7px] font-bold text-zinc-800 uppercase tracking-[0.4em]"
+            >
+              v2.0 · Dreadnoute
+            </motion.span>
+          ) : (
+            <div className="w-1.5 h-1.5 rounded-full bg-accent/30 animate-pulse" />
           )}
-        >
-          <LogOut size={18} className="text-zinc-700 group-hover:text-accent transition-all min-w-[36px]" />
-          {!isCollapsed && <span className="text-[9px] font-bold tracking-[0.3em] text-zinc-600 group-hover:text-accent ml-2 uppercase">Leave</span>}
-        </div>
+        </AnimatePresence>
       </div>
     </motion.aside>
   );
