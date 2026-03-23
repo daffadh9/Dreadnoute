@@ -96,22 +96,18 @@ const HERO_SLIDES = [
 ];
 
 const PORTAL_FEATURES = [
-  { name: "Ghost Archive",  href: "/ghost-archive",   meta: "Ensiklopedia resmi",    icon: Ghost,          iconColor: "#ef4444", tier: 1 as const },
-  { name: "Podcast",        href: "/podcast",          meta: "Siaran EVP",            icon: Mic2,           iconColor: "#f97316", tier: 1 as const },
-  { name: "Trailer Film",   href: "/trailers",         meta: "Visual imersif",        icon: Film,           iconColor: "#dc2626", tier: 2 as const },
-  { name: "Games",          href: "/games",            meta: "Teror interaktif",      icon: Gamepad2,       iconColor: "#7c3aed", tier: 2 as const },
-  { name: "Marketplace",    href: "/marketplace",      meta: "Aset black market",     icon: Store,          iconColor: "#ea580c", tier: 1 as const },
-  { name: "G-Collector",    href: "/collector",        meta: "Koleksi kartu",         icon: Gem,            iconColor: "#c5a059", tier: 1 as const },
-  { name: "Novel",          href: "/novels",           meta: "Narasi panjang",        icon: BookOpen,       iconColor: "#b45309", tier: 2 as const },
-  { name: "Komik",          href: "/comics",           meta: "Narasi visual",         icon: BookMarked,     iconColor: "#be185d", tier: 2 as const },
-  { name: "Cerpen",         href: "/short-stories",    meta: "Cerita singkat",        icon: PenTool,        iconColor: "#a16207", tier: 2 as const },
-  { name: "Blog",           href: "/blog",             meta: "Artikel mendalam",      icon: Newspaper,      iconColor: "#d97706", tier: 2 as const },
-  { name: "Laboratorium",   href: "/lab",              meta: "Eksperimen okultum",    icon: FlaskConical,   iconColor: "#059669", tier: 2 as const },
-  { name: "Diary",          href: "/diary",            meta: "Catatan personal",      icon: BookHeart,      iconColor: "#7c3aed", tier: 2 as const },
-  { name: "Komunitas",      href: "/community",        meta: "Forum komunitas",       icon: MessageCircle,  iconColor: "#dc2626", tier: 2 as const },
-  // 2 placeholder cards to complete 5×3 grid (15 total)
-  { name: "Segera Hadir",   href: "#",                 meta: "Fitur mendatang",       icon: null,           iconColor: "#333333", tier: 0 as const, isPlaceholder: true },
-  { name: "Segera Hadir",   href: "#",                 meta: "Fitur mendatang",       icon: null,           iconColor: "#333333", tier: 0 as const, isPlaceholder: true },
+  { name: "Ghost Archive",  href: "/ghost-archive",   meta: "Ensiklopedia resmi",    icon: Ghost,          iconColor: "#ef4444", borderColor: "rgba(239,68,68,0.4)",   glowColor: "rgba(239,68,68,0.2)",   image: "/assets/images/GHOST WIKI DASHBOARD.jpg",         tier: 1 as const },
+  { name: "Podcast",        href: "/podcast",          meta: "Siaran EVP",            icon: Mic2,           iconColor: "#f97316", borderColor: "rgba(249,115,22,0.4)",  glowColor: "rgba(249,115,22,0.2)",  image: "/assets/images/PODCAST BANNER DASHBOARD.jpg",     tier: 1 as const },
+  { name: "Trailer Film",   href: "/trailers",         meta: "Visual imersif",        icon: Film,           iconColor: "#dc2626", borderColor: "rgba(220,38,38,0.4)",   glowColor: "rgba(220,38,38,0.2)",   image: "/assets/images/TRAILER DASHBOARD.jpg",            tier: 2 as const },
+  { name: "Games",          href: "/games",            meta: "Teror interaktif",      icon: Gamepad2,       iconColor: "#7c3aed", borderColor: "rgba(124,58,237,0.4)",  glowColor: "rgba(124,58,237,0.2)",  image: "/assets/images/GAME BANNER DASHBOARD.jpg",        tier: 2 as const },
+  { name: "Marketplace",    href: "/marketplace",      meta: "Aset black market",     icon: Store,          iconColor: "#ea580c", borderColor: "rgba(234,88,12,0.4)",   glowColor: "rgba(234,88,12,0.2)",   image: "/assets/images/MARKET DASHBOARD.jpg",             tier: 1 as const },
+  { name: "Novel",          href: "/novels",           meta: "Narasi panjang",        icon: BookOpen,       iconColor: "#b45309", borderColor: "rgba(180,83,9,0.4)",    glowColor: "rgba(180,83,9,0.2)",    image: "/images/thumbnail-fitur-dashboard/Novel.png",     tier: 2 as const },
+  { name: "Komik",          href: "/comics",           meta: "Narasi visual",         icon: BookMarked,     iconColor: "#be185d", borderColor: "rgba(190,24,93,0.4)",   glowColor: "rgba(190,24,93,0.2)",   image: "/images/thumbnail-fitur-dashboard/Komik.jpg",     tier: 2 as const },
+  { name: "Cerpen",         href: "/short-stories",    meta: "Cerita singkat",        icon: PenTool,        iconColor: "#ca8a04", borderColor: "rgba(202,138,4,0.4)",   glowColor: "rgba(202,138,4,0.2)",   image: "/images/thumbnail-fitur-dashboard/Cerpen.png",    tier: 2 as const },
+  { name: "Blog",           href: "/blog",             meta: "Artikel mendalam",      icon: Newspaper,      iconColor: "#d97706", borderColor: "rgba(217,119,6,0.4)",   glowColor: "rgba(217,119,6,0.2)",   image: "/images/thumbnail-fitur-dashboard/Blog.png",      tier: 2 as const },
+  { name: "Laboratorium",   href: "/lab",              meta: "Eksperimen okultum",    icon: FlaskConical,   iconColor: "#059669", borderColor: "rgba(5,150,105,0.4)",   glowColor: "rgba(5,150,105,0.2)",   image: "/images/thumbnail-fitur-dashboard/Laboratorium.png", tier: 2 as const },
+  { name: "Diary",          href: "/diary",            meta: "Catatan personal",      icon: BookHeart,      iconColor: "#7c3aed", borderColor: "rgba(124,58,237,0.4)",  glowColor: "rgba(124,58,237,0.2)",  image: "/images/thumbnail-fitur-dashboard/Diary.png",     tier: 2 as const },
+  { name: "Komunitas",      href: "/community",        meta: "Forum komunitas",       icon: MessageCircle,  iconColor: "#dc2626", borderColor: "rgba(220,38,38,0.4)",   glowColor: "rgba(220,38,38,0.2)",   image: "/assets/images/KOMUNITAS BANNER DASHBOARD.jpg",   tier: 2 as const },
 ];
 
 const LATEST_SIGNALS = [
@@ -331,8 +327,8 @@ export default function DashboardPage() {
           {/* ══════════════════════════════════════════════════
               1. HERO CAROUSEL
           ══════════════════════════════════════════════════ */}
-          <section className="relative w-full h-[600px] rounded-[3rem] border border-white/5 group shadow-2xl overflow-hidden">
-            <div className="absolute inset-0 rounded-[4rem] overflow-hidden border border-white/10 bg-black/40">
+          <section className="relative w-full min-h-screen rounded-[2.5rem] border border-white/5 group shadow-2xl overflow-hidden">
+            <div className="absolute inset-0 rounded-[2.5rem] overflow-hidden border border-white/10 bg-black/40">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentHero}
@@ -387,13 +383,13 @@ export default function DashboardPage() {
           ══════════════════════════════════════════════════ */}
           <AnimatedSection className="mt-16">
             <AnimatedTitle>
-              <div className="flex items-end justify-between mb-8">
+              <div className="flex items-end justify-between mb-10">
                 <div>
-                  <h2 className="text-[11px] font-black text-red-500 uppercase tracking-[0.5em] mb-2 flex items-center gap-3">
-                    <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_10px_red]" />
-                    LATEST SIGNALS
+                  <h2 className="text-2xl font-black text-white uppercase tracking-tight flex items-center gap-4 mb-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse shadow-[0_0_12px_red]" />
+                    Latest Signals
                   </h2>
-                  <p className="text-zinc-600 text-xs font-medium tracking-wider uppercase">Arsip, siaran, dan temuan terbaru dari ekosistem Dreadnoute.</p>
+                  <p className="text-xs font-black text-red-500 uppercase tracking-[0.5em]">Arsip, siaran &amp; temuan terbaru dari ekosistem Dreadnoute</p>
                 </div>
                 <div className="flex gap-3">
                   <button onClick={() => scrollSignals('left')} className="p-3 bg-white/[0.04] border border-white/10 rounded-xl hover:bg-white/10 hover:border-accent/30 transition-all text-zinc-500 hover:text-white"><ChevronLeft size={18} /></button>
@@ -409,18 +405,18 @@ export default function DashboardPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: idx * 0.1 }}
-                    className="relative aspect-square rounded-2xl overflow-hidden border border-white/[0.06] bg-zinc-950 transition-all duration-500 group-hover:border-red-500/30 group-hover:shadow-[0_20px_40px_rgba(255,0,0,0.15)] group-hover:-translate-y-2"
+                    className="relative aspect-[2/3] rounded-2xl overflow-hidden border border-white/[0.07] bg-zinc-950 transition-all duration-500 group-hover:border-red-500/40 group-hover:shadow-[0_20px_50px_rgba(255,0,0,0.2)] group-hover:-translate-y-2"
                   >
-                    <Image src={sig.image} alt={sig.title} fill className="object-cover transition-transform duration-700 group-hover:scale-110 brightness-[0.6] group-hover:brightness-90" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
+                    <Image src={sig.image} alt={sig.title} fill className="object-cover transition-transform duration-700 group-hover:scale-110 brightness-[0.55] group-hover:brightness-75" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
                     <div className="absolute top-4 left-4">
                       <span className={cn("text-[9px] font-black tracking-[0.3em] uppercase bg-black/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10", sig.color)}>
                         {sig.type}
                       </span>
                     </div>
                     <div className="absolute bottom-5 left-5 right-5">
-                      <h3 className="text-white text-sm font-black uppercase tracking-tight line-clamp-2 mb-1.5">{sig.title}</h3>
-                      <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-wider group-hover:text-zinc-300 transition-colors">{sig.meta}</p>
+                      <h3 className="text-white text-base font-black uppercase tracking-tight line-clamp-2 mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">{sig.title}</h3>
+                      <p className="text-zinc-400 text-[11px] font-bold uppercase tracking-widest group-hover:text-zinc-200 transition-colors">{sig.meta}</p>
                     </div>
                     <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-red-500 transition-all duration-500 group-hover:w-full shadow-[0_0_10px_red]" />
                   </motion.div>
@@ -433,50 +429,78 @@ export default function DashboardPage() {
               3. FEATURED ENTITY — Bigger ghost, animated
           ══════════════════════════════════════════════════ */}
           <AnimatedSection className="mt-16">
-            <section className="relative py-16 lg:py-20 px-10 lg:px-14 rounded-[2.5rem] overflow-hidden border border-white/[0.06] bg-[linear-gradient(135deg,rgba(30,4,4,0.6),rgba(5,5,10,0.95))]">
-              <div className="absolute -left-20 top-1/2 -translate-y-1/2 w-96 h-96 bg-red-900/25 blur-[120px] rounded-full pointer-events-none" />
-              <div className="absolute right-0 bottom-0 w-[500px] h-[500px] bg-purple-900/10 blur-[150px] rounded-full pointer-events-none" />
-              <div className="absolute top-0 right-1/4 w-60 h-60 bg-red-600/8 blur-[80px] rounded-full pointer-events-none animate-pulse" />
+            <section className="relative w-full min-h-[600px] overflow-hidden border border-white/[0.06] bg-[linear-gradient(135deg,rgba(20,2,2,0.7),rgba(3,3,8,0.98))]">
+              {/* Atmospheric FX */}
+              <div className="absolute -left-40 top-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-red-900/20 blur-[140px] rounded-full pointer-events-none" />
+              <div className="absolute right-0 top-0 w-[500px] h-[500px] bg-purple-900/10 blur-[160px] rounded-full pointer-events-none" />
+              <motion.div
+                className="absolute top-0 right-1/3 w-80 h-80 bg-red-600/[0.07] blur-[100px] rounded-full pointer-events-none"
+                animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              />
 
-              <div className="relative z-10 flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-                {/* Text side */}
-                <div className="flex-1 space-y-6">
+              <div className="relative z-10 flex flex-col lg:flex-row items-center px-10 lg:px-16 py-20 lg:py-24">
+                {/* Text side — 58% */}
+                <div className="flex-1 space-y-8 lg:pr-8">
                   <AnimatedTitle>
-                    <div className="space-y-4">
-                      <span className="text-red-500 font-black uppercase tracking-[0.6em] text-[10px] flex items-center gap-3">
-                        <div className="h-px w-8 bg-red-500/50" /> FEATURED ENTITY
-                      </span>
-                      <h2 className="text-5xl lg:text-7xl font-black text-white uppercase tracking-tighter leading-none">Wewe<br />Gombel</h2>
-                      <p className="text-zinc-400 text-base font-cinzel italic leading-relaxed max-w-lg">
+                    <div className="space-y-5">
+                      <motion.span
+                        className="text-red-500 font-black uppercase tracking-[0.7em] text-[11px] flex items-center gap-4"
+                        animate={{ opacity: [0.6, 1, 0.6] }}
+                        transition={{ duration: 3, repeat: Infinity }}
+                      >
+                        <div className="h-px w-10 bg-red-500/60" /> Featured Entity
+                      </motion.span>
+                      <h2 className="text-6xl lg:text-8xl font-black text-white uppercase tracking-tighter leading-none drop-shadow-[0_0_60px_rgba(255,0,0,0.2)]">
+                        Wewe<br />Gombel
+                      </h2>
+                      <p className="text-zinc-400 text-base lg:text-lg font-cinzel italic leading-relaxed max-w-xl">
                         &ldquo;Entitas pengasuh supranatural yang mendiami perbatasan antara perlindungan dan ancaman. Selama berabad-abad, ia menjadi penjaga moral masyarakat Jawa.&rdquo;
                       </p>
                     </div>
                   </AnimatedTitle>
-                  <div className="flex items-center gap-5 pt-4">
+                  <div className="flex items-center gap-5">
                     <Link href="/ghost-archive/wewe-gombel">
-                      <button className="px-8 py-4 bg-accent text-white font-black uppercase tracking-[0.4em] text-[10px] rounded-2xl hover:bg-red-700 transition-all shadow-[0_10px_30px_rgba(255,0,0,0.25)] active:scale-95">Buka Arsip</button>
+                      <button className="px-10 py-5 bg-accent text-white font-black uppercase tracking-[0.4em] text-[11px] rounded-2xl hover:bg-red-700 transition-all shadow-[0_10px_40px_rgba(255,0,0,0.3)] active:scale-95">Buka Arsip</button>
                     </Link>
                     <Link href="/ghost-archive">
-                      <button className="px-8 py-4 bg-white/[0.03] border border-white/10 text-zinc-400 font-black uppercase tracking-[0.4em] text-[10px] rounded-2xl hover:bg-white/[0.07] hover:border-white/20 transition-all">Semua Entitas</button>
+                      <button className="px-10 py-5 bg-white/[0.03] border border-white/10 text-zinc-400 font-black uppercase tracking-[0.4em] text-[11px] rounded-2xl hover:bg-white/[0.07] hover:border-white/20 transition-all">Semua Entitas</button>
                     </Link>
                   </div>
                 </div>
 
-                {/* Ghost image — 50% width, with zoom animation */}
+                {/* Ghost image — 42%, taller, with cinematic animation */}
                 <motion.div
-                  className="relative w-full lg:w-[42%] aspect-[3/4] max-h-[480px] rounded-3xl overflow-hidden border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.8)] shrink-0"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
+                  className="relative w-full lg:w-[42%] aspect-[2/3] max-h-[560px] rounded-3xl overflow-hidden border border-white/[0.08] shadow-[0_40px_80px_rgba(0,0,0,0.9),0_0_60px_rgba(255,0,0,0.1)] shrink-0 mt-10 lg:mt-0"
+                  initial={{ opacity: 0, x: 40 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.2, ease: "easeOut" }}
                 >
+                  {/* Slow breathe zoom */}
                   <motion.div
                     className="absolute inset-0"
-                    animate={{ scale: [1, 1.05, 1] }}
-                    transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+                    animate={{ scale: [1, 1.06, 1] }}
+                    transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
                   >
                     <Image src="/images/ghost-archive/WEWE GOMBEL/Wewe Gombel - hero.jpg" alt="Wewe Gombel" fill className="object-cover object-top" />
                   </motion.div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
-                  <div className="absolute inset-0 bg-gradient-to-l from-transparent to-red-950/20" />
+                  {/* Slow vertical drift */}
+                  <motion.div
+                    className="absolute inset-0"
+                    animate={{ y: [0, -8, 0] }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-black/30" />
+                  </motion.div>
+                  {/* Red vignette side */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-red-950/20 via-transparent to-transparent pointer-events-none" />
+                  {/* Pulse glow overlay */}
+                  <motion.div
+                    className="absolute inset-0 bg-red-900/[0.07] pointer-events-none"
+                    animate={{ opacity: [0, 0.4, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  />
                 </motion.div>
               </div>
             </section>
@@ -486,178 +510,204 @@ export default function DashboardPage() {
               4. PORTAL MISTERI — Unified feature grid, premium cards
           ══════════════════════════════════════════════════ */}
           <AnimatedSection className="mt-[72px]">
-            {/* Section Heading */}
-            <AnimatedTitle className="mb-10">
-              <div className="flex items-start gap-5">
-                <div className="w-1 h-16 bg-accent rounded-full shadow-[0_0_20px_rgba(255,0,0,0.6)] mt-1 shrink-0" />
-                <div>
-                  <p className="text-[10px] font-black text-accent uppercase tracking-[0.7em] mb-2 flex items-center gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse shadow-[0_0_8px_red] inline-block" />
-                    Akses Portal Misteri
-                  </p>
-                  <h2 className="text-4xl lg:text-5xl font-black text-white uppercase tracking-tighter leading-none drop-shadow-[0_0_40px_rgba(255,0,0,0.15)]">
-                    Portal Misteri
-                  </h2>
-                  <p className="text-sm text-zinc-500 font-medium mt-3 tracking-[0.2em] uppercase">
-                    Gerbang Ekosistem Dreadnoute
-                  </p>
-                </div>
-              </div>
-            </AnimatedTitle>
+            {/* Section Heading — centered, horror animated */}
+            <div className="mb-16 text-center relative">
+              {/* Atmospheric red mist behind heading */}
+              <motion.div
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[200px] bg-red-900/15 blur-[80px] rounded-full pointer-events-none"
+                animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <motion.p
+                className="text-[11px] font-black text-red-500 uppercase tracking-[0.8em] mb-4 flex items-center justify-center gap-4"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <motion.span
+                  className="w-8 h-px bg-red-500/60 block"
+                  animate={{ scaleX: [1, 1.5, 1], opacity: [0.4, 1, 0.4] }}
+                  transition={{ duration: 2.5, repeat: Infinity }}
+                />
+                <span className="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_12px_red]" />
+                Akses Portal Misteri
+                <span className="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_12px_red]" />
+                <motion.span
+                  className="w-8 h-px bg-red-500/60 block"
+                  animate={{ scaleX: [1, 1.5, 1], opacity: [0.4, 1, 0.4] }}
+                  transition={{ duration: 2.5, repeat: Infinity, delay: 0.5 }}
+                />
+              </motion.p>
+              <motion.h2
+                className="text-5xl lg:text-6xl font-black text-white uppercase tracking-tight leading-none relative z-10"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+              >
+                <motion.span
+                  className="relative inline-block"
+                  animate={{ textShadow: ["0 0 0px rgba(255,0,0,0)", "0 0 30px rgba(255,0,0,0.3)", "0 0 0px rgba(255,0,0,0)"] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  Portal Misteri
+                </motion.span>
+              </motion.h2>
+              <motion.p
+                className="text-sm text-zinc-500 font-medium mt-4 tracking-[0.3em] uppercase"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                Gerbang Ekosistem Dreadnoute
+              </motion.p>
+              <motion.div
+                className="mt-6 h-px mx-auto bg-gradient-to-r from-transparent via-red-500/40 to-transparent"
+                style={{ width: '60%' }}
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.3 }}
+              />
+            </div>
 
-            {/* Feature Grid — 3 columns, premium minimal cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-[18px]">
+            {/* Feature Grid — image thumbnails 3 cols × 4 rows */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {PORTAL_FEATURES.map((feat, idx) => (
                 <motion.div
-                  key={feat.href + idx}
-                  initial={{ opacity: 0, y: 24 }}
+                  key={feat.href}
+                  initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-30px" }}
-                  transition={{ delay: idx * 0.04, duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ delay: idx * 0.06, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
                 >
-                  {feat.isPlaceholder ? (
-                    /* Placeholder card */
-                    <div className="flex items-center gap-4 h-[92px] rounded-[20px] border border-dashed border-white/[0.04] bg-white/[0.01] px-[18px] py-4 opacity-25 cursor-default select-none">
-                      <div className="flex-shrink-0 w-10 h-10 rounded-xl border border-white/[0.06] bg-white/[0.01] flex items-center justify-center">
-                        <div className="w-3 h-3 rounded-full border border-white/20 border-dashed" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-[13px] font-semibold text-white/30">Segera Hadir</p>
-                        <p className="text-[11px] text-white/15 uppercase tracking-[0.14em] mt-0.5">Fitur mendatang</p>
-                      </div>
-                    </div>
-                  ) : (
-                    /* Real feature card */
-                    <Link href={feat.href} className="group block">
+                  <Link href={feat.href} className="group block">
+                    <motion.div
+                      className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-zinc-950 cursor-pointer"
+                      style={{ border: `1px solid rgba(255,255,255,0.06)` }}
+                      whileHover={{ y: -4, scale: 1.01 }}
+                      transition={{ duration: 0.25, ease: "easeOut" }}
+                    >
+                      {/* Background image */}
+                      <Image
+                        src={feat.image}
+                        alt={feat.name}
+                        fill
+                        className="object-cover brightness-[0.35] grayscale group-hover:brightness-[0.55] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                      />
+
+                      {/* Dark overlay gradient */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/10" />
+
+                      {/* Colored border glow on hover */}
                       <motion.div
-                        className={cn(
-                          "relative flex items-center gap-4 h-[92px] rounded-[20px] px-[18px] py-4 cursor-pointer overflow-hidden",
-                          "border border-white/[0.07] bg-[rgba(10,10,14,0.80)] backdrop-blur-sm",
-                          "transition-colors duration-[250ms] ease-out",
-                          feat.tier === 1
-                            ? "shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] hover:border-red-500/40 hover:bg-white/[0.04] hover:shadow-[0_14px_40px_rgba(120,0,0,0.2)]"
-                            : "hover:border-red-600/25 hover:bg-white/[0.03] hover:shadow-[0_12px_32px_rgba(80,0,0,0.15)]"
-                        )}
-                        whileHover={{ y: -3 }}
-                        transition={{ duration: 0.22, ease: "easeOut" }}
-                      >
-                        {/* Subtle gradient background */}
-                        <div
-                          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                          style={{ background: `radial-gradient(ellipse at left center, ${feat.iconColor}08 0%, transparent 70%)` }}
-                        />
+                        className="absolute inset-0 rounded-2xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-400"
+                        style={{ boxShadow: `inset 0 0 0 1.5px ${feat.borderColor}, 0 0 30px ${feat.glowColor}` }}
+                      />
 
-                        {/* Tier 1 indicator — subtle left glow bar */}
-                        {feat.tier === 1 && (
-                          <div
-                            className="absolute left-0 top-1/2 -translate-y-1/2 w-[2px] h-8 rounded-r-full opacity-40 group-hover:opacity-80 transition-opacity"
-                            style={{ background: feat.iconColor }}
-                          />
-                        )}
-
-                        {/* Icon wrapper */}
+                      {/* Top: icon + type badge */}
+                      <div className="absolute top-4 left-4 right-4 flex items-start justify-between z-10">
                         <div
-                          className="flex-shrink-0 w-10 h-10 rounded-xl border border-white/[0.08] bg-white/[0.03] flex items-center justify-center transition-all duration-[250ms] group-hover:border-opacity-40 group-hover:scale-105"
+                          className="w-10 h-10 rounded-xl flex items-center justify-center border border-white/10 bg-black/60 backdrop-blur-md transition-all duration-300 group-hover:scale-110"
                           style={{ color: feat.iconColor }}
                         >
-                          {feat.icon && <feat.icon size={19} strokeWidth={1.8} />}
+                          <feat.icon size={18} strokeWidth={1.8} />
                         </div>
+                        {feat.tier === 1 && (
+                          <span className="text-[8px] font-black uppercase tracking-[0.3em] px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-md border border-white/10" style={{ color: feat.iconColor }}>
+                            Featured
+                          </span>
+                        )}
+                      </div>
 
-                        {/* Text block */}
-                        <div className="flex-1 min-w-0">
-                          <p className={cn(
-                            "text-[15px] font-semibold text-white/85 transition-colors duration-[250ms] group-hover:text-white leading-tight",
-                            feat.tier === 1 && "text-white/95"
-                          )}>
-                            {feat.name}
-                          </p>
-                          <p className="text-[11px] text-white/30 uppercase tracking-[0.14em] mt-0.5 transition-colors duration-[250ms] group-hover:text-white/50 truncate">
-                            {feat.meta}
-                          </p>
-                        </div>
-
-                        {/* Right chevron */}
-                        <motion.div
-                          className="flex-shrink-0 text-white/25 group-hover:text-white/60 transition-colors duration-[250ms]"
-                          initial={false}
-                          animate={{ x: 0 }}
-                          whileHover={{ x: 3 }}
+                      {/* Bottom: name + meta */}
+                      <div className="absolute bottom-0 left-0 right-0 p-5 z-10">
+                        <h3
+                          className="text-lg font-black uppercase tracking-tight text-white group-hover:text-white transition-all duration-300 leading-tight mb-1"
+                          style={{ textShadow: '0 2px 12px rgba(0,0,0,0.8)' }}
                         >
-                          <ChevronRight size={16} strokeWidth={2} />
-                        </motion.div>
+                          {feat.name}
+                        </h3>
+                        <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-500 group-hover:text-zinc-300 transition-colors duration-300">{feat.meta}</p>
+                      </div>
 
-                        {/* Bottom shine line on hover */}
-                        <div className="absolute bottom-0 left-0 h-[1.5px] w-0 group-hover:w-full transition-all duration-500 rounded-full" style={{ background: `linear-gradient(to right, transparent, ${feat.iconColor}60, transparent)` }} />
-                      </motion.div>
-                    </Link>
-                  )}
+                      {/* Bottom accent line (per-feature color) */}
+                      <div
+                        className="absolute bottom-0 left-0 h-[2.5px] w-0 group-hover:w-full transition-all duration-600 rounded-full"
+                        style={{ background: `linear-gradient(to right, ${feat.iconColor}, ${feat.iconColor}80)`, boxShadow: `0 0 12px ${feat.iconColor}` }}
+                      />
+
+                      {/* Subtle color vignette bottom */}
+                      <motion.div
+                        className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                        style={{ background: `linear-gradient(to top, ${feat.glowColor}, transparent)` }}
+                      />
+                    </motion.div>
+                  </Link>
                 </motion.div>
               ))}
             </div>
-          </AnimatedSection>
 
-          {/* ══════════════════════════════════════════════════
-              5. G-COLLECTOR PREVIEW — Bigger, more prominent
-          ══════════════════════════════════════════════════ */}
-          <AnimatedSection className="mt-[72px]">
-            <section className="p-10 lg:p-16 rounded-[2.5rem] bg-[linear-gradient(145deg,rgba(12,6,3,0.9),rgba(0,0,0,1))] border border-white/[0.06] relative overflow-hidden shadow-2xl">
-              <div className="absolute top-0 right-0 w-96 h-96 bg-accent/10 blur-[120px] -mr-20 -mt-20 pointer-events-none" />
-              <div className="absolute bottom-0 left-0 w-60 h-60 bg-gold/5 blur-[80px] pointer-events-none" />
+            {/* G-COLLECTOR — Premium centered card */}
+            <motion.div
+              className="mt-5 flex justify-center"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+            >
+              <Link href="/collector" className="group block w-full max-w-lg">
+                <motion.div
+                  className="relative aspect-[16/7] rounded-3xl overflow-hidden bg-zinc-950 cursor-pointer"
+                  style={{ border: '1px solid rgba(197,160,89,0.2)', boxShadow: '0 0 40px rgba(197,160,89,0.08)' }}
+                  whileHover={{ y: -4, scale: 1.01 }}
+                  transition={{ duration: 0.28, ease: "easeOut" }}
+                >
+                  <Image
+                    src="/images/thumbnail-fitur-dashboard/G-collector.png"
+                    alt="G-Collector"
+                    fill
+                    className="object-cover brightness-[0.4] group-hover:brightness-[0.6] transition-all duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-black/20" />
 
-              <div className="relative z-10">
-                {/* Header */}
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-10">
-                  <div className="flex items-center gap-5">
-                    <div className="w-16 h-16 rounded-2xl bg-gold/10 border border-gold/20 flex items-center justify-center text-gold shadow-[0_0_25px_rgba(197,160,89,0.25)]">
-                      <Trophy size={28} />
+                  {/* Gold glow border on hover */}
+                  <motion.div
+                    className="absolute inset-0 rounded-3xl pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-400"
+                    style={{ boxShadow: 'inset 0 0 0 1.5px rgba(197,160,89,0.5), 0 0 50px rgba(197,160,89,0.15)' }}
+                  />
+
+                  {/* Pulsing gold atmosphere */}
+                  <motion.div
+                    className="absolute inset-0 pointer-events-none"
+                    animate={{ opacity: [0.05, 0.15, 0.05] }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                    style={{ background: 'radial-gradient(ellipse at center, rgba(197,160,89,0.2) 0%, transparent 70%)' }}
+                  />
+
+                  <div className="absolute inset-0 flex items-center px-10 gap-6 z-10">
+                    <div className="w-14 h-14 rounded-2xl bg-black/70 border border-gold/30 flex items-center justify-center text-gold shadow-[0_0_20px_rgba(197,160,89,0.2)] shrink-0 group-hover:border-gold/60 transition-all">
+                      <Gem size={26} />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-black text-white uppercase tracking-tight">Koleksi Terdeteksi</h3>
-                      <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mt-1">G-Collector Progression System</p>
+                      <p className="text-[10px] font-black text-gold uppercase tracking-[0.5em] mb-1 opacity-80">Premium Feature</p>
+                      <h3 className="text-2xl font-black text-white uppercase tracking-tight leading-none mb-1">G-Collector</h3>
+                      <p className="text-[12px] text-zinc-400 uppercase tracking-[0.15em]">Koleksi kartu — sistem progres eksklusif</p>
+                    </div>
+                    <div className="ml-auto flex items-center gap-3">
+                      <span className="text-[9px] font-black text-gold/70 uppercase tracking-[0.4em] hidden lg:block">Buka Koleksi</span>
+                      <div className="w-10 h-10 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center text-gold group-hover:bg-gold/20 transition-all">
+                        <ChevronRight size={18} />
+                      </div>
                     </div>
                   </div>
-                  <Link href="/collector">
-                    <button className="px-10 py-5 bg-gold text-black font-black uppercase tracking-[0.4em] text-[10px] rounded-xl active:scale-95 transition-all shadow-[0_10px_25px_rgba(197,160,89,0.25)] hover:brightness-110">
-                      Buka Koleksi
-                    </button>
-                  </Link>
-                </div>
 
-                {/* Progress bar */}
-                <div className="mb-10">
-                  <div className="flex justify-between text-xs font-black text-zinc-400 uppercase tracking-wider mb-3">
-                    <span>Capture Progress</span>
-                    <span className="text-accent">12 / 87 Entitas</span>
-                  </div>
-                  <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                    <motion.div
-                      className="h-full bg-gradient-to-r from-accent to-red-700 rounded-full shadow-[0_0_12px_red]"
-                      initial={{ width: 0 }}
-                      whileInView={{ width: "14%" }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 1.5, ease: "easeOut" }}
-                    />
-                  </div>
-                </div>
-
-                {/* Artifact previews — bigger */}
-                <div className="grid grid-cols-4 md:grid-cols-8 gap-4">
-                  {["/assets/images/nyi-roro-kidul.jpg", "/assets/images/kuntilanak-peek.png", "/assets/images/suster-ngesot.jpg", "/assets/images/nenek-gayung.jpg", "/assets/images/nyi-roro-kidul.jpg", "/assets/images/kuntilanak-peek.png", "/assets/images/suster-ngesot.jpg", "/assets/images/nenek-gayung.jpg"].map((src, idx) => (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: idx * 0.05 }}
-                      className="aspect-[3/4] rounded-xl bg-zinc-950 border border-white/[0.06] relative group cursor-pointer hover:border-accent/30 transition-all overflow-hidden"
-                    >
-                      <Image src={src} alt="Artifact" fill className="object-cover grayscale group-hover:grayscale-0 opacity-40 group-hover:opacity-90 transition-all duration-500" />
-                      <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-all duration-500" />
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </section>
+                  <div className="absolute bottom-0 left-0 h-[2px] w-0 group-hover:w-full transition-all duration-600" style={{ background: 'linear-gradient(to right, #c5a059, #c5a05980)', boxShadow: '0 0 12px rgba(197,160,89,0.6)' }} />
+                </motion.div>
+              </Link>
+            </motion.div>
           </AnimatedSection>
 
           {/* ══════════════════════════════════════════════════
