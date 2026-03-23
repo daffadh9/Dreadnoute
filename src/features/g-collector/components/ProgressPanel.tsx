@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { Trophy, Clock, BookOpen, Star } from 'lucide-react'
 
 interface ProgressData {
   collected: number
@@ -8,10 +9,6 @@ interface ProgressData {
   countdown: number
   chapter: string
   rank: string
-}
-
-interface ProgressPanelProps {
-  data?: ProgressData
 }
 
 const defaultData: ProgressData = {
@@ -22,123 +19,100 @@ const defaultData: ProgressData = {
   rank: 'Seeker I',
 }
 
-const statVariants = {
-  hidden: { opacity: 0, y: 12 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, delay: i * 0.1 },
-  }),
-}
-
-export default function ProgressPanel({ data = defaultData }: ProgressPanelProps) {
+export default function ProgressPanel({ data = defaultData }: { data?: ProgressData }) {
   const progress = (data.collected / data.total) * 100
 
   return (
-    <section className="w-full">
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="relative w-full rounded-2xl border border-white/5 bg-[#0f0f11] overflow-hidden p-6 md:p-8"
-      >
-        {/* Subtle red glow top-left */}
-        <div className="absolute -top-12 -left-12 w-48 h-48 rounded-full bg-red-900/15 blur-[60px] pointer-events-none" />
+    <section className="relative w-full overflow-hidden rounded-[28px] border border-red-950/35 bg-[linear-gradient(145deg,rgba(14,7,7,0.9)_0%,rgba(6,6,8,0.96)_100%)] p-5 shadow-[0_22px_52px_rgba(0,0,0,0.5)] md:rounded-[32px] md:p-8">
+      <div className="pointer-events-none absolute right-0 top-0 h-56 w-56 bg-red-900/20 blur-[110px]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent" />
 
-        {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h2 className="font-cinzel text-base font-semibold text-white/90 tracking-wider">
-              Misi Penyelamatan
-            </h2>
-            <p className="text-xs text-white/30 mt-0.5 tracking-wide">Nekrovia — {data.chapter}</p>
-          </div>
-          <span className="px-3 py-1 rounded-full border border-red-900/40 bg-red-950/20 text-red-400 text-xs font-medium tracking-widest uppercase">
-            {data.rank}
-          </span>
-        </div>
-
-        {/* Legion Progress Bar */}
-        <div className="mb-8">
-          <div className="flex items-end justify-between mb-2">
-            <span className="text-xs text-white/40 tracking-widest uppercase">Legions Collected</span>
-            <div className="flex items-baseline gap-1">
-              <span className="font-cinzel text-3xl font-bold text-white">{data.collected}</span>
-              <span className="text-white/30 text-sm">/ {data.total}</span>
+      <div className="relative z-10 flex flex-col gap-7 md:flex-row md:flex-wrap md:items-start md:justify-between xl:flex-nowrap">
+        {/* Left — main progress */}
+        <div className="min-w-0 flex-[1_1_480px]">
+          {/* Header */}
+          <div className="flex items-center gap-4">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-gold/25 bg-gold/10 text-gold shadow-[0_0_18px_rgba(197,160,89,0.2)]">
+              <Trophy size={18} />
+            </div>
+            <div>
+              <h3 className="text-xl font-black uppercase tracking-tight text-white md:text-2xl">
+                Misi Penyelamatan
+              </h3>
+              <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.22em] text-zinc-500">
+                Nekrovia — {data.chapter}
+              </p>
             </div>
           </div>
 
-          {/* Bar track */}
-          <div className="relative h-2 w-full rounded-full bg-white/5 overflow-hidden">
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: `${progress}%` }}
-              transition={{ duration: 1.2, ease: 'easeOut', delay: 0.3 }}
-              className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-red-800 to-red-500"
-            />
-            {/* Shimmer */}
-            <motion.div
-              initial={{ x: '-100%' }}
-              animate={{ x: '400%' }}
-              transition={{ duration: 2.5, delay: 1.5, repeat: Infinity, repeatDelay: 4 }}
-              className="absolute inset-y-0 w-16 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"
-            />
+          {/* Progress bar */}
+          <div className="mt-6 space-y-3">
+            <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-[0.2em] text-zinc-300">
+              <span>Legions Collected</span>
+              <span className="text-accent">
+                {data.collected} / {data.total} Entitas
+              </span>
+            </div>
+            <div className="h-2.5 w-full overflow-hidden rounded-full border border-red-950/50 bg-black/40">
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: `${progress}%` }}
+                transition={{ duration: 1.2, ease: 'easeOut' }}
+                className="h-full rounded-full bg-[linear-gradient(90deg,#ff0000,#ff4d4d)] shadow-[0_0_14px_rgba(255,0,0,0.6)]"
+              />
+            </div>
+            <div className="flex justify-between text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-600">
+              <span>{progress.toFixed(1)}% selesai</span>
+              <span>{data.total - data.collected} tersisa</span>
+            </div>
           </div>
 
-          <div className="flex justify-between mt-1.5">
-            <span className="text-xs text-white/20">{progress.toFixed(1)}% selesai</span>
-            <span className="text-xs text-white/20">{data.total - data.collected} tersisa</span>
-          </div>
-        </div>
-
-        {/* Stats Grid */}
-        <div className="grid grid-cols-3 gap-3">
-          {/* Countdown */}
+          {/* Urgency alert */}
           <motion.div
-            custom={0}
-            variants={statVariants}
-            initial="hidden"
-            animate="visible"
-            className="relative rounded-xl border border-white/5 bg-white/[0.03] p-4 text-center overflow-hidden group"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="mt-5 flex items-center gap-2 rounded-xl border border-red-950/40 bg-red-950/20 px-4 py-2.5"
           >
-            <div className="absolute inset-0 bg-red-950/0 group-hover:bg-red-950/20 transition-colors duration-300 rounded-xl" />
-            <div className="relative">
-              <span className="block text-xs text-white/30 uppercase tracking-widest mb-2">Countdown</span>
-              <span className="block font-cinzel text-2xl font-bold text-red-400">{data.countdown}</span>
-              <span className="block text-xs text-white/25 mt-1">hari tersisa</span>
-            </div>
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent flex-shrink-0" />
+            <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-red-400/80">
+              Ritual kebangkitan berjalan. Kumpulkan{' '}
+              <span className="text-accent">{data.total - data.collected} Legion</span> lagi sebelum terlambat.
+            </p>
           </motion.div>
+        </div>
+
+        {/* Right — stat cards */}
+        <div className="flex w-full flex-wrap gap-3 md:w-auto md:min-w-[200px] md:flex-col md:items-end">
+          {/* Countdown */}
+          <div className="flex-1 rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-3 md:w-full md:flex-none md:text-right">
+            <div className="flex items-center gap-2 md:justify-end">
+              <Clock size={12} className="text-zinc-500" />
+              <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-zinc-500">Countdown</p>
+            </div>
+            <p className="mt-1 text-2xl font-black uppercase tracking-[0.12em] text-accent">{data.countdown}</p>
+            <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-zinc-600">hari tersisa</p>
+          </div>
+
+          {/* Rank */}
+          <div className="flex-1 rounded-xl border border-gold/20 bg-gold/5 px-4 py-3 md:w-full md:flex-none md:text-right">
+            <div className="flex items-center gap-2 md:justify-end">
+              <Star size={12} className="text-gold" />
+              <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-zinc-500">Collector Rank</p>
+            </div>
+            <p className="mt-1 text-lg font-black uppercase tracking-[0.12em] text-gold">{data.rank}</p>
+          </div>
 
           {/* Chapter */}
-          <motion.div
-            custom={1}
-            variants={statVariants}
-            initial="hidden"
-            animate="visible"
-            className="relative rounded-xl border border-white/5 bg-white/[0.03] p-4 text-center overflow-hidden group col-span-2"
-          >
-            <div className="absolute inset-0 bg-white/0 group-hover:bg-white/[0.02] transition-colors duration-300 rounded-xl" />
-            <div className="relative">
-              <span className="block text-xs text-white/30 uppercase tracking-widest mb-2">Chapter Aktif</span>
-              <span className="block font-cinzel text-sm font-semibold text-white/80 leading-snug">{data.chapter}</span>
-              <span className="block text-xs text-white/25 mt-1">Story Progress</span>
+          <div className="w-full rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-3 md:text-right">
+            <div className="flex items-center gap-2 md:justify-end">
+              <BookOpen size={12} className="text-zinc-500" />
+              <p className="text-[9px] font-bold uppercase tracking-[0.22em] text-zinc-500">Chapter Aktif</p>
             </div>
-          </motion.div>
+            <p className="mt-1 text-[11px] font-black uppercase tracking-[0.1em] text-white">{data.chapter}</p>
+          </div>
         </div>
-
-        {/* Urgency hint */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="mt-4 flex items-center gap-2 px-3 py-2 rounded-lg bg-red-950/20 border border-red-900/20"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse flex-shrink-0" />
-          <span className="text-xs text-red-400/70">
-            Ritual kebangkitan berjalan. Kumpulkan <strong className="text-red-400">{data.total - data.collected} Legion</strong> lagi sebelum terlambat.
-          </span>
-        </motion.div>
-      </motion.div>
+      </div>
     </section>
   )
 }

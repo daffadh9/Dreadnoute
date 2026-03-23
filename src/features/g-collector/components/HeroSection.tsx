@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { Flame, Shield } from 'lucide-react'
 
 interface HeroSectionProps {
   isNewUser?: boolean
@@ -9,103 +10,109 @@ interface HeroSectionProps {
 
 export default function HeroSection({ isNewUser = true }: HeroSectionProps) {
   return (
-    <section className="relative w-full min-h-[420px] flex items-center justify-center overflow-hidden rounded-2xl">
-      {/* Background layers */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#1a0000] via-[#0B0B0D] to-[#0B0B0D]" />
+    <section className="relative w-full overflow-hidden rounded-[28px] border border-red-950/40 bg-[linear-gradient(145deg,rgba(20,4,4,0.97)_0%,rgba(6,6,8,1)_100%)] shadow-[0_34px_80px_-24px_rgba(180,0,0,0.35)] md:rounded-[32px]">
+      {/* Radial glows */}
+      <div className="pointer-events-none absolute right-0 top-0 h-72 w-72 bg-red-900/20 blur-[120px]" />
+      <div className="pointer-events-none absolute bottom-0 left-0 h-56 w-56 bg-purple-900/10 blur-[100px]" />
 
-      {/* Red glow orb — top center */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full bg-red-900/20 blur-[120px] pointer-events-none" />
-
-      {/* Altar glow — bottom */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[150px] rounded-full bg-red-700/10 blur-[80px] pointer-events-none" />
-
-      {/* Thin ritual circle decoration */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[340px] h-[340px] rounded-full border border-red-900/20" />
-        <div className="absolute w-[260px] h-[260px] rounded-full border border-red-900/10" />
-      </div>
-
-      {/* Grain overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.03] rounded-2xl"
-        style={{ backgroundImage: 'url(/assets/grain.png)', backgroundSize: '200px' }}
-      />
-
-      {/* Border */}
-      <div className="absolute inset-0 rounded-2xl border border-white/5 pointer-events-none" />
+      {/* Top shimmer line */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-500/70 to-transparent" />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center text-center px-6 py-16 gap-6">
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-red-900/40 bg-red-950/30 text-red-400/80 text-xs tracking-widest uppercase"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-          Nekrovia Realm — 105 Legions
-        </motion.div>
-
-        {/* Title */}
-        <motion.h1
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="font-cinzel text-5xl md:text-6xl font-bold tracking-wider text-white"
-          style={{ textShadow: '0 0 60px rgba(255,0,0,0.25), 0 0 120px rgba(255,0,0,0.1)' }}
-        >
-          G-Collector
-        </motion.h1>
-
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="max-w-md text-white/50 text-sm md:text-base leading-relaxed font-light"
-        >
-          Kumpulkan <span className="text-red-400 font-medium">105 Legions</span> sebelum ritual kebangkitan selesai.
-          Waktu terus berjalan. Apakah kamu siap menjadi Vessel-nya?
-        </motion.p>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.35 }}
-        >
-          <Link
-            href="/g-collector/ritual"
-            className="group relative inline-flex items-center gap-3 px-8 py-3.5 rounded-xl font-cinzel text-sm tracking-widest uppercase text-white overflow-hidden transition-all duration-300 hover:scale-105"
+      <div className="relative z-10 flex flex-col gap-5 p-6 md:flex-row md:items-center md:justify-between md:p-10 lg:p-12">
+        {/* Left */}
+        <div className="flex flex-col gap-5 md:max-w-xl">
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex w-fit items-center gap-2 rounded-full border border-red-900/50 bg-red-950/30 px-3 py-1.5"
           >
-            {/* Button background */}
-            <span className="absolute inset-0 bg-gradient-to-r from-red-950 to-red-900 rounded-xl" />
-            <span className="absolute inset-0 rounded-xl border border-red-700/50 group-hover:border-red-500/70 transition-colors duration-300" />
-            <span className="absolute inset-0 rounded-xl bg-red-600/0 group-hover:bg-red-600/10 transition-all duration-300" />
-            {/* Glow on hover */}
-            <span className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-md bg-red-700/30" />
-
-            <span className="relative z-10 flex items-center gap-2.5">
-              {/* Ritual icon */}
-              <svg className="w-4 h-4 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1.5M12 19.5V21M4.219 4.219l1.061 1.061M17.72 17.72l1.061 1.061M3 12h1.5M19.5 12H21M4.219 19.781l1.061-1.061M17.72 6.28l1.061-1.061" />
-                <circle cx="12" cy="12" r="4" />
-              </svg>
-              {isNewUser ? 'Mulai Misi' : 'Lanjutkan Ritual'}
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-500" />
+            <span className="text-[9px] font-black uppercase tracking-[0.4em] text-red-400">
+              Nekrovia Realm — 105 Legions
             </span>
-          </Link>
-        </motion.div>
+          </motion.div>
 
-        {/* Decorative bottom text */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.6 }}
-          className="text-xs text-white/20 tracking-[0.3em] uppercase mt-2"
+          {/* Title */}
+          <motion.h1
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.08 }}
+            className="font-horror text-5xl tracking-[0.12em] text-white drop-shadow-[0_0_40px_rgba(255,0,0,0.25)] md:text-6xl lg:text-7xl"
+          >
+            G-COLLECTOR
+          </motion.h1>
+
+          {/* Subtitle */}
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.16 }}
+            className="max-w-sm text-[13px] font-semibold leading-relaxed text-zinc-400"
+          >
+            Kumpulkan <span className="font-black text-accent">105 Legions</span> sebelum ritual kebangkitan selesai.
+            Waktu terus berjalan. Apakah kamu siap menjadi Vessel-nya?
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.26 }}
+            className="flex flex-wrap items-center gap-3"
+          >
+            <Link href="/g-collector/ritual">
+              <button className="flex items-center gap-2 rounded-xl border border-red-700/40 bg-accent px-6 py-3 text-[10px] font-black uppercase tracking-[0.3em] text-white shadow-[0_0_20px_rgba(255,0,0,0.35)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(255,0,0,0.4)] active:scale-95">
+                <Flame size={14} />
+                {isNewUser ? 'Mulai Misi' : 'Lanjutkan Ritual'}
+              </button>
+            </Link>
+            <Link href="/g-collector/collection">
+              <button className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-6 py-3 text-[10px] font-black uppercase tracking-[0.3em] text-zinc-300 transition-all duration-300 hover:-translate-y-0.5 hover:border-red-500/40 hover:text-white active:scale-95">
+                <Shield size={14} />
+                Lihat Koleksi
+              </button>
+            </Link>
+          </motion.div>
+        </div>
+
+        {/* Right — ritual circle */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="hidden md:flex items-center justify-center"
         >
+          <div className="relative flex h-52 w-52 items-center justify-center lg:h-60 lg:w-60">
+            <div className="absolute inset-0 rounded-full border border-red-900/30" />
+            <div className="absolute inset-4 rounded-full border border-red-900/20" />
+            <div className="absolute inset-8 rounded-full border border-red-900/15" />
+            <div className="flex h-28 w-28 items-center justify-center rounded-full border border-red-800/40 bg-red-950/30 shadow-[0_0_60px_rgba(180,0,0,0.25)]">
+              <span className="font-horror text-3xl tracking-widest text-red-400/80 drop-shadow-[0_0_20px_rgba(255,0,0,0.5)]">
+                105
+              </span>
+            </div>
+            {[0, 72, 144, 216, 288].map((deg, i) => (
+              <div
+                key={i}
+                className="absolute h-2 w-2 rounded-full bg-red-600/50"
+                style={{
+                  top: `calc(50% + ${Math.sin((deg * Math.PI) / 180) * 94}px - 4px)`,
+                  left: `calc(50% + ${Math.cos((deg * Math.PI) / 180) * 94}px - 4px)`,
+                }}
+              />
+            ))}
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Bottom bar */}
+      <div className="relative z-10 border-t border-white/[0.04] px-6 py-3 md:px-10">
+        <p className="text-[9px] font-black uppercase tracking-[0.45em] text-zinc-700">
           — Seal the Covenant. Claim the Darkness. —
-        </motion.p>
+        </p>
       </div>
     </section>
   )

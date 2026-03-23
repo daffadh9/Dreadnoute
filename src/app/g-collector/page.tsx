@@ -10,26 +10,28 @@ export const metadata = {
 
 export default function GCollectorPage() {
   return (
-    <main className="min-h-screen bg-[#0B0B0D]">
-      {/* Page container */}
-      <div className="mx-auto max-w-3xl px-4 py-8 md:py-12 space-y-6">
-        {/* 1 — Hero / Ritual Gateway */}
+    <div className="min-h-screen pb-40 bg-[#020202]">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col gap-6 pt-6 md:gap-8 md:pt-8">
+
+        {/* 1 — Hero */}
         <HeroSection isNewUser={true} />
 
         {/* 2 — Mission Progress */}
         <ProgressPanel />
 
-        {/* 3 — Quick Actions (2x2 grid) */}
+        {/* 3 — Quick Actions */}
         <QuickActions />
 
-        {/* 4 — Featured Entity (Daily Omen) */}
+        {/* 4 — Featured Entity */}
         <FeaturedEntity />
 
-        {/* Footer note */}
-        <p className="text-center text-xs text-white/15 tracking-[0.25em] uppercase pb-4">
-          — Nekrovia Realm · Cycle of 40 Seals —
-        </p>
+        {/* Footer */}
+        <footer className="mt-8 flex flex-col items-center gap-2 border-t border-white/5 py-10 text-center">
+          <p className="text-[9px] font-black uppercase tracking-[0.5em] text-zinc-800">
+            — Nekrovia Realm · Cycle of 40 Seals —
+          </p>
+        </footer>
       </div>
-    </main>
+    </div>
   )
 }
