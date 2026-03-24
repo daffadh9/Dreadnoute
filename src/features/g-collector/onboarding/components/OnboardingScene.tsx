@@ -1,46 +1,102 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
+import Image from 'next/image'
+import { SCENE_CONFIGS } from '../data/sceneConfig'
 import FogLayer from './FogLayer'
 import ParticleLayer from './ParticleLayer'
 import RitualSigilLayer from './RitualSigilLayer'
 
-export default function OnboardingScene() {
+interface OnboardingSceneProps {
+  step: number
+}
+
+export default function OnboardingScene({ step }: OnboardingSceneProps) {
+  const config = SCENE_CONFIGS[step] ?? SCENE_CONFIGS[0]
+
   return (
     <div className="absolute inset-0 overflow-hidden">
-      <div className="absolute inset-0 bg-[linear-gradient(124deg,#010101_0%,#060304_38%,#0f0708_64%,#030202_100%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_24%_70%,rgba(116,13,13,0.27)_0%,rgba(19,8,8,0.42)_36%,rgba(4,3,3,0.95)_100%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_76%_16%,rgba(97,26,26,0.18)_0%,rgba(11,7,7,0)_48%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(36,9,9,0.72)_0%,rgba(10,5,5,0.62)_34%,rgba(5,4,4,0.95)_70%,rgba(2,2,2,1)_100%)]" />
+      {/* ── Background Image — cross-fades per scene ── */}
+      <AnimatePresence mode="sync">
+        <motion.div
+          key={`scene-bg-${step}`}
+          className="absolute inset-0"
+          initial={{ opacity: 0, scale: 1.04 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {/* Slow ambient parallax drift on background */}
+          <motion.div
+            className="absolute inset-[-5%] h-[110%] w-[110%]"
+            animate={{ x: [0, -22, 0], y: [0, -10, 0] }}
+            transition={{ duration: 44, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <Image
+              src={config.bg}
+              alt=""
+              fill
+              priority={step === 0}
+              className="object-cover object-center"
+              style={{
+                filter: `brightness(${config.bgBrightness}) saturate(${config.bgSaturation}) contrast(1.04)`,
+              }}
+            />
+          </motion.div>
+        </motion.div>
+      </AnimatePresence>
 
+      {/* ── Base dark color grade ── */}
+      <div className="absolute inset-0 bg-[linear-gradient(154deg,rgba(2,1,1,0.52)_0%,rgba(6,3,3,0.24)_48%,rgba(3,2,2,0.62)_100%)]" />
+
+      {/* ── Cold cinematic tone — blue-gray tint ── */}
+      <div className="absolute inset-0 bg-[rgba(5,7,16,0.16)] mix-blend-color" />
+
+      {/* ── Red void glow — left-bottom (where Veyira lives) ── */}
+      <motion.div
+        className="absolute -bottom-[8%] -left-[4%] h-[68%] w-[60%] rounded-[50%] bg-[radial-gradient(circle,rgba(136,16,16,0.26)_0%,rgba(12,6,6,0)_72%)] blur-[88px]"
+        animate={{ x: [0, 38, 0], y: [0, -12, 0], opacity: [0.26, 0.44, 0.26] }}
+        transition={{ duration: 28, repeat: Infinity, ease: 'easeInOut' }}
+      />
+
+      {/* ── Red void glow — top-right ── */}
+      <motion.div
+        className="absolute right-[-18%] top-[2%] h-[52%] w-[56%] rounded-[50%] bg-[radial-gradient(circle,rgba(88,22,22,0.18)_0%,rgba(8,8,8,0)_68%)] blur-[76px]"
+        animate={{ x: [0, -28, 0], opacity: [0.16, 0.3, 0.16] }}
+        transition={{ duration: 24, repeat: Infinity, ease: 'easeInOut' }}
+      />
+
+      {/* ── Background fog layer ── */}
       <FogLayer />
-      <RitualSigilLayer />
+
+      {/* ── Ritual sigils — only in later scenes ── */}
+      {config.sigilVisible && <RitualSigilLayer />}
+
+      {/* ── Floating ash particles ── */}
       <ParticleLayer />
 
-      <motion.div
-        className="absolute left-[6%] top-[44%] h-[35%] w-[48%] rounded-[50%] bg-[radial-gradient(circle,rgba(156,23,23,0.21)_0%,rgba(19,8,8,0)_70%)] blur-[70px]"
-        animate={{ x: [0, 34, 0], opacity: [0.22, 0.4, 0.22] }}
-        transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className="absolute right-[-14%] top-[8%] h-[56%] w-[64%] rounded-[50%] bg-[radial-gradient(circle,rgba(94,41,31,0.17)_0%,rgba(8,8,8,0)_70%)] blur-[64px]"
-        animate={{ x: [0, -28, 0], opacity: [0.18, 0.32, 0.18] }}
-        transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-      />
+      {/* ── Edge vignette — cinematic framing ── */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_85%_90%_at_50%_50%,transparent_28%,rgba(0,0,0,0.82)_100%)]" />
 
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_24%,rgba(0,0,0,0.86)_100%)]" />
-      <div className="absolute inset-x-0 top-0 h-52 bg-gradient-to-b from-black/90 to-transparent" />
-      <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-black/92 to-transparent" />
+      {/* ── Top bar fade ── */}
+      <div className="absolute inset-x-0 top-0 h-52 bg-gradient-to-b from-black/92 to-transparent" />
 
+      {/* ── Bottom ground fade ── */}
+      <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-black/96 to-transparent" />
+
+      {/* ── Left column fade — Veyira area bleeds into void ── */}
+      <div className="absolute inset-y-0 left-0 w-[22%] bg-gradient-to-r from-black/72 to-transparent" />
+
+      {/* ── Film grain & scanlines ── */}
       <motion.div
-        className="absolute inset-0 opacity-[0.06]"
+        className="pointer-events-none absolute inset-0"
         style={{
           backgroundImage:
-            'repeating-linear-gradient(0deg, rgba(255,255,255,0.26) 0px, rgba(255,255,255,0.26) 1px, transparent 1px, transparent 3px)',
+            'repeating-linear-gradient(0deg, rgba(255,255,255,0.22) 0px, rgba(255,255,255,0.22) 1px, transparent 1px, transparent 3px)',
           backgroundSize: '100% 3px',
         }}
-        animate={{ opacity: [0.03, 0.08, 0.03] }}
-        transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut' }}
+        animate={{ opacity: [0.022, 0.054, 0.022] }}
+        transition={{ duration: 5.8, repeat: Infinity, ease: 'easeInOut' }}
       />
     </div>
   )

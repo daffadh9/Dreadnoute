@@ -2,23 +2,37 @@
 
 import { motion } from 'framer-motion'
 
+// Background fog — sits BEHIND Veyira, part of the environment
+// This layer establishes the atmospheric depth of the scene
 export default function FogLayer() {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+      {/* Left-bottom deep fog mass */}
       <motion.div
-        className="absolute -left-[30%] -bottom-[32%] h-[84%] w-[95%] rounded-[50%] bg-[radial-gradient(circle,rgba(112,14,14,0.25)_0%,rgba(14,7,7,0)_72%)] blur-[62px]"
-        animate={{ x: [0, 58, 0], y: [0, -16, 0], opacity: [0.4, 0.7, 0.4] }}
-        transition={{ duration: 24, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute -bottom-[28%] -left-[24%] h-[80%] w-[90%] rounded-[50%] bg-[radial-gradient(circle,rgba(108,12,12,0.22)_0%,rgba(12,6,6,0)_70%)] blur-[66px]"
+        animate={{ x: [0, 52, 0], y: [0, -14, 0], opacity: [0.38, 0.62, 0.38] }}
+        transition={{ duration: 26, repeat: Infinity, ease: 'easeInOut' }}
       />
+
+      {/* Right-bottom secondary fog mass */}
       <motion.div
-        className="absolute -right-[20%] -bottom-[16%] h-[62%] w-[78%] rounded-[50%] bg-[radial-gradient(circle,rgba(83,41,31,0.24)_0%,rgba(11,8,8,0)_78%)] blur-[54px]"
-        animate={{ x: [0, -44, 0], y: [0, 18, 0], opacity: [0.22, 0.5, 0.22] }}
-        transition={{ duration: 28, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute -bottom-[12%] -right-[18%] h-[58%] w-[72%] rounded-[50%] bg-[radial-gradient(circle,rgba(76,36,28,0.22)_0%,rgba(10,7,7,0)_76%)] blur-[58px]"
+        animate={{ x: [0, -38, 0], y: [0, 16, 0], opacity: [0.2, 0.44, 0.2] }}
+        transition={{ duration: 30, repeat: Infinity, ease: 'easeInOut' }}
       />
+
+      {/* Upper haze — soft atmospheric depth */}
       <motion.div
-        className="absolute -left-[12%] top-[8%] h-[42%] w-[58%] rounded-[50%] bg-[radial-gradient(circle,rgba(121,17,17,0.18)_0%,rgba(10,6,6,0)_70%)] blur-[46px]"
-        animate={{ x: [0, 32, 0], y: [0, -12, 0], opacity: [0.16, 0.38, 0.16] }}
-        transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute -left-[10%] top-[6%] h-[40%] w-[54%] rounded-[50%] bg-[radial-gradient(circle,rgba(114,16,16,0.14)_0%,rgba(8,5,5,0)_68%)] blur-[50px]"
+        animate={{ x: [0, 28, 0], y: [0, -10, 0], opacity: [0.14, 0.32, 0.14] }}
+        transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
+      />
+
+      {/* Center mid-depth haze — adds volumetric feel */}
+      <motion.div
+        className="absolute left-[18%] top-[38%] h-[32%] w-[48%] rounded-[50%] bg-[radial-gradient(circle,rgba(90,18,18,0.12)_0%,rgba(6,4,4,0)_72%)] blur-[62px]"
+        animate={{ x: [0, 16, 0], y: [0, 8, 0], opacity: [0.1, 0.24, 0.1] }}
+        transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut', delay: 6 }}
       />
     </div>
   )

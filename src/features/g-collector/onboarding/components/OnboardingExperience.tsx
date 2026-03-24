@@ -36,32 +36,35 @@ export default function OnboardingExperience({
       className="fixed inset-0 z-[200] overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0, transition: { duration: 0.7, ease: 'easeInOut' } }}
-      transition={{ duration: 0.55 }}
+      exit={{ opacity: 0, transition: { duration: 0.8, ease: 'easeInOut' } }}
+      transition={{ duration: 0.6 }}
     >
-      <OnboardingScene />
+      {/* ── Layer 1: Cinematic scene background ── */}
+      <OnboardingScene step={step} />
 
+      {/* ── Layer 2: Cross-scene transition veil ── */}
       <AnimatePresence mode="wait">
         <motion.div
           key={`veil-${step}`}
-          className="pointer-events-none absolute inset-0 z-[16] bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.42)_0%,rgba(0,0,0,0.08)_42%,transparent_80%)]"
-          initial={{ opacity: 0.34 }}
+          className="pointer-events-none absolute inset-0 z-[16] bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.48)_0%,rgba(0,0,0,0.12)_44%,transparent_82%)]"
+          initial={{ opacity: 0.44 }}
           animate={{ opacity: 0 }}
-          exit={{ opacity: 0.22 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          exit={{ opacity: 0.28 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         />
       </AnimatePresence>
 
-      <div className="relative z-10 h-full">
-        <VeyiraStage />
-        <NarrativePanel
-          step={step}
-          totalSteps={totalSteps}
-          current={current}
-          onPrimary={handlePrimary}
-          onSkip={complete}
-        />
-      </div>
+      {/* ── Layer 3: Veyira + front fog (both in VeyiraStage) ── */}
+      <VeyiraStage step={step} />
+
+      {/* ── Layer 4: Floating text + CTA ── */}
+      <NarrativePanel
+        step={step}
+        totalSteps={totalSteps}
+        current={current}
+        onPrimary={handlePrimary}
+        onSkip={complete}
+      />
     </motion.div>
   )
 }
