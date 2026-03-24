@@ -2,6 +2,7 @@ import HeroSection from '@/features/g-collector/components/HeroSection'
 import ProgressPanel from '@/features/g-collector/components/ProgressPanel'
 import QuickActions from '@/features/g-collector/components/QuickActions'
 import FeaturedEntity from '@/features/g-collector/components/FeaturedEntity'
+import { OnboardingContainer } from '@/features/g-collector/onboarding'
 
 export const metadata = {
   title: 'G-Collector | DreadNoute',
@@ -11,6 +12,9 @@ export const metadata = {
 export default function GCollectorPage() {
   return (
     <div className="min-h-screen pb-40 bg-[#020202]">
+      {/* ── ONBOARDING OVERLAY (shown only on first visit) ── */}
+      <OnboardingContainer />
+
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col gap-6 pt-6 md:gap-8 md:pt-8">
 
         {/* 1 — Hero */}
