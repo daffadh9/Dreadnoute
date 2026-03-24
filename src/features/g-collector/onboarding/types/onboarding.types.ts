@@ -1,11 +1,9 @@
-export type StepType = 'intro' | 'story' | 'objective' | 'guide' | 'action'
-
 export interface OnboardingStep {
   id: number
-  text: string
-  subtext: string
-  type: StepType
-  buttonLabel: string
+  eyebrow: string
+  title: string
+  description: string
+  primaryCta: string
 }
 
 export interface UseOnboardingReturn {
@@ -15,6 +13,5 @@ export interface UseOnboardingReturn {
   complete: () => void
   isLast: boolean
   isVisible: boolean
-  isLoading: boolean
   totalSteps: number
 }

@@ -4,27 +4,30 @@ import { useState, useEffect } from 'react'
 import { onboardingSteps } from '../data/onboardingSteps'
 import type { UseOnboardingReturn } from '../types/onboarding.types'
 
-const STORAGE_KEY = 'dreadnoute_gcollector_onboarding_v1'
+const STORAGE_KEY = 'hasCompletedGCollectorOnboarding'
+const LEGACY_STORAGE_KEY = 'dreadnoute_gcollector_onboarding_v1'
 
 export function useOnboarding(): UseOnboardingReturn {
   const [step, setStep] = useState(0)
   const [isVisible, setIsVisible] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout> | null = null
 
     try {
-      const completed = localStorage.getItem(STORAGE_KEY)
+      const completed = localStorage.getItem(STORAGE_KEY) === 'true'
+      const legacyCompleted = localStorage.getItem(LEGACY_STORAGE_KEY) === 'true'
+
       if (!completed) {
-        // Small delay so the page hydrates first, then overlay fades in
-        timer = setTimeout(() => setIsVisible(true), 500)
+        // Keep backwards compatibility for users that finished the old flow.
+        if (!legacyCompleted) {
+          // Small delay so the page hydrates first, then overlay fades in.
+          timer = setTimeout(() => setIsVisible(true), 300)
+        }
       }
     } catch {
-      // localStorage might be unavailable in some environments
+      // localStorage might be unavailable in some environments.
     }
-
-    setIsLoading(false)
 
     return () => {
       if (timer) clearTimeout(timer)
@@ -38,8 +41,9 @@ export function useOnboarding(): UseOnboardingReturn {
   const complete = () => {
     try {
       localStorage.setItem(STORAGE_KEY, 'true')
+      localStorage.setItem(LEGACY_STORAGE_KEY, 'true')
     } catch {
-      // fail silently
+      // Fail silently.
     }
     setIsVisible(false)
   }
@@ -53,7 +57,6 @@ export function useOnboarding(): UseOnboardingReturn {
     complete,
     isLast,
     isVisible,
-    isLoading,
     totalSteps: onboardingSteps.length,
   }
 }
