@@ -10,7 +10,7 @@ interface StepDotsProps {
 export default function StepDots({ total, current }: StepDotsProps) {
   return (
     <div
-      className="flex items-center gap-2"
+      className="flex items-center gap-2.5"
       aria-label={`Tahap onboarding ${current + 1} dari ${total}`}
     >
       {Array.from({ length: total }).map((_, index) => {
@@ -24,25 +24,25 @@ export default function StepDots({ total, current }: StepDotsProps) {
             animate={
               isActive
                 ? {
-                    width: 24,
-                    height: 6,
+                    width: 22,
+                    height: 5,
                     opacity: 1,
-                    backgroundColor: 'rgba(225,53,53,0.95)',
-                    boxShadow: '0 0 10px rgba(225,53,53,0.55)',
+                    backgroundColor: 'rgba(228,68,68,0.95)',
+                    boxShadow: '0 0 14px rgba(228,68,68,0.66)',
                   }
                 : isPassed
                   ? {
                       width: 7,
                       height: 7,
-                      opacity: 0.75,
-                      backgroundColor: 'rgba(161,58,58,0.75)',
+                      opacity: 0.72,
+                      backgroundColor: 'rgba(162,65,65,0.74)',
                       boxShadow: 'none',
                     }
                   : {
-                      width: 7,
-                      height: 7,
-                      opacity: 0.45,
-                      backgroundColor: 'rgba(113,95,80,0.55)',
+                      width: 6,
+                      height: 6,
+                      opacity: 0.4,
+                      backgroundColor: 'rgba(110,86,74,0.5)',
                       boxShadow: 'none',
                     }
             }

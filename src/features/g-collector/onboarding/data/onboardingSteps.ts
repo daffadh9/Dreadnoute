@@ -4,17 +4,17 @@ export const onboardingSteps: OnboardingStep[] = [
   {
     id: 1,
     eyebrow: 'THE RITUAL AWAKENS',
-    title: 'Nekrovia telah terbuka kembali.',
+    title: 'Nekrovia telah bangkit.',
     description:
-      'Dunia yang tersembunyi selama berabad-abad kini bangkit. Segel kuno telah retak.',
-    primaryCta: 'Lanjut',
+      'Dunia yang terkunci oleh waktu kini memanggilmu kembali. Segel kuno telah retak.',
+    primaryCta: 'Masuk ke Nekrovia',
   },
   {
     id: 2,
     eyebrow: 'THE FALLEN SEAL',
     title: '105 entitas telah terlepas.',
     description:
-      'Mereka menyebar ke dalam kegelapan, menunggu untuk dipanggil, diburu, atau dikuasai.',
+      'Mereka bergerak di antara kabut, menunggu untuk dipanggil, diburu, atau dikuasai.',
     primaryCta: 'Lanjut',
   },
   {

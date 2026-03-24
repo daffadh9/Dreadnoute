@@ -1,76 +1,47 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useMemo } from 'react'
-
-interface Particle {
-  size: number
-  left: number
-  bottom: number
-  drift: number
-  duration: number
-  delay: number
-}
-
-function createParticles(): Particle[] {
-  return Array.from({ length: 16 }).map((_, index) => ({
-    size: 1 + (index % 3),
-    left: (index * 17) % 100,
-    bottom: 8 + ((index * 13) % 36),
-    drift: (index % 2 === 0 ? 1 : -1) * (8 + (index % 4) * 3),
-    duration: 8 + (index % 5) * 1.8,
-    delay: (index % 7) * 0.55,
-  }))
-}
+import FogLayer from './FogLayer'
+import ParticleLayer from './ParticleLayer'
+import RitualSigilLayer from './RitualSigilLayer'
 
 export default function OnboardingScene() {
-  const particles = useMemo(() => createParticles(), [])
-
   return (
     <div className="absolute inset-0 overflow-hidden">
-      <div className="absolute inset-0 bg-[linear-gradient(130deg,#020202_0%,#090606_45%,#10090b_100%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_70%,rgba(119,17,17,0.26)_0%,transparent_48%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_74%_20%,rgba(66,42,32,0.2)_0%,transparent_44%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(124deg,#010101_0%,#060304_38%,#0f0708_64%,#030202_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_24%_70%,rgba(116,13,13,0.27)_0%,rgba(19,8,8,0.42)_36%,rgba(4,3,3,0.95)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_76%_16%,rgba(97,26,26,0.18)_0%,rgba(11,7,7,0)_48%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(36,9,9,0.72)_0%,rgba(10,5,5,0.62)_34%,rgba(5,4,4,0.95)_70%,rgba(2,2,2,1)_100%)]" />
+
+      <FogLayer />
+      <RitualSigilLayer />
+      <ParticleLayer />
 
       <motion.div
-        className="absolute -bottom-[10%] -left-[10%] h-[58%] w-[80%] rounded-[50%] bg-[radial-gradient(circle,rgba(122,18,18,0.18)_0%,rgba(18,8,8,0)_72%)] blur-[48px]"
-        animate={{ x: [0, 28, 0], opacity: [0.45, 0.65, 0.45] }}
-        transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute left-[6%] top-[44%] h-[35%] w-[48%] rounded-[50%] bg-[radial-gradient(circle,rgba(156,23,23,0.21)_0%,rgba(19,8,8,0)_70%)] blur-[70px]"
+        animate={{ x: [0, 34, 0], opacity: [0.22, 0.4, 0.22] }}
+        transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
       />
       <motion.div
-        className="absolute -bottom-[4%] right-[-8%] h-[42%] w-[58%] rounded-[50%] bg-[radial-gradient(circle,rgba(100,80,67,0.16)_0%,rgba(8,8,8,0)_72%)] blur-[42px]"
-        animate={{ x: [0, -24, 0], opacity: [0.24, 0.42, 0.24] }}
-        transition={{ duration: 26, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute right-[-14%] top-[8%] h-[56%] w-[64%] rounded-[50%] bg-[radial-gradient(circle,rgba(94,41,31,0.17)_0%,rgba(8,8,8,0)_70%)] blur-[64px]"
+        animate={{ x: [0, -28, 0], opacity: [0.18, 0.32, 0.18] }}
+        transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
       />
 
-      {particles.map((particle, index) => (
-        <motion.div
-          key={index}
-          className="absolute rounded-full bg-[#9b1b1b]/50"
-          style={{
-            width: particle.size,
-            height: particle.size,
-            left: `${particle.left}%`,
-            bottom: `${particle.bottom}%`,
-            filter: 'blur(0.6px)',
-          }}
-          animate={{
-            y: [0, -80, -115],
-            x: [0, particle.drift, particle.drift * 0.45],
-            opacity: [0, 0.58, 0],
-          }}
-          transition={{
-            duration: particle.duration,
-            delay: particle.delay,
-            repeat: Infinity,
-            ease: 'easeOut',
-          }}
-        />
-      ))}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_24%,rgba(0,0,0,0.86)_100%)]" />
+      <div className="absolute inset-x-0 top-0 h-52 bg-gradient-to-b from-black/90 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-black/92 to-transparent" />
 
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_34%,rgba(0,0,0,0.76)_100%)]" />
-      <div className="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-black/82 to-transparent" />
-      <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-black/88 to-transparent" />
+      <motion.div
+        className="absolute inset-0 opacity-[0.06]"
+        style={{
+          backgroundImage:
+            'repeating-linear-gradient(0deg, rgba(255,255,255,0.26) 0px, rgba(255,255,255,0.26) 1px, transparent 1px, transparent 3px)',
+          backgroundSize: '100% 3px',
+        }}
+        animate={{ opacity: [0.03, 0.08, 0.03] }}
+        transition={{ duration: 4.8, repeat: Infinity, ease: 'easeInOut' }}
+      />
     </div>
   )
 }

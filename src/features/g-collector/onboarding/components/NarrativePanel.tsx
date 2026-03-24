@@ -21,19 +21,21 @@ export default function NarrativePanel({
   onSkip,
 }: NarrativePanelProps) {
   return (
-    <section className="relative z-20 flex h-full w-full items-center justify-center px-6 pb-28 pt-16 md:w-[48%] md:justify-start md:px-8 md:pb-16 md:pt-10 lg:px-12">
-      <div className="w-full max-w-[480px]">
+    <section className="relative z-30 flex h-full w-full items-center justify-end px-6 pb-28 pt-20 md:px-12 md:pb-16 md:pt-16 lg:px-16">
+      <div className="relative w-full max-w-[520px] md:mr-3 lg:mr-8">
+        <div className="pointer-events-none absolute inset-[-14%] bg-[radial-gradient(ellipse_at_left_center,rgba(26,8,8,0.74)_0%,rgba(8,4,4,0.48)_42%,rgba(2,2,2,0)_82%)] blur-xl" />
+
         <AnimatePresence mode="wait">
           <motion.div
             key={current.id}
-            className="space-y-5"
-            initial={{ opacity: 0, y: 24, filter: 'blur(4px)' }}
+            className="relative space-y-5 md:space-y-6"
+            initial={{ opacity: 0, y: 30, filter: 'blur(5px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            exit={{ opacity: 0, y: -20, filter: 'blur(4px)' }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            exit={{ opacity: 0, y: -24, filter: 'blur(5px)' }}
+            transition={{ duration: 0.58, ease: [0.22, 1, 0.36, 1] }}
           >
             <motion.p
-              className="text-[10px] font-medium tracking-[0.42em] text-[#b45f4c] uppercase"
+              className="text-[10px] font-semibold tracking-[0.46em] text-[#d07a67]/92 uppercase"
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.05 }}
@@ -42,7 +44,7 @@ export default function NarrativePanel({
             </motion.p>
 
             <motion.h1
-              className="font-playfair text-[31px] leading-[1.24] text-[#f7efe4] sm:text-[38px]"
+              className="font-playfair text-[33px] leading-[1.18] text-[#f7efe4] sm:text-[42px] lg:text-[48px]"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.1 }}
@@ -51,7 +53,7 @@ export default function NarrativePanel({
             </motion.h1>
 
             <motion.p
-              className="max-w-[46ch] text-[14px] leading-8 text-[#d5c4ad]/95 sm:text-[15px]"
+              className="max-w-[44ch] text-[14px] leading-8 text-[#dbc7ac]/95 sm:text-[15px] sm:leading-8"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.16 }}
@@ -62,7 +64,7 @@ export default function NarrativePanel({
         </AnimatePresence>
 
         <motion.div
-          className="mt-7"
+          className="relative mt-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.35, delay: 0.25 }}
@@ -71,7 +73,7 @@ export default function NarrativePanel({
         </motion.div>
 
         <motion.div
-          className="mt-5 hidden md:block"
+          className="mt-6 hidden md:block"
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, delay: 0.32 }}
@@ -81,7 +83,7 @@ export default function NarrativePanel({
       </div>
 
       <motion.div
-        className="fixed inset-x-0 bottom-6 z-30 px-5 md:hidden"
+        className="fixed inset-x-0 bottom-6 z-40 px-5 md:hidden"
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.35 }}
