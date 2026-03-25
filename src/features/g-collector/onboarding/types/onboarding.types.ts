@@ -2,6 +2,7 @@ export interface OnboardingStep {
   id: number
   eyebrow: string
   title: string
+  headlinePhrases: [string, string]
   description: string
   primaryCta: string
 }

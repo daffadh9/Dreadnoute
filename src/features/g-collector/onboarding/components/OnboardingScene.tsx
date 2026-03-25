@@ -47,10 +47,13 @@ export default function OnboardingScene({ step }: OnboardingSceneProps) {
       </AnimatePresence>
 
       {/* ── Base dark color grade ── */}
-      <div className="absolute inset-0 bg-[linear-gradient(154deg,rgba(2,1,1,0.52)_0%,rgba(6,3,3,0.24)_48%,rgba(3,2,2,0.62)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(154deg,rgba(2,1,1,0.28)_0%,rgba(6,3,3,0.10)_48%,rgba(3,2,2,0.36)_100%)]" />
 
       {/* ── Cold cinematic tone — blue-gray tint ── */}
-      <div className="absolute inset-0 bg-[rgba(5,7,16,0.16)] mix-blend-color" />
+      <div className="absolute inset-0 bg-[rgba(5,7,16,0.10)] mix-blend-color" />
+
+      {/* ── Light source boost — lifts crushed mid-tones back to life ── */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_32%_22%,rgba(255,248,240,0.10),transparent_44%)]" />
 
       {/* ── Red void glow — left-bottom (where Veyira lives) ── */}
       <motion.div
@@ -76,16 +79,16 @@ export default function OnboardingScene({ step }: OnboardingSceneProps) {
       <ParticleLayer />
 
       {/* ── Edge vignette — cinematic framing ── */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_85%_90%_at_50%_50%,transparent_28%,rgba(0,0,0,0.82)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_85%_90%_at_50%_50%,transparent_28%,rgba(0,0,0,0.60)_100%)]" />
 
       {/* ── Top bar fade ── */}
-      <div className="absolute inset-x-0 top-0 h-52 bg-gradient-to-b from-black/92 to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-52 bg-gradient-to-b from-black/68 to-transparent" />
 
       {/* ── Bottom ground fade ── */}
-      <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-black/96 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-black/76 to-transparent" />
 
       {/* ── Left column fade — Veyira area bleeds into void ── */}
-      <div className="absolute inset-y-0 left-0 w-[22%] bg-gradient-to-r from-black/72 to-transparent" />
+      <div className="absolute inset-y-0 left-0 w-[22%] bg-gradient-to-r from-black/52 to-transparent" />
 
       {/* ── Film grain & scanlines ── */}
       <motion.div

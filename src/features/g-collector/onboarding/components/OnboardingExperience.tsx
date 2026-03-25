@@ -42,15 +42,15 @@ export default function OnboardingExperience({
       {/* ── Layer 1: Cinematic scene background ── */}
       <OnboardingScene step={step} />
 
-      {/* ── Layer 2: Cross-scene transition veil ── */}
+      {/* ── Layer 2: Cross-scene fog veil — thickens on exit, lifts slowly on enter ── */}
       <AnimatePresence mode="wait">
         <motion.div
           key={`veil-${step}`}
-          className="pointer-events-none absolute inset-0 z-[16] bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.48)_0%,rgba(0,0,0,0.12)_44%,transparent_82%)]"
-          initial={{ opacity: 0.44 }}
+          className="pointer-events-none absolute inset-0 z-[16] bg-[radial-gradient(ellipse_110%_110%_at_50%_50%,rgba(2,1,1,0.72)_0%,rgba(4,2,2,0.38)_50%,transparent_80%)]"
+          initial={{ opacity: 0.65 }}
           animate={{ opacity: 0 }}
-          exit={{ opacity: 0.28 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          exit={{ opacity: 0.65 }}
+          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
         />
       </AnimatePresence>
 

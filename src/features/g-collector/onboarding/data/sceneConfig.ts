@@ -45,8 +45,8 @@ export const SCENE_CONFIGS: SceneConfig[] = [
     textArea: 'top-right',
     fog: { frontOpacity: 0.88, bottomFogHeight: '55%' },
     sigilVisible: false,
-    bgBrightness: 0.72,
-    bgSaturation: 0.72,
+    bgBrightness: 0.86,
+    bgSaturation: 0.78,
   },
   {
     // Scene 2 — The Fallen Seal: Veyira starts emerging from deep fog
@@ -67,8 +67,8 @@ export const SCENE_CONFIGS: SceneConfig[] = [
     textArea: 'upper-right',
     fog: { frontOpacity: 0.66, bottomFogHeight: '46%' },
     sigilVisible: false,
-    bgBrightness: 0.74,
-    bgSaturation: 0.78,
+    bgBrightness: 0.88,
+    bgSaturation: 0.84,
   },
   {
     // Scene 3 — Your Purpose: Veyira clearer, half-emerged from the void
@@ -89,8 +89,8 @@ export const SCENE_CONFIGS: SceneConfig[] = [
     textArea: 'center-right',
     fog: { frontOpacity: 0.44, bottomFogHeight: '38%' },
     sigilVisible: true,
-    bgBrightness: 0.76,
-    bgSaturation: 0.84,
+    bgBrightness: 0.90,
+    bgSaturation: 0.90,
   },
   {
     // Scene 4 — How It Works: Veyira dominant, still bound to the void
@@ -111,8 +111,8 @@ export const SCENE_CONFIGS: SceneConfig[] = [
     textArea: 'center-right',
     fog: { frontOpacity: 0.28, bottomFogHeight: '30%' },
     sigilVisible: true,
-    bgBrightness: 0.78,
-    bgSaturation: 0.9,
+    bgBrightness: 0.92,
+    bgSaturation: 0.94,
   },
   {
     // Scene 5 — The First Choice: Veyira fully present, undeniable
@@ -133,7 +133,7 @@ export const SCENE_CONFIGS: SceneConfig[] = [
     textArea: 'center-right',
     fog: { frontOpacity: 0.16, bottomFogHeight: '22%' },
     sigilVisible: true,
-    bgBrightness: 0.8,
-    bgSaturation: 0.96,
+    bgBrightness: 0.94,
+    bgSaturation: 0.98,
   },
 ]
